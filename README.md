@@ -1,12 +1,65 @@
-# React + Vite
+# Book-A-Doc Front End Web Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Pages
+### Home
+![home page](./public/media/readme-images/home.png)
 
-Currently, two official plugins are available:
+Patient can search for a GP or med centre without logging in. However if the patient wants to make a booking, a pop up will direct them to either log in or sign up.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![home page](./public/media/readme-images/pop-up.png)
 
-## Expanding the ESLint configuration
+### Patient Sign Up
+![home page](./public/media/readme-images/patient-signup.png)
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Patient Log In
+![home page](./public/media/readme-images/patient-login.png)
+
+If the user forgets their password, they can reset using their registered email.
+
+### Patient Logged in
+![home page](./public/media/readme-images/patient-logged-in.png)
+
+Once the patient has logged in, "My Appointments" will appear on the home page as an option. For new patients this section is blank until they have made their first appointment.
+
+### General Practitioners
+![home page](./public/media/readme-images/gen-prac.png)
+
+Each GP will have a profile:
+- Name
+- Specialty
+- Medical Centre
+- Available date and time
+- Book button
+
+### Medical Centres
+![home page](./public/media/readme-images/med-centres.png)
+
+Each medical centre will show:
+- Medical centre name
+- Address
+- Contacts
+- Opening hours
+- List of Drs
+
+Clicking on the Dr will bring the patient to the GP page to make a booking
+
+### My Appointments
+![home page](./public/media/readme-images/my-appoint.png)
+
+Each appointment will show:
+* Date and time
+* Dr Name
+* Medical centre name
+* Status which will show as either:
+  * confirmed
+  * completed, or
+  * cancelled
+* Cancel button
+
+### Footer
+The footer will have:
+* **Contact**: Allow users of the site to contact Book-A-Doc
+* **Terms & Conditions**: Listing all the T&C's for using the site
+* **Privacy Policy**: Listing all the privacy policies on how Book-A-Doc handles user information
+
+## Test List
