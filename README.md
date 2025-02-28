@@ -20,6 +20,13 @@
   * Terms & Conditions
   * Privacy Policy
 
+## Style Guide
+* **font-family**:
+* **Colors**:
+  * --primary:
+  * --Secondary:
+  * --main-font:
+  * --sec-font:
 
 ### Home
 ![home page](./public/media/readme-images/home.png)
