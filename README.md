@@ -1,6 +1,24 @@
 # Book-A-Doc Front End Web Application
 
 ## Pages
+### **React Browser Tree**
+* **HEADER**
+  * Nav
+    * About Us
+    * Login
+    * Sign up
+      * Patient Sign Up
+    * Logout _(auth)_
+* **HOME/MAIN**
+  * General Practitioners
+  * My Appointments _(auth)_
+  * Medical Centres
+* **FOOTER**
+  * Contact
+  * Terms & Conditions
+  * Privacy Policy
+
+
 ### Home
 ![home page](./public/media/readme-images/home.png)
 
@@ -63,3 +81,5 @@ The footer will have:
 * **Privacy Policy**: Listing all the privacy policies on how Book-A-Doc handles user information
 
 ## Test List
+* Page headings appearing in correct locations
+* 
