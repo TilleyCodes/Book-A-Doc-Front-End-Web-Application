@@ -11,8 +11,10 @@
     * Logout _(auth)_
 * **HOME/MAIN**
   * General Practitioners
+    * Booking button _(auth)_
   * My Appointments _(auth)_
   * Medical Centres
+    * Booking button _(auth)_
 * **FOOTER**
   * Contact
   * Terms & Conditions
