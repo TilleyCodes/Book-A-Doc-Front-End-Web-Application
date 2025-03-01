@@ -1,25 +1,54 @@
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* line-height: 1.5;
+  font-weight: 400; */
 
-  color-scheme: light dark;
+  /* color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #242424; */
 
-  font-synthesis: none;
+  --primaryBG: white;
+  --secondaryBG: #9bb4ce;
+  --primaryFont: black;
+  --secondaryFont: darkgrey;
+
+  box-sizing: border-box;
+
+  
+  /* font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale; */
 }
 
-body {
+html,
+body,
+#root {
   margin: 0;
-  display: flex;
-  min-height: 100vh;
+  padding: 0;
+  height: 100%;
 }
 
-@media (prefers-color-scheme: light) {
+#root {
+    display: flex;
+    flex-direction: column;
+}
+
+header,
+footer {
+    flex-shrink: 0;
+}
+
+main {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+h1 {
+    margin: 0;
+}
+
+/* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
@@ -28,4 +57,4 @@ body {
   button {
     background-color: #f9f9f9;
   }
-}
+} */
