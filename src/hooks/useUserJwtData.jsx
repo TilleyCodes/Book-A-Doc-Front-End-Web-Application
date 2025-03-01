@@ -2,11 +2,14 @@ import { createContext, useContext } from "react";
 
 
 export const defaultUserJwtData = {
-	accessToken: "",
-	refreshToken: ""
+	token: '',
+    patient: {}
 }
 
-export const UserJwtContext = createContext(defaultUserJwtData);
+export const UserJwtContext = createContext({
+    userJwtData: defaultUserJwtData,
+    setUserJwtData: () => {}
+});
 
 export function useUserJwtContext(){
 	return useContext(UserJwtContext);

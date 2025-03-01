@@ -18,12 +18,12 @@ export function UserJwtProvider({children}){
     }, [])
 
 	return(
-		<UserJwtContext.Provider value={[userJwtData, setUserJwtData]}>
+		<UserJwtContext.Provider value={{ userJwtData, setUserJwtData }}>
 			{children}
 		</UserJwtContext.Provider>
 	)
 }
 
 UserJwtProvider.propTypes = {
-	children: PropTypes.ReactNode
+	children: PropTypes.node
 }

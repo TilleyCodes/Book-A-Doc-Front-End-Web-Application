@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUserJwtContext } from "../hooks/useUserJwtData";
 
 export function LoginForm() {
     let [email, setEmail] = useState('')
     let [password, setPassword] = useState('')
 
-    // ERROR in dev tools console for useUserJwtContext so it's commented out for now
-    // let [userJwtData, setUserJwtData] = useUserJwtContext
+    const { userJwtData, setUserJwtData } = useUserJwtContext()
+
+    useEffect(() => {
+        console.log('UserJwtData updated:', userJwtData)
+    }, [userJwtData])
 
     async function submitForm(event) {
         event.preventDefault()
@@ -14,7 +17,7 @@ export function LoginForm() {
         console.log(`About to send a login request containing ${email}, ${password} to the API`)
 
         // To be updated once API has been deployed
-        let targetUrl = ''
+        let targetUrl = 'http://localhost:3000/patients/login'
 
         let bodyDataToSend = JSON.stringify({email: email, password: password})
         console.log(bodyDataToSend)
@@ -23,7 +26,7 @@ export function LoginForm() {
             targetUrl,
             {
                 method: 'POST',
-                header: {
+                headers: {
                     'Content-Type':'application/json'
                 },
                 body: bodyDataToSend
@@ -34,10 +37,12 @@ export function LoginForm() {
         console.log('Body data received from API is:\n' + JSON.stringify(bodyData, null, 4))
 
         setUserJwtData({
-            accessToken: bodyData.accessToken,
-            refreshToken: bodyData.refreshToken
+            token: bodyData.token,
+            patient: bodyData.patient
         })
-        console.log('UserJwtData is now set to:\n' + JSON.stringify(userJwtData, null, 4))
+        // console.log('UserJwtData is now set to:\n' + JSON.stringify(userJwtData, null, 4))
+
+        
     }
 
     return (
