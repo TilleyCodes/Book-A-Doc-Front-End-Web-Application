@@ -6,6 +6,9 @@ import './styles/index.css'
 import { Home } from './pages/Home'
 import { About } from './pages/About'
 import { Contact } from './pages/Contact'
+import { Login } from './pages/Login'
+import { SignUp } from './pages/SignUp'
+import { Logout } from './pages/Logout'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -20,6 +23,15 @@ createRoot(document.getElementById('root')).render(
 
                 {/* localhost:5173/contact */}
                 <Route path='contact' element={<Contact />}/>
+
+                {/* localhost:5173/login */}
+                <Route path='login' element={<Login />}/>
+
+                {/* localhost:5173/sign-up */}
+                <Route path='sign-up' element={<SignUp />}/>
+
+                {/* localhost:5173/logout */}
+                <Route path='logout' element={<Logout />}/>
             </Route>
         </Routes>
     </BrowserRouter>

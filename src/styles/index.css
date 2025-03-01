@@ -10,7 +10,7 @@
   --primaryBG: white;
   --secondaryBG: #9bb4ce;
   --primaryFont: black;
-  --secondaryFont: darkgrey;
+  --secondaryFont: #656464;
 
   box-sizing: border-box;
 
@@ -45,6 +45,15 @@ main {
 
 h1 {
     margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primaryFont);
+}
+
+a:visited {
+    color: var(--secondaryFont)
 }
 
 /* @media (prefers-color-scheme: light) {

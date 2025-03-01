@@ -4,4 +4,13 @@ header {
     margin: 0;
     padding: 0;
     display: flex; 
+    justify-content: space-between;
+}
+
+nav {
+    padding: 15px;
+}
+
+nav a {
+    padding: 0 5px 0 5px;
 }
