@@ -90,7 +90,10 @@ export function LoginForm() {
                 </div>
                 <div className="form-button">
                     <button type="submit">LOGIN</button>
-                </div>    
+                </div>
+                <div className="forgotpassword">
+                    Forgot Password?
+                </div>  
             </div>
         </form>
     )
