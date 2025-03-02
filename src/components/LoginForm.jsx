@@ -3,6 +3,7 @@ import { useUserJwtContext } from "../hooks/useUserJwtData";
 import "../styles/login.css"
 import eyeOpen from "../assets/eye-open.svg"
 import eyeClosed from "../assets/eye-closed.svg"
+import { NavLink } from "react-router";
 
 export function LoginForm() {
     let [email, setEmail] = useState('')
@@ -18,13 +19,10 @@ export function LoginForm() {
     async function submitForm(event) {
         event.preventDefault()
 
-        console.log(`About to send a login request containing ${email}, ${password} to the API`)
-
         // To be updated once API has been deployed
         let targetUrl = 'http://localhost:3000/patients/login'
 
         let bodyDataToSend = JSON.stringify({email: email, password: password})
-        console.log(bodyDataToSend)
 
         let response = await fetch(
             targetUrl,
@@ -38,7 +36,6 @@ export function LoginForm() {
         )
 
         let bodyData = await response.json()
-        console.log('Body data received from API is:\n' + JSON.stringify(bodyData, null, 4))
 
         setUserJwtData({
             token: bodyData.token,
@@ -92,7 +89,9 @@ export function LoginForm() {
                     <button type="submit">LOGIN</button>
                 </div>
                 <div className="forgotpassword">
-                    Forgot Password?
+                    <NavLink to={'/forgot-password'}>
+                        Forgot Password?
+                    </NavLink>
                 </div>  
             </div>
         </form>

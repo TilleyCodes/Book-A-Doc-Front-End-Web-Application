@@ -34,6 +34,10 @@ export function PageBanner() {
                 setTitle("Terms and Conditions")
                 setDescription("View Book-A-Docs terms and conditions below")
                 break
+            case "sign-up":
+                setTitle("Create An Account")
+                setDescription("Complete the form below to sign up and create a profile")
+                break    
             default:
                 setTitle("Book Your Next Appointment")
                 setDescription("Find and book with a general practitioner")

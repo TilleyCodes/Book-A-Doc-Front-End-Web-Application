@@ -3,6 +3,15 @@ img {
     width: auto;
 }
 
+p {
+    text-align: center;
+}
+
+#forgot-password-message {
+    font-style: italic;
+    animation: emailSubmit 1s linear forwards;
+}
+
 .box {
     display: flex;
     justify-content: center;
@@ -87,4 +96,9 @@ button {
 .forgotpassword {
     margin-top: 20px;
     text-align: center;
+}
+
+@keyframes emailSubmit {
+    from {color: transparent}
+    to {color: #009800c1}
 }

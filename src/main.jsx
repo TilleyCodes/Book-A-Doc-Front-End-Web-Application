@@ -12,6 +12,7 @@ import { Logout } from './pages/Logout'
 import { Privacy } from './pages/Privacy'
 import { TermsAndCond } from './pages/TermsAndCond'
 import { UserJwtProvider } from './contexts/userJwtContext'
+import { ForgotPassword } from './pages/ForgotPassword'
 
 
 createRoot(document.getElementById('root')).render(
@@ -43,6 +44,9 @@ createRoot(document.getElementById('root')).render(
 
                     {/* localhost:5173/termsandconditions */}
                     <Route path='termsandconditions' element={<TermsAndCond />}/>
+                    
+                    {/* localhost:5173/forgot-password */}
+                    <Route path='forgot-password' element={<ForgotPassword />}/>
                 </Route>
             </Routes>
         </BrowserRouter>
