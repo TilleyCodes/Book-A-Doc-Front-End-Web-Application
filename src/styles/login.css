@@ -27,6 +27,7 @@ img {
     width: 100%;
     padding: 1rem 0 1rem 0.5rem;
     border: 0;
+    border-bottom: 2px solid transparent;
     border-radius: 0.25rem;
     background-color: var(--tertiaryBG);
     font-size: 1rem;
@@ -38,7 +39,7 @@ img {
 }
 
 .input-field:focus {
-    border-bottom: 2px solid var(--secondaryBG);
+    border-bottom-color: var(--secondaryBG);
     outline: none;
     box-shadow: none;
 }

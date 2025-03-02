@@ -48,10 +48,6 @@ main {
     flex-grow: 1;
 }
 
-h1 {
-    margin: 0;
-}
-
 a {
     text-decoration: none;
     color: var(--primaryFont);

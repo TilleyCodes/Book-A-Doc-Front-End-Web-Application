@@ -2,6 +2,7 @@
     margin: 0 auto;
     display: flex;
     align-items: center;
+    padding-bottom: 20px;
     flex-direction: column;
     width: 60vw;
     border-radius: 0.75rem;
