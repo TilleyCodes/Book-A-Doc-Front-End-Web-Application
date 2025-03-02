@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import { useUserJwtContext } from "../hooks/useUserJwtData";
+import "../styles/login.css"
+import eyeOpen from "../assets/eye-open.svg"
+import eyeClosed from "../assets/eye-closed.svg"
 
 export function LoginForm() {
     let [email, setEmail] = useState('')
     let [password, setPassword] = useState('')
+    let [showPassword, setShowPassword] = useState(false)
 
     const { userJwtData, setUserJwtData } = useUserJwtContext()
 
@@ -46,30 +50,48 @@ export function LoginForm() {
     }
 
     return (
-        <form onSubmit={(event) => submitForm(event)}>
-            <label htmlFor="userEmail">Email</label>
-            <input
-                type="email"
-                name="userEmail"
-                id="userEmail"
-                value={email}
-                onChange={(event) => {
-                    setEmail(event.target.value)
-                }}
-            />
-
-            <label htmlFor="userPassword">Password</label>
-            <input
-                type="password"
-                name="userPassword"
-                id="userPassword"
-                value={password}
-                onChange={(event) => {
-                    setPassword(event.target.value)
-                }}
-            />
-
-            <button type="submit">LOGIN</button>
+        <form className="box" onSubmit={(event) => submitForm(event)}>
+            <div className="box-container">
+                <div className="input-wrapper">
+                    <input
+                        className="input-field"
+                        placeholder=" "
+                        type="email"
+                        name="userEmail"
+                        id="userEmail"
+                        value={email}
+                        onChange={(event) => {
+                            setEmail(event.target.value)
+                        }}
+                    />
+                    <label className="input-label" htmlFor="userEmail">Email</label>
+                </div>
+                <div className="input-wrapper">
+                    <input
+                        className="input-field"
+                        placeholder=" "
+                        type={showPassword ? "text" : "password"}
+                        name="userPassword"
+                        id="userPassword"
+                        value={password}
+                        onChange={(event) => {
+                            setPassword(event.target.value)
+                        }}
+                    />
+                    <label className="input-label" htmlFor="userPassword">Password</label>
+                    <img
+                        className="input-icon"
+                        alt={showPassword ? "eye closed" : "eye open"}
+                        title={showPassword ? "Hide password" : "Show password"}
+                        src={showPassword ? eyeClosed : eyeOpen }
+                        onClick={() => setShowPassword(prev => !prev)}
+                        style={{cursor: "pointer"}} 
+                    />
+                </div>
+                <div className="form-button">
+                    <button type="submit">LOGIN</button>
+                </div>    
+            </div>
         </form>
     )
 }

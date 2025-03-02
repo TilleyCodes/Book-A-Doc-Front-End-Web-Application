@@ -9,6 +9,7 @@
 
   --primaryBG: white;
   --secondaryBG: #9bb4ce;
+  --tertiaryBG: #e1e0e0;
   --primaryFont: black;
   --secondaryFont: #656464;
 
@@ -19,6 +20,10 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; */
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 html,
