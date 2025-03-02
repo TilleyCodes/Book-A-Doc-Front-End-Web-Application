@@ -21,12 +21,15 @@
   * Privacy Policy
 
 ## Style Guide
-* **font-family**:
+* **font-family**: TBC
 * **Colors**:
-  * --primary:
-  * --Secondary:
-  * --main-font:
-  * --sec-font:
+  * --primaryBG: white;
+  * --secondaryBG: #9bb4ce;
+  * --tertiaryBG: #e1e0e0;
+  * --primaryFont: black;
+  * --secondaryFont: #656464;
+
+Header and feature components like buttons will be coloured with secondaryBG. Page banner and input fields will be coloured with tertiaryBG. Once links have been visited, they will be coloured with secondaryFont.
 
 ### Home
 ![home page](./public/media/readme-images/home.png)
@@ -34,22 +37,28 @@
 Patient can search for a GP or med centre without logging in. However if the patient wants to make a booking, a pop up will direct them to either log in or sign up.
 
 ![home page](./public/media/readme-images/pop-up.png)
+---
 
 ### Patient Sign Up
-![home page](./public/media/readme-images/patient-signup.png)
+![signup page](./public/media/readme-images/patient-signup.png)
+---
 
 ### Patient Log In
-![home page](./public/media/readme-images/patient-login.png)
+![login page](./public/media/readme-images/patient-login.png)
 
 If the user forgets their password, they can reset using their registered email.
 
+Patients must enter a valid email and password. An eye icon exists to the right of the password input field to allow patients to unhide and hide their password if they choose.
+---
+
 ### Patient Logged in
-![home page](./public/media/readme-images/patient-logged-in.png)
+![logged in](./public/media/readme-images/patient-logged-in.png)
 
 Once the patient has logged in, "My Appointments" will appear on the home page as an option. For new patients this section is blank until they have made their first appointment.
+---
 
 ### General Practitioners
-![home page](./public/media/readme-images/gen-prac.png)
+![general practitioners](./public/media/readme-images/gen-prac.png)
 
 Each GP will have a profile:
 - Name
@@ -57,9 +66,10 @@ Each GP will have a profile:
 - Medical Centre
 - Available date and time
 - Book button
+---
 
 ### Medical Centres
-![home page](./public/media/readme-images/med-centres.png)
+![medical centres](./public/media/readme-images/med-centres.png)
 
 Each medical centre will show:
 - Medical centre name
@@ -69,9 +79,10 @@ Each medical centre will show:
 - List of Drs
 
 Clicking on the Dr will bring the patient to the GP page to make a booking
+---
 
 ### My Appointments
-![home page](./public/media/readme-images/my-appoint.png)
+![my appointments](./public/media/readme-images/my-appoint.png)
 
 Each appointment will show:
 * Date and time
@@ -82,12 +93,14 @@ Each appointment will show:
   * completed, or
   * cancelled
 * Cancel button
+---
 
 ### Footer
 The footer will have:
 * **Contact**: Allow users of the site to contact Book-A-Doc
 * **Terms & Conditions**: Listing all the T&C's for using the site
 * **Privacy Policy**: Listing all the privacy policies on how Book-A-Doc handles user information
+---
 
 ## Test List
 * Page headings appearing in correct locations
