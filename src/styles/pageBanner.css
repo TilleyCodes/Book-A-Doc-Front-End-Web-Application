@@ -9,4 +9,5 @@
     justify-content: center;
     transform: translateY(-40%);
     background-color: var(--tertiaryBG);
+    max-width: 650px;
 }

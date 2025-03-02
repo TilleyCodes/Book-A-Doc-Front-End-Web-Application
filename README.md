@@ -1,5 +1,15 @@
 # Book-A-Doc Front End Web Application
 
+DEV1003 Assessment Requirements for the README
+* An explanation of all used technologies within the project, such as:
+  * dependent software and packages
+  * hardware required to run the application
+  * comparisons to alternative technology choices
+  * purposes of chosen technologies
+  * licensing of chosen technologies
+* An identification and/or explanation of the style guide used in the programming throughout the
+project
+
 ## Pages
 ### **React Browser Tree**
 * **HEADER**
