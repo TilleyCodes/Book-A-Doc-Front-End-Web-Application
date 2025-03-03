@@ -1,0 +1,35 @@
+.search-container {
+    position: relative;
+    width: 60vw;
+    margin: 0 auto;
+    max-width: 600px;
+    margin-bottom: 75px;
+}
+
+.input-label {
+    position: absolute;
+}
+
+.main-option-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.main-option-feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--secondaryBG);
+    flex-grow: 1;
+    min-width: 200px;
+    max-width: 300px;
+    border-radius: 0.75rem;
+    margin: 20px;
+}
+
+.feature-icon {
+    width: 5rem;
+    height: auto;
+    padding: 20px;
+}
