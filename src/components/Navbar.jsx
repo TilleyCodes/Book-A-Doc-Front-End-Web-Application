@@ -1,14 +1,10 @@
 import { NavLink } from "react-router"
 import { useUserJwtContext } from "../hooks/useUserJwtData"
-import { useEffect } from "react"
 
 export function Navbar() {
     const { userJwtData } = useUserJwtContext()
     const isLoggedIn = Boolean(userJwtData && userJwtData.token)
 
-    useEffect(() => {
-        console.log("Navbar userJwtData:", userJwtData);
-      }, [userJwtData]);
 
     return (
         <nav>

@@ -14,6 +14,7 @@ import { Privacy } from './pages/Privacy'
 import { TermsAndCond } from './pages/TermsAndCond'
 import { UserJwtProvider } from './contexts/userJwtContext'
 import { ForgotPassword } from './pages/ForgotPassword'
+import { Doctors } from './pages/Doctors'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -50,6 +51,10 @@ createRoot(document.getElementById('root')).render(
                     
                     {/* localhost:5173/forgot-password */}
                     <Route path='forgot-password' element={<ForgotPassword />}/>
+                    
+                    {/* localhost:5173/doctors */}
+                    <Route path='doctors' element={<Doctors />}/>
+
                 </Route>
             </Routes>
         </BrowserRouter>
