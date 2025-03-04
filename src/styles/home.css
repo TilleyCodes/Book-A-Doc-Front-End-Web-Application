@@ -11,10 +11,10 @@
 }
 
 .dropdown {
-    position: absolute; /* positions dropdown relative to .search-container */
-    top: 100%;          /* sit just below the input */
+    position: absolute; 
+    top: 100%;          
     left: 0;
-    width: 100%;        /* match the width of the container/input */
+    width: 100%;        
     margin: 0;
     padding: 0;
     border-bottom-right-radius: 0.5rem;
@@ -22,7 +22,7 @@
     list-style-type: none;
     border: 1px solid #ccc;
     background-color: #fff;
-    z-index: 999;       /* ensure it appears on top of other elements */
+    z-index: 999;       
 }
 
 .dropdown li {
