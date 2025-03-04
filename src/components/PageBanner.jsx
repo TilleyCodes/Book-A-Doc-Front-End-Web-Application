@@ -38,6 +38,10 @@ export function PageBanner() {
                 setTitle("Create An Account")
                 setDescription("Complete the form below to sign up and create a profile")
                 break    
+            case "medical-centres":
+                setTitle("Medical Centres")
+                setDescription("Available Medical Centres for booking")
+                break 
             default:
                 setTitle("Book Your Next Appointment")
                 setDescription("Find and book with a general practitioner")

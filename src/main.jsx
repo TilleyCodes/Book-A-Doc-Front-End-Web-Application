@@ -9,11 +9,11 @@ import { Contact } from './pages/Contact'
 import { Login } from './pages/Login'
 import { SignUp } from './pages/SignUp'
 import { Logout } from './pages/Logout'
+import { MedicalCentresPage } from './pages/MedicalCentres'
 import { Privacy } from './pages/Privacy'
 import { TermsAndCond } from './pages/TermsAndCond'
 import { UserJwtProvider } from './contexts/userJwtContext'
 import { ForgotPassword } from './pages/ForgotPassword'
-
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -35,6 +35,9 @@ createRoot(document.getElementById('root')).render(
 
                     {/* localhost:5173/logout */}
                     <Route path='logout' element={<Logout />}/>
+
+                    {/* localhost:5173/medical-centres */}
+                    <Route path='medical-centres' element={<MedicalCentresPage />}/>
                     
                     {/* localhost:5173/contact */}
                     <Route path='contact' element={<Contact />}/>
