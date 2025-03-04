@@ -5,7 +5,7 @@ export function ForgotPassword() {
     const [email, setEmail] = useState('')
     const [message, setMessage] = useState('')
 
-    async function submitForm(event) {
+    function submitForm(event) {
         event.preventDefault()
 
         setEmail('')
