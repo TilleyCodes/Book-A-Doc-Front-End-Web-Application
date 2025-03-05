@@ -15,6 +15,7 @@ import { TermsAndCond } from './pages/TermsAndCond'
 import { UserJwtProvider } from './contexts/userJwtContext'
 import { ForgotPassword } from './pages/ForgotPassword'
 import { Doctors } from './pages/Doctors'
+import { Appointments } from './pages/Appointments'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -54,6 +55,9 @@ createRoot(document.getElementById('root')).render(
                     
                     {/* localhost:5173/doctors */}
                     <Route path='doctors' element={<Doctors />}/>
+                    
+                    {/* localhost:5173/appointments */}
+                    <Route path='appointments' element={<Appointments />}/>
 
                 </Route>
             </Routes>
