@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import magnifyingGlass from "../assets/magnifying-glass.svg"
+import magnifyingGlass from "../assets/search-icon.png"
 
 export function SearchBar() {
     const [input, setInput] = useState('')
     const [suggestions, setSuggestions] = useState([])
     const [selected, setSelected] = useState('')
     const [doctors, setDoctors] = useState([])
+    const [medicalCentres, setMedicalCentres] = useState([])
 
     useEffect(() => {
         async function fetchDoctors() {
@@ -16,11 +17,19 @@ export function SearchBar() {
             })
             setDoctors(doctorAndSpecialty)
         }
+
+        async function fetchMedicalCentres() {
+            const res = await fetch('http://localhost:3000/medicalCentres')
+            const bodyData = await res.json()
+            const centreNames = bodyData.map((centre) => centre.medicalCentreName)
+            setMedicalCentres(centreNames)
+        }
         fetchDoctors()
+        fetchMedicalCentres()
     }, [])
 
     useEffect(() => {
-        if (doctors.includes(input)) {
+        if (doctors.includes(input) || medicalCentres.includes(input)) {
             setSuggestions([])
             return
         }
@@ -29,11 +38,15 @@ export function SearchBar() {
             return
         }
 
-        const filtered = doctors.filter((docString) => 
+        const filteredDocs = doctors.filter((docString) => 
             docString.toLowerCase().includes(input.toLowerCase())
         )
+        const filteredCentres = medicalCentres.filter((docString) =>
+            docString.toLowerCase().includes(input.toLowerCase())
+        )
+        const filtered = [...filteredDocs, ...filteredCentres]
         setSuggestions(filtered)
-    }, [input, doctors])
+    }, [input, doctors, medicalCentres])
 
     const handleSelect = (data) => {
         setInput(data)
@@ -78,9 +91,9 @@ export function SearchBar() {
                     />
                 {suggestions.length > 0 && (
                     <ul className="dropdown">
-                        {suggestions.map((doctor) => (
-                            <li key={doctor} onClick={() => handleSelect(doctor)}>
-                                {doctor}
+                        {suggestions.map((data) => (
+                            <li key={data} onClick={() => handleSelect(data)}>
+                                {data}
                             </li>
                         ))}
                     </ul>
