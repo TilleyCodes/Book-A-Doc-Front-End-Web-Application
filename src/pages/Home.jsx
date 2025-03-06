@@ -13,7 +13,11 @@ export function Home() {
 
     return (
         <>
+            {/* Search bar componenet */}
             <SearchBar />
+
+            {/* Main feature buttons for navigation */}
+            {/* My Appointments will only appear when the patient is logged in */}
             <div className="main-option-container">
                 <NavLink className="feature-link" to={'/doctors'}>
                     <div className="main-option-feature" id="doctors">

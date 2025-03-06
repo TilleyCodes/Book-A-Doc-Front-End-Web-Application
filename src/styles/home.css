@@ -38,6 +38,7 @@
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+    margin: auto;
 }
 
 .main-option-feature {
@@ -64,4 +65,10 @@
 
 #search-bar-label {
     color: darkgray;
+}
+
+@media only screen and (min-width: 1280px) {
+    .main-option-container {
+        width: 80vw;
+    }
 }
