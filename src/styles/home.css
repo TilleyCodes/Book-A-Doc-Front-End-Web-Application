@@ -57,3 +57,11 @@
     height: auto;
     padding: 20px;
 }
+
+.feature-link:visited {
+    color: var(--primaryFont)
+}
+
+#search-bar-label {
+    color: darkgray;
+}

@@ -80,7 +80,7 @@ export function SearchBar() {
                     onChange={(event) => setInput(event.target.value)}
                     onKeyDown={handleKeyDown}
                     />
-                <label className="input-label" htmlFor="search-bar">Search GP or Medical Centre</label>
+                <label className="input-label" id="search-bar-label" htmlFor="search-bar">Search GP, Specialty or Medical Centre</label>
                 <img
                     className="input-icon"
                     alt="magnifying glass icon"

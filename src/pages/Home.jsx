@@ -15,7 +15,7 @@ export function Home() {
         <>
             <SearchBar />
             <div className="main-option-container">
-                <NavLink to={'/doctors'}>
+                <NavLink className="feature-link" to={'/doctors'}>
                     <div className="main-option-feature" id="doctors">
                         <img className="feature-icon" src={steth} />
                         <h3>General Practitioners</h3>
@@ -24,7 +24,7 @@ export function Home() {
                 
                 {isLoggedIn && (
                     <>
-                        <NavLink to={'/appointments'}>
+                        <NavLink className="feature-link" to={'/appointments'}>
                             <div className="main-option-feature" id="appointments">
                                 <img className="feature-icon" src={calendar} />  
                                 <h3>My Appointments</h3>
@@ -32,7 +32,7 @@ export function Home() {
                         </NavLink>
                     </>
                 )}
-                <NavLink to={'/medical-centres'}>
+                <NavLink className="feature-link" to={'/medical-centres'}>
                     <div className="main-option-feature" id="centres">
                         <img className="feature-icon" src={medical} />
                         <h3>Medical Centres</h3>
