@@ -13,6 +13,10 @@ export function SignUpForm() {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [dateOfBirth, setDateOfBirth] = useState('')
+    const [street, setStreet] = useState('')
+    const [city, setCity] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState('')
+    const [password, setPassword] = useState('')
     
     // onSubmit event handler
     async function submitForm(event) {
@@ -32,6 +36,7 @@ export function SignUpForm() {
                             placeholder=" "
                             name="patientEmail"
                             id="patientEmail"
+                            required="true"
                             value={email}
                             onChange={(event) => {
                                 setEmail(event.target.value)
@@ -47,6 +52,7 @@ export function SignUpForm() {
                                 placeholder=" "
                                 name="patientFirstName"
                                 id="patientFirstName"
+                                required="true"
                                 value={firstName}
                                 onChange={(event) => {
                                     setFirstName(event.target.value)
@@ -61,6 +67,7 @@ export function SignUpForm() {
                                 placeholder=" "
                                 name="patientLastName"
                                 id="patientLastName"
+                                required="true"
                                 value={lastName}
                                 onChange={(event) => {
                                     setLastName(event.target.value)
@@ -69,24 +76,13 @@ export function SignUpForm() {
                             <label className="input-label" htmlFor="patientLastName">Last Name</label>
                         </div>
                     </div>
-                    <div className="input-wrapper">
-                        {/* <input 
-                            type="date" 
-                            className="input-field"
-                            placeholder=" "
-                            name="patientDateOfBirth"
-                            id="patientDateOfBirth"
-                            value={dateOfBirth}
-                            onChange={(event) => {
-                                setDateOfBirth(event.target.value)
-                            }}
-                        />
-                        <label className="input-label" htmlFor="patientDateOfBirth">Date of Birth</label> */}
+                    <div>
                         <DatePicker
                             id="patientDateOfBirth"
                             selected={dateOfBirth}
                             onChange={(date) => setDateOfBirth(date)}
                             dateFormat="dd/MM/yyyy"
+                            required="true"
                             showMonthDropdown
                             showYearDropdown
                             dropdownMode="select"
@@ -100,13 +96,73 @@ export function SignUpForm() {
                                 />
                             }
                         />
-                    </div>    
+                    </div>  
+                    <div className="input-wrapper">
+                        <input 
+                            type="text" 
+                            className="input-field"
+                            placeholder=" "
+                            name="address-street"
+                            id="address-street"
+                            required="true"
+                            value={street}
+                            onChange={(event) => {
+                                setStreet(event.target.value)
+                            }}
+                        />
+                        <label className="input-label" htmlFor="address-street">Street</label>
+                    </div>
+                    <div className="input-wrapper">
+                        <input 
+                            type="text" 
+                            className="input-field"
+                            placeholder=" "
+                            name="address-city"
+                            id="address-city"
+                            value={city}
+                            onChange={(event) => {
+                                setCity(event.target.value)
+                            }}
+                        />
+                        <label className="input-label" htmlFor="address-city">City</label>
+                    </div>
+                    <div className="input-wrapper">
+                        <input 
+                            type="tel" 
+                            className="input-field"
+                            placeholder=" "
+                            name="phoneNumber"
+                            id="phoneNumber"
+                            required="true"
+                            value={phoneNumber}
+                            onChange={(event) => {
+                                setPhoneNumber(event.target.value)
+                            }}
+                        />
+                        <label className="input-label" htmlFor="phoneNumber">Phone Number</label>
+                    </div>
+                    <div className="input-wrapper">
+                        <input 
+                            type="password" 
+                            className="input-field"
+                            placeholder=" "
+                            name="password"
+                            id="password"
+                            required="true"
+                            pattern=".{10,}"
+                            title="Must contain at least 10 or more characters"
+                            value={password}
+                            onChange={(event) => {
+                                setPassword(event.target.value)
+                            }}
+                        />
+                        <label className="input-label" htmlFor="password">Password</label>
+                    </div>  
+                    <div className="form-button">
+                        <button type="submit">SUBMIT</button>
+                    </div>
                 </div>
-                {/* first name
-                last name
-                DOB - date picker?
-                address
-                Phone number
+                {/* 
                 password / validation and styling / red outline until correct
                 Tick box for acknowledgement / required
                 sign up button */}
