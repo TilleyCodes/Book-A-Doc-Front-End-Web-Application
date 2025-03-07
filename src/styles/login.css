@@ -22,12 +22,19 @@ p {
     padding: 1.5rem;
     padding-top: 1rem;
     border-radius: 1rem;
-    width: 40vw;
+    width: 50vw;
+}
+
+.name-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
 }
 
 .input-wrapper {
     position: relative;
     margin-bottom: 1.5rem;
+    width: 100%;
 }
 
 .input-field {
