@@ -5,6 +5,8 @@ import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import { CustomInput } from "./CustomInput"
 import "../styles/reactDatePicker.css"
+import eyeOpen from "../assets/eye-open.svg"
+import eyeClosed from "../assets/eye-closed.svg"
 
 // Main function
 export function SignUpForm() {
@@ -17,6 +19,7 @@ export function SignUpForm() {
     const [city, setCity] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
     const [password, setPassword] = useState('')
+    const [showPassword, setShowPassword] = useState(false)
     
     // onSubmit event handler
     async function submitForm(event) {
@@ -143,7 +146,7 @@ export function SignUpForm() {
                     </div>
                     <div className="input-wrapper">
                         <input 
-                            type="password" 
+                            type={showPassword ? "text" : "password"} 
                             className="input-field"
                             placeholder=" "
                             name="password"
@@ -157,6 +160,14 @@ export function SignUpForm() {
                             }}
                         />
                         <label className="input-label" htmlFor="password">Password</label>
+                        <img
+                            className="input-icon"
+                            alt={showPassword ? "eye closed" : "eye open"}
+                            title={showPassword ? "Hide password" : "Show password"}
+                            src={showPassword ? eyeClosed : eyeOpen }
+                            onClick={() => setShowPassword(prev => !prev)}
+                            style={{cursor: "pointer"}} 
+                        />
                     </div>  
                     <div className="form-button">
                         <button type="submit">SUBMIT</button>
