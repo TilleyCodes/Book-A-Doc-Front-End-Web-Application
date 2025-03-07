@@ -12,7 +12,9 @@
     "test": "vitest"
   },
   "dependencies": {
+    "g": "^2.0.1",
     "msw": "^2.7.3",
+    "npm": "^11.2.0",
     "prop-types": "^15.8.1",
     "react": "^19.0.0",
     "react-datepicker": "^8.1.0",
