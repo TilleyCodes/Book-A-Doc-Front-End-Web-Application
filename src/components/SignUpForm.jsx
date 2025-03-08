@@ -7,10 +7,12 @@ import { CustomInput } from "./CustomInput"
 import "../styles/reactDatePicker.css"
 import eyeOpen from "../assets/eye-open.svg"
 import eyeClosed from "../assets/eye-closed.svg"
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router"
 
 // Main function
 export function SignUpForm() {
+    const navigate = useNavigate()
+
     // Define hooks
     const [email, setEmail] = useState('')
     const [firstName, setFirstName] = useState('')
@@ -25,34 +27,45 @@ export function SignUpForm() {
     // onSubmit event handler
     async function submitForm(event) {
         event.preventDefault()
+
         // Post function to API
-        let targetUrl = 'http://localhost:3000/patients/???'
+        let targetUrl = 'http://localhost:3000/patients/'
 
         let bodyDataToSend = JSON.stringify({
-            email: email, 
-            fname: firstName,
-            lname: lastName,
-            dob: dateOfBirth,
-            address: {
-                street: street,
-                city: city,
-            },
-            phone: phoneNumber,
-            password: password
+            firstName,
+            lastName,
+            email, 
+            dateOfBirth,
+            address: { street, city },
+            phoneNumber,
+            password,
         })
 
-        let response = await fetch(
-            targetUrl,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type':'application/json'
-                },
-                body: bodyDataToSend
-            }
-        )
+        try {
+            const response = await fetch(
+                targetUrl,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type':'application/json'
+                    },
+                    body: bodyDataToSend
+                }
+            )
 
-        let bodyData = await response.json()
+            const data = await response.json()
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Failed to create new patient')
+            }
+            console.log('Success:', response)
+
+            navigate('/login')
+
+        } catch (err) {
+            console.error('Error:', err)
+            alert(err.message)
+        }
 
     }
 
@@ -67,7 +80,7 @@ export function SignUpForm() {
                             placeholder=" "
                             name="patientEmail"
                             id="patientEmail"
-                            required="true"
+                            required
                             value={email}
                             onChange={(event) => {
                                 setEmail(event.target.value)
@@ -83,7 +96,7 @@ export function SignUpForm() {
                                 placeholder=" "
                                 name="patientFirstName"
                                 id="patientFirstName"
-                                required="true"
+                                required
                                 value={firstName}
                                 onChange={(event) => {
                                     setFirstName(event.target.value)
@@ -98,7 +111,7 @@ export function SignUpForm() {
                                 placeholder=" "
                                 name="patientLastName"
                                 id="patientLastName"
-                                required="true"
+                                required
                                 value={lastName}
                                 onChange={(event) => {
                                     setLastName(event.target.value)
@@ -113,7 +126,7 @@ export function SignUpForm() {
                             selected={dateOfBirth}
                             onChange={(date) => setDateOfBirth(date)}
                             dateFormat="dd/MM/yyyy"
-                            required="true"
+                            required
                             showMonthDropdown
                             showYearDropdown
                             dropdownMode="select"
@@ -135,7 +148,7 @@ export function SignUpForm() {
                             placeholder=" "
                             name="address-street"
                             id="address-street"
-                            required="true"
+                            required
                             value={street}
                             onChange={(event) => {
                                 setStreet(event.target.value)
@@ -164,7 +177,7 @@ export function SignUpForm() {
                             placeholder=" "
                             name="phoneNumber"
                             id="phoneNumber"
-                            required="true"
+                            required
                             value={phoneNumber}
                             onChange={(event) => {
                                 setPhoneNumber(event.target.value)
@@ -179,8 +192,8 @@ export function SignUpForm() {
                             placeholder=" "
                             name="password"
                             id="password"
-                            required="true"
-                            pattern=".{10,}"
+                            required
+                            pattern="^(?!\s*$).{10,}"
                             title="Must contain at least 10 or more characters"
                             value={password}
                             onChange={(event) => {
@@ -202,7 +215,7 @@ export function SignUpForm() {
                             type="checkbox"
                             name="acknowledge"
                             id="acknowledge"
-                            required="true"
+                            required
                         />
                         <label htmlFor="acknowledge">
                             I agree to the <Link to={'/termsandconditions'} target="_blank" className="inline-link">Terms & Conditions</Link>, and <Link to={'/privacy'} target="_blank" className="inline-link">Privacy Policy</Link>.
@@ -213,8 +226,6 @@ export function SignUpForm() {
                     </div> 
                 </div>
             </form>
-            
-            {/* Post sign-up screen directing them to sign in */}
         </>
     )
 

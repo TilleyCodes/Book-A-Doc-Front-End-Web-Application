@@ -12,6 +12,7 @@
     "test": "vitest"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "g": "^2.0.1",
     "msw": "^2.7.3",
     "npm": "^11.2.0",
