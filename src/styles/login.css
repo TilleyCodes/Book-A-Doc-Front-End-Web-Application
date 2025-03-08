@@ -123,7 +123,17 @@ button {
     text-align: center;
 }
 
+.error-message {
+    font-style: italic;
+    animation: errorMessage 1s linear forwards;
+}
+
 @keyframes emailSubmit {
     from {color: transparent}
     to {color: #009800c1}
+}
+
+@keyframes errorMessage {
+    from {color: transparent}
+    to {color: red}
 }

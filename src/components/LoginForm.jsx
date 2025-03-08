@@ -1,20 +1,21 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useUserJwtContext } from "../hooks/useUserJwtData";
 import "../styles/login.css"
 import eyeOpen from "../assets/eye-open.svg"
 import eyeClosed from "../assets/eye-closed.svg"
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 
 export function LoginForm() {
-    let [email, setEmail] = useState('')
-    let [password, setPassword] = useState('')
-    let [showPassword, setShowPassword] = useState(false)
+    const navigate = useNavigate()
 
-    const { userJwtData, setUserJwtData } = useUserJwtContext()
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [showPassword, setShowPassword] = useState(false)
+    const [loginSuccessful, setLoginSuccessful] = useState(true)
+    const [errorMessage, setErrorMessage] = useState('')
 
-    useEffect(() => {
-        console.log('UserJwtData updated:', userJwtData)
-    }, [userJwtData])
+
+    const { setUserJwtData } = useUserJwtContext()
 
     async function submitForm(event) {
         event.preventDefault()
@@ -24,23 +25,38 @@ export function LoginForm() {
 
         let bodyDataToSend = JSON.stringify({email: email, password: password})
 
-        let response = await fetch(
-            targetUrl,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type':'application/json'
-                },
-                body: bodyDataToSend
-            }
-        )
+        try {
+            let response = await fetch(
+                targetUrl,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type':'application/json'
+                    },
+                    body: bodyDataToSend
+                }
+            )
 
-        let bodyData = await response.json()
+            let bodyData = await response.json()
 
-        setUserJwtData({
-            token: bodyData.token,
-            patient: bodyData.patient
-        })
+            if (!response.ok) {
+                // throw new Error(bodyData.message || 'Failed to login')
+                setLoginSuccessful(false)
+                setErrorMessage(bodyData.message || 'Invalid email or password')
+                return
+            } 
+            setLoginSuccessful(true)
+            setUserJwtData({
+                token: bodyData.token,
+                patient: bodyData.patient
+            })
+            navigate('/')
+
+        } catch (err) {
+            console.error('Error:', err)
+            setLoginSuccessful(false)
+            setErrorMessage('Network error. Please try again')
+        }
         
     }
 
@@ -65,6 +81,8 @@ export function LoginForm() {
                     <input
                         className="input-field"
                         placeholder=" "
+                        pattern="^(?!\s*$).{10,}"
+                        title="Must contain at least 10 or more characters"
                         type={showPassword ? "text" : "password"}
                         name="userPassword"
                         id="userPassword"
@@ -90,7 +108,10 @@ export function LoginForm() {
                     <NavLink to={'/forgot-password'}>
                         Forgot Password?
                     </NavLink>
-                </div>  
+                </div> 
+                {!loginSuccessful && (
+                    <p className="error-message">{errorMessage}</p>
+                )} 
             </div>
         </form>
     )
