@@ -7,6 +7,7 @@ import { CustomInput } from "./CustomInput"
 import "../styles/reactDatePicker.css"
 import eyeOpen from "../assets/eye-open.svg"
 import eyeClosed from "../assets/eye-closed.svg"
+import { Link } from "react-router"
 
 // Main function
 export function SignUpForm() {
@@ -25,6 +26,33 @@ export function SignUpForm() {
     async function submitForm(event) {
         event.preventDefault()
         // Post function to API
+        let targetUrl = 'http://localhost:3000/patients/???'
+
+        let bodyDataToSend = JSON.stringify({
+            email: email, 
+            fname: firstName,
+            lname: lastName,
+            dob: dateOfBirth,
+            address: {
+                street: street,
+                city: city,
+            },
+            phone: phoneNumber,
+            password: password
+        })
+
+        let response = await fetch(
+            targetUrl,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type':'application/json'
+                },
+                body: bodyDataToSend
+            }
+        )
+
+        let bodyData = await response.json()
 
     }
 
@@ -168,16 +196,22 @@ export function SignUpForm() {
                             onClick={() => setShowPassword(prev => !prev)}
                             style={{cursor: "pointer"}} 
                         />
-                    </div>  
-                    <div className="form-button">
-                        <button type="submit">SUBMIT</button>
                     </div>
+                    <div className="form-checkbox">
+                        <input
+                            type="checkbox"
+                            name="acknowledge"
+                            id="acknowledge"
+                            required="true"
+                        />
+                        <label htmlFor="acknowledge">
+                            I agree to the <Link to={'/termsandconditions'} target="_blank" className="inline-link">Terms & Conditions</Link>, and <Link to={'/privacy'} target="_blank" className="inline-link">Privacy Policy</Link>.
+                        </label>  
+                    </div>
+                    <div className="form-button">
+                        <button type="submit">SIGN UP</button>
+                    </div> 
                 </div>
-                {/* 
-                password / validation and styling / red outline until correct
-                Tick box for acknowledgement / required
-                sign up button */}
-
             </form>
             
             {/* Post sign-up screen directing them to sign in */}

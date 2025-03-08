@@ -23,6 +23,17 @@ p {
     padding-top: 1rem;
     border-radius: 1rem;
     width: 50vw;
+    min-width: 300px;
+    max-width: 600px;
+}
+
+#acknowledge {
+    margin-right: 10px;
+}
+
+/* Remove unnecessary spaces around text wrapped in Link */
+.inline-link {
+    display: contents;
 }
 
 .name-container {
@@ -84,6 +95,11 @@ p {
   width: 1rem;
   height: 1rem;
   cursor: pointer;
+}
+
+.form-checkbox {
+    margin-bottom: 15px;
+    text-align: center;
 }
 
 .form-button {

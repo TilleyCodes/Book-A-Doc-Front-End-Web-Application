@@ -41,8 +41,6 @@ export function LoginForm() {
             token: bodyData.token,
             patient: bodyData.patient
         })
-        // console.log('UserJwtData is now set to:\n' + JSON.stringify(userJwtData, null, 4))
-
         
     }
 
