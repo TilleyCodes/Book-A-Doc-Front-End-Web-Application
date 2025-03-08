@@ -19,6 +19,7 @@ p {
 }
 
 .box-container {
+    position: relative;
     padding: 1.5rem;
     padding-top: 1rem;
     border-radius: 1rem;
@@ -126,6 +127,19 @@ button {
 .error-message {
     font-style: italic;
     animation: errorMessage 1s linear forwards;
+}
+
+.sign-in-error {
+    position: absolute;
+    top: -35px;
+    left: 30px;
+    animation: errorMessage 1s linear forwards;
+}
+
+.success-message,
+#success-inline-link {
+    font-style: italic;
+    animation: emailSubmit 1s linear forwards;
 }
 
 @keyframes emailSubmit {

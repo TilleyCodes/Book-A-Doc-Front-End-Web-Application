@@ -40,7 +40,6 @@ export function LoginForm() {
             let bodyData = await response.json()
 
             if (!response.ok) {
-                // throw new Error(bodyData.message || 'Failed to login')
                 setLoginSuccessful(false)
                 setErrorMessage(bodyData.message || 'Invalid email or password')
                 return

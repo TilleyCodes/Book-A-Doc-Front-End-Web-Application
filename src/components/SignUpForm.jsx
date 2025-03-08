@@ -7,22 +7,42 @@ import { CustomInput } from "./CustomInput"
 import "../styles/reactDatePicker.css"
 import eyeOpen from "../assets/eye-open.svg"
 import eyeClosed from "../assets/eye-closed.svg"
-import { Link, useNavigate } from "react-router"
+import { Link } from "react-router"
 
 // Main function
 export function SignUpForm() {
-    const navigate = useNavigate()
 
     // Define hooks
     const [email, setEmail] = useState('')
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
-    const [dateOfBirth, setDateOfBirth] = useState('')
+    const [dateOfBirth, setDateOfBirth] = useState(null)
+    const [dateError, setDateError] = useState('')
     const [street, setStreet] = useState('')
     const [city, setCity] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
+    const [successfulSignup, setSuccessfulSignup] = useState(null)
+    const [errorMessage, setErrorMessage] = useState('')
+
+    const today = new Date()
+    const minAgeDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate())
+
+    function handleDateChange(date) {
+        if (!date) {
+            setDateError('Date of birth is required')
+            return
+        }
+        if (date > today) {
+            setDateError('Date cannot be in the future')
+        } else if (date > minAgeDate) {
+            setDateError('You must be at least 18 years old')
+        } else {
+            setDateError('')
+        }
+        setDateOfBirth(date)
+    }
     
     // onSubmit event handler
     async function submitForm(event) {
@@ -56,11 +76,13 @@ export function SignUpForm() {
             const data = await response.json()
 
             if (!response.ok) {
-                throw new Error(data.message || 'Failed to create new patient')
+                setSuccessfulSignup(false)
+                setErrorMessage('Email already exists')
+                console.log(data.message)
+                return
             }
             console.log('Success:', response)
-
-            navigate('/login')
+            setSuccessfulSignup(true)
 
         } catch (err) {
             console.error('Error:', err)
@@ -88,6 +110,9 @@ export function SignUpForm() {
                         />
                         <label className="input-label" htmlFor="patientEmail">Email</label>
                     </div>
+                    {!successfulSignup && (
+                        <p className="sign-in-error">{errorMessage}</p>
+                    )}
                     <div className="name-container">
                         <div className="input-wrapper">
                             <input 
@@ -124,7 +149,7 @@ export function SignUpForm() {
                         <DatePicker
                             id="patientDateOfBirth"
                             selected={dateOfBirth}
-                            onChange={(date) => setDateOfBirth(date)}
+                            onChange={handleDateChange}
                             dateFormat="dd/MM/yyyy"
                             required
                             showMonthDropdown
@@ -140,6 +165,9 @@ export function SignUpForm() {
                                 />
                             }
                         />
+                        {dateError && (
+                            <p className="sign-in-error">{dateError}</p>
+                        )}
                     </div>  
                     <div className="input-wrapper">
                         <input 
@@ -224,6 +252,9 @@ export function SignUpForm() {
                     <div className="form-button">
                         <button type="submit">SIGN UP</button>
                     </div> 
+                {successfulSignup && (
+                    <p className="success-message">Success! Login <Link className="inline-link" id="success-inline-link" to={'/login'}>HERE</Link></p>
+                )}
                 </div>
             </form>
         </>
