@@ -14,3 +14,24 @@ nav {
 nav a {
     padding: 0 10px 0 10px;
 }
+
+.main-logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 75px;
+    width: 300px;
+    background-color: var(--tertiaryBG);
+    border-radius: 1rem;
+    margin: 10px;
+}
+
+img.site-logo {
+    width: 60px;
+    height: auto;
+}
+
+h1.site-title,
+img.site-logo {
+    padding: 0 10px 0 10px;
+}

@@ -22,20 +22,16 @@ export function LoginForm() {
 
         // To be updated once API has been deployed
         let targetUrl = 'http://localhost:3000/patients/login'
-
         let bodyDataToSend = JSON.stringify({email: email, password: password})
 
         try {
-            let response = await fetch(
-                targetUrl,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type':'application/json'
-                    },
-                    body: bodyDataToSend
-                }
-            )
+            let response = await fetch(targetUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type':'application/json'
+                },
+                body: bodyDataToSend
+            })
 
             let bodyData = await response.json()
 
