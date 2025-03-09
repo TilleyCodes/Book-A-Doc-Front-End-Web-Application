@@ -21,7 +21,7 @@ export function LoginForm() {
         event.preventDefault()
 
         // To be updated once API has been deployed
-        let targetUrl = 'http://localhost:3000/patients/login'
+        let targetUrl = ' https://book-a-doc-back-end-web-application.onrender.com/patients/login'
         let bodyDataToSend = JSON.stringify({email: email, password: password})
 
         try {

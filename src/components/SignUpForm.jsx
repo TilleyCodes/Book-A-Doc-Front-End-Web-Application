@@ -48,7 +48,7 @@ export function SignUpForm() {
         event.preventDefault()
 
         // Post function to API
-        let targetUrl = 'http://localhost:3000/patients/'
+        let targetUrl = ' https://book-a-doc-back-end-web-application.onrender.com/patients/'
 
         let bodyDataToSend = JSON.stringify({
             firstName,
