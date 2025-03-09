@@ -11,7 +11,6 @@ h3 {
     border-radius: 1rem;
     width: 80vw;
     margin: 0 auto;
-    overflow-x: auto;
 }
 
 .appointment-feature {
@@ -22,10 +21,14 @@ h3 {
     margin: 20px;
 }
 
+.appointment-feature-details {
+    width: 100%;
+}
+
 .appointment-feature-details-table {
     width: 100%;
     border-collapse: collapse;
-    table-layout: auto;
+    /* table-layout: auto; */
 }
 
 .appointment-feature-details-table th:first-child,
@@ -42,7 +45,7 @@ h3 {
 .appointment-feature-details-table td {
     padding: 10px;
     text-align: center;
-    white-space: nowrap;
+    /* white-space: nowrap; */
 }
 
 .appointment-feature-image {
