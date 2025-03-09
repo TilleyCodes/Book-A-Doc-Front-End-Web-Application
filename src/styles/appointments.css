@@ -1,0 +1,59 @@
+h1,
+h2,
+h3 {
+    text-align: center;
+}
+
+.appointment-container {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--tertiaryBG);
+    border-radius: 1rem;
+    width: 80vw;
+    margin: 0 auto;
+}
+
+.appointment-feature {
+    display: flex;
+    padding: 20px;
+    background-color: white;
+    border-radius: 1rem;
+    margin: 20px;
+}
+
+.appointment-feature-details {
+    width: 100%;
+}
+
+.appointment-feature-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    /* table-layout: auto; */
+}
+
+.appointment-feature-details-table th:first-child,
+.appointment-feature-details-table td:first-child {
+    width: 15%;
+}
+
+.appointment-feature-details-table th:nth-child(4),
+.appointment-feature-details-table td:nth-child(4) {
+    width: 30%;
+}
+
+.appointment-feature-details-table th,
+.appointment-feature-details-table td {
+    padding: 10px;
+    text-align: center;
+    /* white-space: nowrap; */
+}
+
+.appointment-feature-image {
+    display: flex;
+    align-items: center;
+}
+
+img.calendar-image {
+    width: 60px;
+    height: auto;
+}

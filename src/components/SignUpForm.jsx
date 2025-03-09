@@ -1,13 +1,12 @@
 // Imports
-
-import { useState } from "react"
-import DatePicker from "react-datepicker"
-import "react-datepicker/dist/react-datepicker.css"
-import { CustomInput } from "./CustomInput"
-import "../styles/reactDatePicker.css"
-import eyeOpen from "../assets/eye-open.svg"
-import eyeClosed from "../assets/eye-closed.svg"
-import { Link } from "react-router"
+import { useState } from 'react'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import { CustomInput } from './CustomInput'
+import '../styles/reactDatePicker.css'
+import eyeOpen from '../assets/eye-open.svg'
+import eyeClosed from '../assets/eye-closed.svg'
+import { Link } from 'react-router'
 
 // Main function
 export function SignUpForm() {
@@ -49,7 +48,7 @@ export function SignUpForm() {
         event.preventDefault()
 
         // Post function to API
-        let targetUrl = 'http://localhost:3000/patients/'
+        let targetUrl = ' https://book-a-doc-back-end-web-application.onrender.com/patients/'
 
         let bodyDataToSend = JSON.stringify({
             firstName,
@@ -93,167 +92,167 @@ export function SignUpForm() {
 
     return (
         <>
-            <form className="box" onSubmit={(event) => submitForm(event)}>
-                <div className="box-container">
-                    <div className="input-wrapper">
+            <form className='box' onSubmit={(event) => submitForm(event)}>
+                <div className='box-container'>
+                    <div className='input-wrapper'>
                         <input 
-                            type="email" 
-                            className="input-field"
-                            placeholder=" "
-                            name="patientEmail"
-                            id="patientEmail"
+                            type='email' 
+                            className='input-field'
+                            placeholder=' '
+                            name='patientEmail'
+                            id='patientEmail'
                             required
                             value={email}
                             onChange={(event) => {
                                 setEmail(event.target.value)
                             }}
                         />
-                        <label className="input-label" htmlFor="patientEmail">Email</label>
+                        <label className='input-label' htmlFor='patientEmail'>Email</label>
                     </div>
                     {!successfulSignup && (
-                        <p className="sign-in-error">{errorMessage}</p>
+                        <p className='sign-in-error'>{errorMessage}</p>
                     )}
-                    <div className="name-container">
-                        <div className="input-wrapper">
+                    <div className='name-container'>
+                        <div className='input-wrapper'>
                             <input 
-                                type="text" 
-                                className="input-field"
-                                placeholder=" "
-                                name="patientFirstName"
-                                id="patientFirstName"
+                                type='text' 
+                                className='input-field'
+                                placeholder=' '
+                                name='patientFirstName'
+                                id='patientFirstName'
                                 required
                                 value={firstName}
                                 onChange={(event) => {
                                     setFirstName(event.target.value)
                                 }}
                             />
-                            <label className="input-label" htmlFor="patientFirstName">First Name</label>
+                            <label className='input-label' htmlFor='patientFirstName'>First Name</label>
                         </div>
-                        <div className="input-wrapper">
+                        <div className='input-wrapper'>
                             <input 
-                                type="text" 
-                                className="input-field"
-                                placeholder=" "
-                                name="patientLastName"
-                                id="patientLastName"
+                                type='text' 
+                                className='input-field'
+                                placeholder=' '
+                                name='patientLastName'
+                                id='patientLastName'
                                 required
                                 value={lastName}
                                 onChange={(event) => {
                                     setLastName(event.target.value)
                                 }}
                             />
-                            <label className="input-label" htmlFor="patientLastName">Last Name</label>
+                            <label className='input-label' htmlFor='patientLastName'>Last Name</label>
                         </div>
                     </div>
                     <div>
                         <DatePicker
-                            id="patientDateOfBirth"
+                            id='patientDateOfBirth'
                             selected={dateOfBirth}
                             onChange={handleDateChange}
-                            dateFormat="dd/MM/yyyy"
+                            dateFormat='dd/MM/yyyy'
                             required
                             showMonthDropdown
                             showYearDropdown
-                            dropdownMode="select"
+                            dropdownMode='select'
                             yearDropdownItemNumber={100}
                             scrollableYearDropdown
-                            placeholderText=" "
+                            placeholderText=' '
                             customInput={
                                 <CustomInput
-                                    id="patientDateOfBirth" 
-                                    labelText="Date of Birth"
+                                    id='patientDateOfBirth' 
+                                    labelText='Date of Birth'
                                 />
                             }
                         />
                         {dateError && (
-                            <p className="sign-in-error">{dateError}</p>
+                            <p className='sign-in-error'>{dateError}</p>
                         )}
                     </div>  
-                    <div className="input-wrapper">
+                    <div className='input-wrapper'>
                         <input 
-                            type="text" 
-                            className="input-field"
-                            placeholder=" "
-                            name="address-street"
-                            id="address-street"
+                            type='text' 
+                            className='input-field'
+                            placeholder=' '
+                            name='address-street'
+                            id='address-street'
                             required
                             value={street}
                             onChange={(event) => {
                                 setStreet(event.target.value)
                             }}
                         />
-                        <label className="input-label" htmlFor="address-street">Street</label>
+                        <label className='input-label' htmlFor='address-street'>Street</label>
                     </div>
-                    <div className="input-wrapper">
+                    <div className='input-wrapper'>
                         <input 
-                            type="text" 
-                            className="input-field"
-                            placeholder=" "
-                            name="address-city"
-                            id="address-city"
+                            type='text' 
+                            className='input-field'
+                            placeholder=' '
+                            name='address-city'
+                            id='address-city'
                             value={city}
                             onChange={(event) => {
                                 setCity(event.target.value)
                             }}
                         />
-                        <label className="input-label" htmlFor="address-city">City</label>
+                        <label className='input-label' htmlFor='address-city'>City</label>
                     </div>
-                    <div className="input-wrapper">
+                    <div className='input-wrapper'>
                         <input 
-                            type="tel" 
-                            className="input-field"
-                            placeholder=" "
-                            name="phoneNumber"
-                            id="phoneNumber"
+                            type='tel' 
+                            className='input-field'
+                            placeholder=' '
+                            name='phoneNumber'
+                            id='phoneNumber'
                             required
                             value={phoneNumber}
                             onChange={(event) => {
                                 setPhoneNumber(event.target.value)
                             }}
                         />
-                        <label className="input-label" htmlFor="phoneNumber">Phone Number</label>
+                        <label className='input-label' htmlFor='phoneNumber'>Phone Number</label>
                     </div>
-                    <div className="input-wrapper">
+                    <div className='input-wrapper'>
                         <input 
-                            type={showPassword ? "text" : "password"} 
-                            className="input-field"
-                            placeholder=" "
-                            name="password"
-                            id="password"
+                            type={showPassword ? 'text' : 'password'} 
+                            className='input-field'
+                            placeholder=' '
+                            name='password'
+                            id='password'
                             required
-                            pattern="^(?!\s*$).{10,}"
-                            title="Must contain at least 10 or more characters"
+                            pattern='^(?!\s*$).{10,}'
+                            title='Must contain at least 10 or more characters'
                             value={password}
                             onChange={(event) => {
                                 setPassword(event.target.value)
                             }}
                         />
-                        <label className="input-label" htmlFor="password">Password</label>
+                        <label className='input-label' htmlFor='password'>Password</label>
                         <img
-                            className="input-icon"
-                            alt={showPassword ? "eye closed" : "eye open"}
-                            title={showPassword ? "Hide password" : "Show password"}
+                            className='input-icon'
+                            alt={showPassword ? 'eye closed' : 'eye open'}
+                            title={showPassword ? 'Hide password' : 'Show password'}
                             src={showPassword ? eyeClosed : eyeOpen }
                             onClick={() => setShowPassword(prev => !prev)}
-                            style={{cursor: "pointer"}} 
+                            style={{cursor: 'pointer'}} 
                         />
                     </div>
-                    <div className="form-checkbox">
+                    <div className='form-checkbox'>
                         <input
-                            type="checkbox"
-                            name="acknowledge"
-                            id="acknowledge"
+                            type='checkbox'
+                            name='acknowledge'
+                            id='acknowledge'
                             required
                         />
-                        <label htmlFor="acknowledge">
-                            I agree to the <Link to={'/termsandconditions'} target="_blank" className="inline-link">Terms & Conditions</Link>, and <Link to={'/privacy'} target="_blank" className="inline-link">Privacy Policy</Link>.
+                        <label htmlFor='acknowledge'>
+                            I agree to the <Link to={'/termsandconditions'} target='_blank' className='inline-link'>Terms & Conditions</Link>, and <Link to={'/privacy'} target='_blank' className='inline-link'>Privacy Policy</Link>.
                         </label>  
                     </div>
-                    <div className="form-button">
-                        <button type="submit">SIGN UP</button>
+                    <div className='form-button'>
+                        <button type='submit'>SIGN UP</button>
                     </div> 
                 {successfulSignup && (
-                    <p className="success-message">Success! Login <Link className="inline-link" id="success-inline-link" to={'/login'}>HERE</Link></p>
+                    <p className='success-message'>Success! Login <Link className='inline-link' id='success-inline-link' to={'/login'}>HERE</Link></p>
                 )}
                 </div>
             </form>

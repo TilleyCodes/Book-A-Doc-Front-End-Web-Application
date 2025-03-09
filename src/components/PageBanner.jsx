@@ -41,7 +41,11 @@ export function PageBanner() {
             case "medical-centres":
                 setTitle("Medical Centres")
                 setDescription("Available Medical Centres for booking")
-                break 
+                break
+            case "appointments":
+                setTitle("My Appointments")
+                setDescription("Past and future appointments") 
+                break
             default:
                 setTitle("Book Your Next Appointment")
                 setDescription("Find and book with a general practitioner")
