@@ -1,0 +1,93 @@
+.doctors-page-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .doctors-title {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+  }
+  
+  .doctors-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .doctor-card {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+  
+  .doctor-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .doctor-icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  
+  .doctor-icon img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .doctor-info {
+    flex: 1;
+  }
+  
+  .doctor-info h3 {
+    margin: 0 0 8px 0;
+    color: #333;
+  }
+  
+  .doctor-specialty {
+    margin: 0;
+    color: #666;
+  }
+  
+  .specialty-label {
+    font-weight: bold;
+    color: #4a6da7;
+    margin-right: 5px;
+  }
+  
+  .loading-container, 
+  .error-container,
+  .no-doctors-message {
+    text-align: center;
+    padding: 40px;
+    font-size: 18px;
+  }
+  
+  .error-container {
+    color: #e74c3c;
+  }
+  
+  /* Responsive for mobile */
+  @media (max-width: 768px) {
+    .doctor-card {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .doctor-icon {
+      margin: 0 0 15px 0;
+    }
+  }
