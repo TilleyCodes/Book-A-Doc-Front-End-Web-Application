@@ -1,7 +1,7 @@
 import React from "react";
 import { Doctors } from "../components/Doctors";
 
-export function DoctorsPage() {
+export function GeneralPractitionersPage() {
   return (
     <>
       <Doctors />

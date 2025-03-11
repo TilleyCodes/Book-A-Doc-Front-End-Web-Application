@@ -14,7 +14,7 @@ import { Privacy } from './pages/Privacy'
 import { TermsAndCond } from './pages/TermsAndCond'
 import { UserJwtProvider } from './contexts/userJwtContext'
 import { ForgotPassword } from './pages/ForgotPassword'
-import { DoctorsPage } from './pages/Doctors'
+import { GeneralPractitionersPage } from './pages/Doctors'
 import { Appointments } from './pages/Appointments'
 
 createRoot(document.getElementById('root')).render(
@@ -54,7 +54,7 @@ createRoot(document.getElementById('root')).render(
                     <Route path='forgot-password' element={<ForgotPassword />}/>
                     
                     {/* localhost:5173/doctors */}
-                    <Route path='doctors' element={<DoctorsPage />}/>
+                    <Route path='doctors' element={<GeneralPractitionersPage />}/>
                     
                     {/* localhost:5173/appointments */}
                     <Route path='appointments' element={<Appointments />}/>
