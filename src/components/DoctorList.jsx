@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "../styles/doctorList.css";
 import stethoscopeIcon from "../assets/stethoscope.png";
 import { DoctorAvailabilities } from "./DoctorAvailabilities";
+import { endpoints } from "../config/api";
 
 export function DoctorList({ medicalCentreId, onClose }) {
   const [doctors, setDoctors] = useState([]);
@@ -21,7 +22,7 @@ export function DoctorList({ medicalCentreId, onClose }) {
         }
         
         // Fetch the doctor-centre relationships using the proxy
-        const doctorCentreResponse = await fetch("/api/doctorCentres");
+        const doctorCentreResponse = await fetch(endpoints.doctorCentres);
         
         console.log("Response received:", doctorCentreResponse.status);
         
@@ -57,7 +58,7 @@ export function DoctorList({ medicalCentreId, onClose }) {
         
         // Fetch all doctors
         console.log("Fetching doctors...");
-        const doctorsResponse = await fetch("/api/doctors");
+        const doctorsResponse = await fetch(endpoints.doctors);
         
         console.log("Doctors response:", doctorsResponse.status);
         

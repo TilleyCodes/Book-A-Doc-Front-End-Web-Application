@@ -4,6 +4,7 @@ import '../styles/login.css'
 import eyeOpen from '../assets/eye-open.svg'
 import eyeClosed from '../assets/eye-closed.svg'
 import { NavLink, useNavigate } from 'react-router';
+import { endpoints } from '../config/api';
 
 export function LoginForm() {
     const navigate = useNavigate()
@@ -21,7 +22,7 @@ export function LoginForm() {
         event.preventDefault()
 
         // To be updated once API has been deployed
-        let targetUrl = 'https://book-a-doc-back-end-web-application.onrender.com/patients/login'
+        let targetUrl = endpoints.login
         let bodyDataToSend = JSON.stringify({email: email, password: password})
 
         try {

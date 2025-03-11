@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { endpoints } from "../config/api";
 
 export function useMedicalCentres() {
   const [medicalCentres, setMedicalCentres] = useState([]);
@@ -12,8 +13,7 @@ export function useMedicalCentres() {
         setLoading(true);
         console.log("Fetching medical centres...");
         
-        // Using the proxy configured in vite.config.js
-        const response = await fetch("/api/medicalCentres");
+        const response = await fetch(endpoints.medicalCentres);
         
         console.log("Response received:", response.status, response.statusText);
         

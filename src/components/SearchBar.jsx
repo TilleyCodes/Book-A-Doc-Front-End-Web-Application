@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import magnifyingGlass from "../assets/search-icon.png"
+import { endpoints } from "../config/api";
 
 export function SearchBar() {
     const [input, setInput] = useState('')
@@ -10,7 +11,7 @@ export function SearchBar() {
 
     useEffect(() => {
         async function fetchDoctors() {
-            const res = await fetch('https://book-a-doc-back-end-web-application.onrender.com/doctors')
+            const res = await fetch(endpoints.doctors)
             const bodyData = await res.json()
             const doctorAndSpecialty = bodyData.map((doc) => {
                 return `${doc.doctorName} (${doc.specialtyId.specialtyName})`
@@ -19,7 +20,7 @@ export function SearchBar() {
         }
 
         async function fetchMedicalCentres() {
-            const res = await fetch('https://book-a-doc-back-end-web-application.onrender.com/medicalCentres')
+            const res = await fetch(endpoints.medicalCentres)
             const bodyData = await res.json()
             const centreNames = bodyData.map((centre) => centre.medicalCentreName)
             setMedicalCentres(centreNames)

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "../styles/doctorAvailabilities.css";
+import { endpoints } from "../config/api";
 
 export function DoctorAvailabilities({ doctor, medicalCentreId, onClose }) {
   const [selectedDate, setSelectedDate] = useState("");
@@ -16,7 +17,7 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, onClose }) {
       try {
         if (!medicalCentreId) return;
         
-        const response = await fetch(`/api/medicalCentres`);
+        const response = await fetch(endpoints.medicalCentres);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }

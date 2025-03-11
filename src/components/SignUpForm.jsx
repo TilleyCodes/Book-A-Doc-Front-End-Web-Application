@@ -7,6 +7,7 @@ import '../styles/reactDatePicker.css'
 import eyeOpen from '../assets/eye-open.svg'
 import eyeClosed from '../assets/eye-closed.svg'
 import { Link } from 'react-router'
+import { endpoints } from '../config/api'
 
 // Main function
 export function SignUpForm() {
@@ -48,7 +49,7 @@ export function SignUpForm() {
         event.preventDefault()
 
         // Post function to API
-        let targetUrl = ' https://book-a-doc-back-end-web-application.onrender.com/patients/'
+        let targetUrl = endpoints.patients
 
         let bodyDataToSend = JSON.stringify({
             firstName,

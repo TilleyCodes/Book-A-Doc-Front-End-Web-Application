@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "../styles/doctors.css";
 import stethoscopeIcon from "../assets/stethoscope.png";
 import searchIcon from "../assets/search-icon.png";
+import { endpoints } from '../config/api';
 
 export function Doctors() {
   const [doctors, setDoctors] = useState([]);
@@ -19,13 +20,7 @@ export function Doctors() {
         setLoading(true);
         console.log("Fetching doctors data...");
         
-<<<<<<< HEAD
-        // Using the proxy from vite.config.js
-        const res = await fetch('/api/doctors');
-=======
-        // proxy from vite.config.js
-        const res = await fetch('https://book-a-doc-back-end-web-application.onrender.com/doctors');
->>>>>>> 0581f6e1288c501cac7521b6923c3a6eb5021425
+        const res = await fetch(endpoints.doctors);
         console.log("Response received:", res.status, res.statusText);
         
         if (!res.ok) {

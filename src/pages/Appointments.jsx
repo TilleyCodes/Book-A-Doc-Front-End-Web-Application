@@ -7,6 +7,7 @@ import { FormatTime } from "../components/FormatTime";
 import calendar from "../assets/calendar.png"
 import "../styles/appointments.css"
 import { PatientConfirmation } from "../components/patientConfirmation";
+import { endpoints } from "../config/api";
 
 export function Appointments() {
     const { userJwtData } = useUserJwtContext()
@@ -24,7 +25,7 @@ export function Appointments() {
         
         async function fetchAppointments() {
             try {
-                let response = await fetch(' https://book-a-doc-back-end-web-application.onrender.com/bookings', {
+                let response = await fetch(endpoints.bookings, {
                     headers: {
                         Authorization: `Bearer ${userJwtData.token}`,
                     }
@@ -53,7 +54,7 @@ export function Appointments() {
 
     async function cancelBooking(appointment) {
         try {
-            let response = await fetch(`https://book-a-doc-back-end-web-application.onrender.com/bookings/${appointment._id}`, {
+            let response = await fetch(endpoints.cancelBookingById, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
