@@ -21,7 +21,7 @@ export function LoginForm() {
         event.preventDefault()
 
         // To be updated once API has been deployed
-        let targetUrl = ' https://book-a-doc-back-end-web-application.onrender.com/patients/login'
+        let targetUrl = 'https://book-a-doc-back-end-web-application.onrender.com/patients/login'
         let bodyDataToSend = JSON.stringify({email: email, password: password})
 
         try {
@@ -46,7 +46,6 @@ export function LoginForm() {
                 patient: bodyData.patient,
                 patientId: bodyData.patient._id,
             })
-            console.log(bodyData.patient._id)
             navigate('/')
 
         } catch (err) {

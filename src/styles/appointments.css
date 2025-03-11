@@ -4,12 +4,17 @@ h3 {
     text-align: center;
 }
 
+main {
+    position: relative;
+}
+
 .appointment-container {
     display: flex;
     flex-direction: column;
     background-color: var(--tertiaryBG);
     border-radius: 1rem;
     width: 80vw;
+    min-width: 550px;
     margin: 0 auto;
 }
 
@@ -27,7 +32,7 @@ h3 {
 
 .appointment-feature-details-table {
     width: 100%;
-    border-collapse: collapse;
+    /* border-collapse: collapse; */
     /* table-layout: auto; */
 }
 
@@ -45,12 +50,23 @@ h3 {
 .appointment-feature-details-table td {
     padding: 10px;
     text-align: center;
-    /* white-space: nowrap; */
 }
 
 .appointment-feature-image {
     display: flex;
     align-items: center;
+}
+
+.appointment-feature-buttons {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+}
+
+.appointment-feature-buttons button {
+    width: 150px;
 }
 
 img.calendar-image {

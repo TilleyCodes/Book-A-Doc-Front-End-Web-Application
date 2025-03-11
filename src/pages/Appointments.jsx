@@ -6,18 +6,22 @@ import { FormatDate } from "../components/FormatDate";
 import { FormatTime } from "../components/FormatTime";
 import calendar from "../assets/calendar.png"
 import "../styles/appointments.css"
+import { PatientConfirmation } from "../components/patientConfirmation";
 
 export function Appointments() {
     const { userJwtData } = useUserJwtContext()
     const [appointments, setAppointments] = useState([])
     const [loading, setLoading] = useState(true)
-
+    const hiddenStatus = ['cancelled', 'completed']
+    const [showConfirmation, setShowConfirmation] = useState(false)
+    const [selectedAppointment, setSelectedAppointment] = useState(null)
+    
     useEffect(() => {
         if (!userJwtData?.patientId) {
             setTimeout(() => setLoading(false), 1500)
             return
         }
-
+        
         async function fetchAppointments() {
             try {
                 let response = await fetch(' https://book-a-doc-back-end-web-application.onrender.com/bookings', {
@@ -25,13 +29,13 @@ export function Appointments() {
                         Authorization: `Bearer ${userJwtData.token}`,
                     }
                 })
-
+    
                 let data = await response.json()
                 if (!response.ok) throw new Error(data.message || 'Failed to fetch appointments')
-
+    
                 let filteredData = data.filter(booking => booking.patientId._id === userJwtData.patientId)
                 setAppointments(filteredData)
-
+    
             } catch (err) {
                 console.error('Error fetching appointments:', err)
             } finally {
@@ -41,6 +45,40 @@ export function Appointments() {
 
         fetchAppointments()
     }, [userJwtData?.patientId, userJwtData.token])
+
+    function confirmCancellation(appointment) {
+        setSelectedAppointment(appointment)
+        setShowConfirmation(true)
+    }
+
+    async function cancelBooking(appointment) {
+        try {
+            let response = await fetch(`https://book-a-doc-back-end-web-application.onrender.com/bookings/${appointment._id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${userJwtData.token}`,
+                },
+                body: JSON.stringify({ status: 'cancelled' })
+            })
+
+            if (!response.ok) {
+                throw new Error('Failed to cancel appointment')
+            }
+
+            setAppointments((prevAppointments) => 
+                prevAppointments.map((appt) => 
+                    appt._id === appointment._id ? { ...appt, status: 'cancelled' } : appt
+            ))
+
+        } catch (err) {
+            console.error('Error cancelling appointment:', err)
+        } finally {
+            setShowConfirmation(false)
+            setSelectedAppointment(null)
+        }
+    
+    }
 
     return (
         <>
@@ -74,6 +112,10 @@ export function Appointments() {
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <div className="appointment-feature-buttons">
+                                            <button><Skeleton style={{ minWidth: "100px"}} height={20} /></button>
+                                            <button><Skeleton style={{ minWidth: "50px"}} height={20} /></button>
+                                        </div>
                                     </div>
                                 </div>
                             ))}
@@ -108,12 +150,32 @@ export function Appointments() {
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <div className="appointment-feature-buttons">
+                                            {!hiddenStatus.includes(appointment.status.trim().toLowerCase()) && (
+                                                <>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => confirmCancellation(appointment)}
+                                                    >
+                                                        Cancel
+                                                    </button>
+                                                </>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
+                                </div>  
                             ))
                         )
                     )}
                 </div>
+                {showConfirmation && (
+                    <PatientConfirmation 
+                        selectedAppointment={selectedAppointment}
+                        onClose={() => setShowConfirmation(false)} 
+                        onConfirm={cancelBooking}
+                        className="patient-confirmation-window" 
+                    />
+                )}
             </SkeletonTheme>
         </>
     )

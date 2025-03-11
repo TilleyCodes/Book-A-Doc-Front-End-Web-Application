@@ -14,7 +14,7 @@ export function Doctors() {
         console.log("Fetching doctors data...");
         
         // proxy from vite.config.js
-        const res = await fetch('/api/doctors');
+        const res = await fetch('https://book-a-doc-back-end-web-application.onrender.com/doctors');
         console.log("Response received:", res.status, res.statusText);
         
         if (!res.ok) {
