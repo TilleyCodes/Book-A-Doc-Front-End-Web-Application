@@ -3,6 +3,7 @@ import "../styles/medicalCentres.css";
 import { DoctorList } from "./DoctorList";
 import { useMedicalCentres } from "../hooks/useMedicalCentres";
 import medicalIcon from "../assets/medical-clinic.png";
+import searchIcon from "../assets/search-icon.png";
 
 export function MedicalCentres() {
   const { medicalCentres, loading, error } = useMedicalCentres();
@@ -90,7 +91,7 @@ export function MedicalCentres() {
       )}
       
       <form className="search-section" onSubmit={handleSearch}>
-        <span className="search-icon">🔍</span>
+        <img src={searchIcon} alt="Search" className="search-icon" />
         <input
           ref={searchInputRef}
           type="text"

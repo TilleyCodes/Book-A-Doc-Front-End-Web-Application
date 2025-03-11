@@ -67,7 +67,8 @@
     left: 15px;
     top: 50%;
     transform: translateY(-50%);
-    color: #666;
+    width: 20px;
+    height: 20px;
   }
   
   .search-button {
