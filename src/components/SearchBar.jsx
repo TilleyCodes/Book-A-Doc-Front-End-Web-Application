@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import magnifyingGlass from "../assets/search-icon.png"
 import { endpoints } from "../config/api";
 import { useNavigate } from "react-router";
+import "../styles/searchBar.css"
 
 export function SearchBar() {
     const [input, setInput] = useState('')
@@ -86,13 +87,13 @@ export function SearchBar() {
                     id="searchBar"
                     name="searchBar"
                     type="text"
-                    placeholder=" "
+                    placeholder="Search GP, Specialty or Medical Centre"
                     className="input-field"
                     value={input}
                     onChange={(event) => setInput(event.target.value)}
                     onKeyDown={handleKeyDown}
                     />
-                <label className="input-label" id="search-bar-label" htmlFor="search-bar">Search GP, Specialty or Medical Centre</label>
+                {/* <label className="search-input-label" id="search-bar-label" htmlFor="search-bar">Search GP, Specialty or Medical Centre</label> */}
                 <img
                     className="input-icon"
                     alt="magnifying glass icon"
@@ -100,11 +101,13 @@ export function SearchBar() {
                     src={magnifyingGlass}
                     style={{cursor: "pointer"}} 
                     onClick={handleSearchClick}
-                    />
+                />
                 {suggestions.length > 0 && (
                     <ul className="dropdown">
                         {suggestions.map((data) => (
-                            <li key={data} onClick={() => handleSelect(data)}>
+                            <li key={data} 
+                                onClick={() => handleSelect(data)}
+                            >
                                 {data}
                             </li>
                         ))}
