@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import magnifyingGlass from "../assets/search-icon.png"
 import { endpoints } from "../config/api";
+import { useNavigate } from "react-router";
 
 export function SearchBar() {
     const [input, setInput] = useState('')
@@ -8,6 +9,8 @@ export function SearchBar() {
     const [selected, setSelected] = useState('')
     const [doctors, setDoctors] = useState([])
     const [medicalCentres, setMedicalCentres] = useState([])
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         async function fetchDoctors() {
@@ -53,7 +56,15 @@ export function SearchBar() {
         setInput(data)
         setSelected(data)
         setSuggestions([])
+
+        if (data.includes("(")) {
+            const doctorName = data.split(" (")[0]
+            navigate(`/doctors?search=${encodeURIComponent(doctorName)}&exact=true`)
+        } else {
+            navigate(`/medical-centres?search=${encodeURIComponent(data)}&exact=true`)
+        }
     }
+
 
     const handleKeyDown = (event) => {
         if (event.key === "Enter" && suggestions.length > 0) {

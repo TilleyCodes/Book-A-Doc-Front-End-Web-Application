@@ -3,17 +3,25 @@ import "../styles/doctors.css";
 import stethoscopeIcon from "../assets/stethoscope.png";
 import searchIcon from "../assets/search-icon.png";
 import { endpoints } from '../config/api';
+import { useLocation } from "react-router";
 
 export function Doctors() {
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const initialSearch = params.get("search") || "";
+  const initialExact = params.get("exact") === "true";
+
   const [doctors, setDoctors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [appliedSearchQuery, setAppliedSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(initialSearch);
+  const [appliedSearchQuery, setAppliedSearchQuery] = useState(initialSearch);
   const [filteredDoctors, setFilteredDoctors] = useState([]);
   const [specialties, setSpecialties] = useState([]);
   const [selectedSpecialty, setSelectedSpecialty] = useState("all");
+  const [exactSearch] = useState(initialExact)
 
+  
   useEffect(() => {
     async function fetchDoctors() {
       try {
@@ -58,10 +66,16 @@ export function Doctors() {
     
     // Only apply search filter if there's an actual search query
     if (appliedSearchQuery.trim() !== "") {
-      filtered = filtered.filter(doctor => 
-        doctor.doctorName && 
-        doctor.doctorName.toLowerCase().includes(appliedSearchQuery.toLowerCase())
-      );
+      if (exactSearch) {
+        filtered = filtered.filter(doctor => 
+          doctor.doctorName && 
+          doctor.doctorName.trim().toLowerCase() === appliedSearchQuery.trim().toLowerCase()
+        );
+      } else {
+        filtered = doctors.filter((doctor) =>
+          doctor.doctorName.toLowerCase().includes(appliedSearchQuery.toLowerCase())
+        );
+      }
     }
     
     // Apply specialty filter
@@ -71,9 +85,9 @@ export function Doctors() {
         doctor.specialtyId.specialtyName === selectedSpecialty
       );
     }
-    
+
     setFilteredDoctors(filtered);
-  }, [appliedSearchQuery, selectedSpecialty, doctors]);
+  }, [appliedSearchQuery, selectedSpecialty, doctors, exactSearch]);
 
   const handleSearch = (e) => {
     e.preventDefault();

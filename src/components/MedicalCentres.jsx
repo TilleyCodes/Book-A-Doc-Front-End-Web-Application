@@ -4,6 +4,7 @@ import { DoctorList } from "./DoctorList";
 import { useMedicalCentres } from "../hooks/useMedicalCentres";
 import medicalIcon from "../assets/medical-clinic.png";
 import searchIcon from "../assets/search-icon.png";
+import { useLocation } from "react-router";
 
 export function MedicalCentres() {
   const { medicalCentres, loading, error } = useMedicalCentres();
@@ -12,8 +13,19 @@ export function MedicalCentres() {
   const [searchQuery, setSearchQuery] = useState("");
   const [appliedSearch, setAppliedSearch] = useState("");
   const [centreFilter, setCentreFilter] = useState("all");
+  const [exactSearch, setExactSearch] = useState(false);
   const topRef = useRef(null);
   const searchInputRef = useRef(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const search = params.get("search") || "";
+    const exact = params.get("exact") === "true";
+    setSearchQuery(search);
+    setAppliedSearch(search);
+    setExactSearch(exact);
+  }, [location.search])
 
   useEffect(() => {
     // search input when component mounts
@@ -21,13 +33,6 @@ export function MedicalCentres() {
       searchInputRef.current.focus();
     }
   }, []);
-
-  // Update search when search query is empty
-  useEffect(() => {
-    if (searchQuery === "") {
-      setAppliedSearch("");
-    }
-  }, [searchQuery]);
 
   const handleCentreClick = (centre) => {
     setSelectedCentre(selectedCentre === centre ? null : centre);
@@ -69,14 +74,20 @@ export function MedicalCentres() {
 
   // Filter medical centres based on search query and city filter
   const filteredCentres = medicalCentres.filter((centre) => {
-    const matchesSearch = 
-      appliedSearch === "" || 
-      centre.medicalCentreName.toLowerCase().includes(appliedSearch.toLowerCase()) ||
-      centre.address.city.toLowerCase().includes(appliedSearch.toLowerCase()) ||
-      centre.address.street.toLowerCase().includes(appliedSearch.toLowerCase());
-    
+    let matchesSearch = true;
+    if (appliedSearch.trim() !== "") {
+      if (exactSearch) {
+        matchesSearch =
+          centre.medicalCentreName &&
+          centre.medicalCentreName.trim().toLowerCase() === appliedSearch.trim().toLowerCase(); 
+      } else {
+        matchesSearch =
+          centre.medicalCentreName.toLowerCase().includes(appliedSearch.toLowerCase()) ||
+          centre.address.city.toLowerCase().includes(appliedSearch.toLowerCase()) ||
+          centre.address.street.toLowerCase().includes(appliedSearch.toLowerCase());
+      }
+    }
     const matchesCity = centreFilter === "all" || centre.address.city === centreFilter;
-    
     return matchesSearch && matchesCity;
   });
 
