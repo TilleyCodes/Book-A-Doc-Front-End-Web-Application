@@ -62,7 +62,7 @@
   .doctor-card {
     display: flex;
     align-items: center;
-    padding: 15px;
+    padding: 20px;
     background-color: #f2f2f2;
     border-radius: 8px;
     transition: transform 0.2s, box-shadow 0.2s;
@@ -76,8 +76,8 @@
   .doctor-icon {
     position: absolute;
     margin-right: 15px;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -87,7 +87,8 @@
     width: 100%;
     height: auto;
     object-fit: contain;
-    padding-left: 60px;
+    padding-left: 50px;
+    padding-bottom: 105px;
   }
   
   .doctor-info {
