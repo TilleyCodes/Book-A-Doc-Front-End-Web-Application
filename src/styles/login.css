@@ -115,6 +115,11 @@ button {
     border: none;
 }
 
+button:hover {
+    background-color: #9bb4cece;
+    cursor: pointer;
+}
+
 .forgotpassword {
     margin-top: 20px;
     text-align: center;
