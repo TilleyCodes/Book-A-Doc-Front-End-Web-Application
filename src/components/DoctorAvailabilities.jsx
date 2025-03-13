@@ -1,71 +1,116 @@
 import { useState, useEffect } from "react";
 import "../styles/doctorAvailabilities.css";
 import { endpoints } from "../config/api";
+import { useUserJwtContext } from "../hooks/useUserJwtData";
+import { useNavigate } from "react-router";
 
-export function DoctorAvailabilities({ doctor, medicalCentreId, onClose }) {
+export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, onClose }) {
   const [selectedDate, setSelectedDate] = useState("");
   const [availableTimes, setAvailableTimes] = useState([]);
   const [selectedTime, setSelectedTime] = useState("");
   const [step, setStep] = useState(1); // Date/Time and Confirm
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [medicalCentre, setMedicalCentre] = useState(null);
+  const [medicalCentres, setMedicalCentres] = useState([]);
+  const [selectedMedicalCentre, setSelectedMedicalCentre] = useState(null);
+  const { userJwtData } = useUserJwtContext();
+  const navigate = useNavigate();
 
   // Get medical centre details
   useEffect(() => {
-    const fetchMedicalCentre = async () => {
+    const fetchMedicalCentres = async () => {
       try {
-        if (!medicalCentreId) return;
-        
-        const response = await fetch(endpoints.medicalCentres);
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        
-        const centres = await response.json();
-        const centre = centres.find(c => c._id === medicalCentreId);
-        
-        if (centre) {
-          setMedicalCentre(centre);
+        // If a specific medical center is provided, use that
+        if (medicalCentreId) {
+          const response = await fetch(endpoints.medicalCentres);
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          
+          const centres = await response.json();
+          const centre = centres.find(c => c._id === medicalCentreId);
+          
+          if (centre) {
+            setMedicalCentres([centre]);
+            setSelectedMedicalCentre(centre);
+          }
+        } 
+        // Otherwise, fetch all the centers this doctor is associated with
+        else if (doctorCentres && doctorCentres.length > 0) {
+          const response = await fetch(endpoints.medicalCentres);
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          
+          const allCentres = await response.json();
+          
+          // Filter to get only the centers this doctor works at
+          const relevantCentres = allCentres.filter(centre => 
+            doctorCentres.some(dc => 
+              (dc._id === centre._id) || 
+              (dc.medicalCentreId?._id === centre._id)
+            )
+          );
+          
+          setMedicalCentres(relevantCentres);
+          if (relevantCentres.length > 0) {
+            setSelectedMedicalCentre(relevantCentres[0]);
+          }
         }
       } catch (err) {
-        console.error("Error fetching medical centre:", err);
+        console.error("Error fetching medical centres:", err);
         setError("Unable to load medical centre details");
       }
     };
     
-    fetchMedicalCentre();
-  }, [medicalCentreId]);
+    fetchMedicalCentres();
+  }, [medicalCentreId, doctorCentres]);
 
-  // Generate available times when a date is selected
+  // Fetch available times when a date is selected
   useEffect(() => {
-    if (selectedDate) {
-      setLoading(true);
-      // In a real app, this would be an API call to check availability
-      // For now, we'll generate mock data after a short delay
-      setTimeout(() => {
-        const mockTimes = generateMockAvailability();
-        setAvailableTimes(mockTimes);
-        setLoading(false);
-      }, 500);
-    } else {
-      setAvailableTimes([]);
-    }
-  }, [selectedDate]);
+    if (!selectedDate || !selectedMedicalCentre || !doctor) return;
 
-  // Mock availability data need to update later!!!!!!!
-  const generateMockAvailability = () => {
-    const times = [];
-    // Timeimes from 9 AM to 5 PM with 30-minute intervals
-    for (let hour = 9; hour < 17; hour++) {
-      const hourFormatted = hour.toString().padStart(2, '0');
-      times.push(`${hourFormatted}:00`);
-      times.push(`${hourFormatted}:30`);
-    }
-    
-    // Remove times to show unavailability
-    return times.filter(() => Math.random() > 0.3);
-  };
+    const fetchAvailableTimes = async () => {
+      setLoading(true);
+      setError(null);
+      
+      try {
+        const availabilityEndpoint = endpoints.doctorAvailabilities(
+          doctor._id, 
+          selectedDate
+        );
+        
+        const response = await fetch(availabilityEndpoint);
+        
+        if (!response.ok) {
+          throw new Error(`Error fetching available times: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        setAvailableTimes(data);
+      } catch (err) {
+        console.error("Error fetching availabilities:", err);
+        setError("Unable to load available times. Please try again.");
+        
+        // Fallback to mock data if the API call fails
+        const mockTimes = [];
+        // Times from 9 AM to 5 PM with 30-minute intervals
+        for (let hour = 9; hour < 17; hour++) {
+          const hourFormatted = hour.toString().padStart(2, '0');
+          mockTimes.push(`${hourFormatted}:00`);
+          mockTimes.push(`${hourFormatted}:30`);
+        }
+        
+        // Remove some random times to simulate unavailability
+        setAvailableTimes(mockTimes.filter(() => Math.random() > 0.3));
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAvailableTimes();
+  }, [selectedDate, selectedMedicalCentre, doctor]);
 
   const handleDateChange = (e) => {
     setSelectedDate(e.target.value);
@@ -76,16 +121,104 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, onClose }) {
     setSelectedTime(time);
   };
 
+  const handleMedicalCentreChange = (e) => {
+    const centreId = e.target.value;
+    const centre = medicalCentres.find(c => c._id === centreId);
+    setSelectedMedicalCentre(centre || null);
+  };
+
   const handleContinue = () => {
-    if (selectedTime) {
+    if (selectedTime && selectedMedicalCentre) {
       setStep(2);
     }
   };
 
-  const handleConfirmBooking = () => {
-    // API call to book the appointment
-    alert(`Appointment booked with Dr. ${doctor.doctorName} on ${selectedDate} at ${selectedTime}`);
-    onClose();
+  // Helper function to calculate end time (30 minutes later)
+  function calculateEndTime(startTime) {
+    const [hours, minutes] = startTime.split(':').map(Number);
+    let endHours = hours;
+    let endMinutes = minutes + 30;
+    
+    if (endMinutes >= 60) {
+      endHours += 1;
+      endMinutes -= 60;
+    }
+    
+    return `${endHours.toString().padStart(2, '0')}:${endMinutes.toString().padStart(2, '0')}`;
+  }
+
+  const handleConfirmBooking = async () => {
+    if (!userJwtData.token) {
+      // Redirect to login if not authenticated
+      alert("Please log in to book an appointment");
+      onClose();
+      navigate("/login");
+      return;
+    }
+    
+    try {
+      setLoading(true);
+      
+      // First, create an availability record
+      const availabilityResponse = await fetch(endpoints.availabilities, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${userJwtData.token}`
+        },
+        body: JSON.stringify({
+          date: selectedDate,
+          startTime: selectedTime,
+          endTime: calculateEndTime(selectedTime),
+          isBooked: false
+        })
+      });
+      
+      if (!availabilityResponse.ok) {
+        throw new Error('Failed to create availability');
+      }
+      
+      const availabilityData = await availabilityResponse.json();
+      
+      // Create the booking with the availability ID
+      const bookingData = {
+        patientId: userJwtData.patientId,
+        doctorId: doctor._id,
+        medicalCentreId: selectedMedicalCentre._id,
+        availabilityId: availabilityData._id,
+        status: 'confirmed'
+      };
+      
+      const bookingResponse = await fetch(endpoints.bookings, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${userJwtData.token}`
+        },
+        body: JSON.stringify(bookingData)
+      });
+      
+      if (!bookingResponse.ok) {
+        const errorData = await bookingResponse.json();
+        throw new Error(errorData.message || 'Failed to book appointment');
+      }
+      
+      // Process the response without assigning to an unused variable
+      await bookingResponse.json();
+      
+      // Show success message and close modal
+      alert(`Appointment successfully booked with Dr. ${doctor.doctorName}`);
+      onClose();
+      
+      // Redirect to appointments page
+      navigate("/appointments");
+      
+    } catch (err) {
+      console.error("Error booking appointment:", err);
+      setError(`Booking failed: ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleBack = () => {
@@ -107,65 +240,93 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, onClose }) {
           <button className="close-button" onClick={onClose}>×</button>
         </div>
         
-        <div className="doctor-details">
-          <h3>{doctor.doctorName}</h3>
-          <p className="doctor-specialty">
-            {doctor.specialtyId?.specialtyName || "General Practice"}
-          </p>
-          {medicalCentre && (
-            <p className="medical-centre">{medicalCentre.medicalCentreName}</p>
-          )}
-        </div>
-        
-        {error && <div className="booking-error">{error}</div>}
-        
         {step === 1 && (
-          <div className="date-time-selection">
-            <div className="date-selection">
-              <label htmlFor="appointment-date">Select a Date:</label>
-              <input 
-                type="date" 
-                id="appointment-date"
-                min={today}
-                value={selectedDate}
-                onChange={handleDateChange}
-                required
-              />
+          <div className="booking-flow">
+            <div className="doctor-info-compact">
+              <h3>{doctor.doctorName}</h3>
+              <p className="doctor-specialty">
+                {doctor.specialtyId?.specialtyName || "General Practice"}
+              </p>
             </div>
             
-            {selectedDate && (
-              <>
-                {loading ? (
-                  <div className="loading-times">Loading available times...</div>
-                ) : (
-                  <div className="time-selection">
-                    <h4>Available Times:</h4>
-                    {availableTimes.length > 0 ? (
-                      <div className="time-slots">
-                        {availableTimes.map((time) => (
-                          <div 
-                            key={time} 
-                            className={`time-slot ${selectedTime === time ? 'selected' : ''}`}
-                            onClick={() => handleTimeSelect(time)}
-                          >
-                            {time}
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <p className="no-times">No available times for the selected date.</p>
-                    )}
+            {error && <div className="booking-error">{error}</div>}
+            
+            <div className="booking-form">
+              {selectedMedicalCentre && (
+                <div className="location-section">
+                  <span className="location-label">Location:</span>
+                  <div className="location-details">
+                    <p className="medical-centre-name">{selectedMedicalCentre.medicalCentreName}</p>
+                    <p className="medical-centre-address">{selectedMedicalCentre.address.street}, {selectedMedicalCentre.address.city}</p>
                   </div>
-                )}
-              </>
-            )}
+                </div>
+              )}
+              
+              {medicalCentres.length > 1 && (
+                <div className="medical-centre-selection">
+                  <label htmlFor="medical-centre-select">Select a Medical Centre:</label>
+                  <select
+                    id="medical-centre-select"
+                    value={selectedMedicalCentre?._id || ""}
+                    onChange={handleMedicalCentreChange}
+                    required
+                    className="medical-centre-select"
+                  >
+                    <option value="" disabled>Select a location</option>
+                    {medicalCentres.map(centre => (
+                      <option key={centre._id} value={centre._id}>
+                        {centre.medicalCentreName} - {centre.address.street}, {centre.address.city}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+              
+              <div className="date-selection">
+                <label htmlFor="appointment-date">Select a Date:</label>
+                <input 
+                  type="date" 
+                  id="appointment-date"
+                  min={today}
+                  value={selectedDate}
+                  onChange={handleDateChange}
+                  required
+                  className="date-input"
+                />
+              </div>
+              
+              {selectedDate && !loading && (
+                <div className="time-selection">
+                  <h4>Available Times:</h4>
+                  {availableTimes.length > 0 ? (
+                    <div className="time-slots">
+                      {availableTimes.map((time) => (
+                        <div 
+                          key={time} 
+                          className={`time-slot ${selectedTime === time ? 'selected' : ''}`}
+                          onClick={() => handleTimeSelect(time)}
+                        >
+                          {time}
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="no-times">No available times for the selected date.</p>
+                  )}
+                </div>
+              )}
+              
+              {loading && (
+                <div className="loading-times">Loading available times...</div>
+              )}
+            </div>
             
             <div className="booking-actions">
               <button className="btn cancel-btn" onClick={handleBack}>Cancel</button>
               <button 
                 className="btn continue-btn" 
                 onClick={handleContinue}
-                disabled={!selectedTime}
+                disabled={!selectedTime || !selectedMedicalCentre}
               >
                 Continue
               </button>
@@ -186,10 +347,10 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, onClose }) {
                 <span className="summary-label">Specialty:</span>
                 <span>{doctor.specialtyId?.specialtyName || "General Practice"}</span>
               </div>
-              {medicalCentre && (
+              {selectedMedicalCentre && (
                 <div className="summary-item">
                   <span className="summary-label">Location:</span>
-                  <span>{medicalCentre.medicalCentreName}</span>
+                  <span>{selectedMedicalCentre.medicalCentreName}, {selectedMedicalCentre.address.city}</span>
                 </div>
               )}
               <div className="summary-item">
@@ -204,8 +365,12 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, onClose }) {
             
             <div className="booking-actions">
               <button className="btn cancel-btn" onClick={handleBack}>Back</button>
-              <button className="btn confirm-btn" onClick={handleConfirmBooking}>
-                Confirm Booking
+              <button 
+                className="btn confirm-btn" 
+                onClick={handleConfirmBooking}
+                disabled={loading}
+              >
+                {loading ? 'Booking...' : 'Confirm Booking'}
               </button>
             </div>
           </div>
