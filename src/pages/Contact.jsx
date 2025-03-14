@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import '../styles/contact.css';
+import { useState } from "react";
+import "../styles/contact.css";
 
 export function Contact() {
-    const [fullName, setFullName] = useState('');
-    const [email, setEmail] = useState('');
-    const [message, setMessage] = useState('');
+    const [fullName, setFullName] = useState("");
+    const [email, setEmail] = useState("");
+    const [message, setMessage] = useState("");
     const [formSubmitted, setFormSubmitted] = useState(false);
 
     function submitForm(event) {
         event.preventDefault();
         setFormSubmitted(true);
-    }
+    };
 
     return (
         <form className="box" onSubmit={submitForm}>
@@ -63,8 +63,8 @@ export function Contact() {
 
                 {formSubmitted && (
                     <p className="success-message">Thank you! Your message has been received.</p>
-                )}
+                )};
             </div>
         </form>
     );
-}
+}; 

@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/about.css"
+import "../styles/about.css";
 
 export function About() {
     return (
@@ -25,4 +25,4 @@ export function About() {
             </p>
         </div>
     );
-}
+};

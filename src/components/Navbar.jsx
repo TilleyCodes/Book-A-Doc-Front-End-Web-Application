@@ -1,21 +1,21 @@
-import { NavLink } from "react-router"
-import { useUserJwtContext } from "../hooks/useUserJwtData"
-import { useState } from "react"
-import "../styles/navbar.css"
+import { NavLink } from "react-router";
+import { useUserJwtContext } from "../hooks/useUserJwtData";
+import { useState } from "react";
+import "../styles/navbar.css";
 
 export function Navbar() {
-    const { userJwtData } = useUserJwtContext()
-    const isLoggedIn = Boolean(userJwtData && userJwtData.token)
+    const { userJwtData } = useUserJwtContext();
+    const isLoggedIn = Boolean(userJwtData && userJwtData.token);
 
     const [menuOpen, setMenuOpen] = useState(false);
 
     const toggleMenu = () => {
-        setMenuOpen(!menuOpen)
+        setMenuOpen(!menuOpen);
     };
 
     const closeMenu = () => {
         setMenuOpen(false);
-    }
+    };
 
     return (
         <nav className="navbar">
@@ -36,7 +36,7 @@ export function Navbar() {
                             Sign Up
                         </NavLink>            
                     </>
-                )}
+                )};
                 {/* Show logout link when patient is logged in */}
                 {isLoggedIn && (
                     <>
@@ -44,8 +44,8 @@ export function Navbar() {
                             Logout
                         </NavLink>
                     </>
-                )}
+                )};
             </div>
         </nav>
-    )
-}
+    );
+};

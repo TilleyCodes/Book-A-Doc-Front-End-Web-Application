@@ -1,4 +1,4 @@
-import '../styles/patientConfirmation.css'
+import "../styles/patientConfirmation.css";
 
 export function PatientConfirmation({ selectedAppointment, onClose, onConfirm }) {
     return (
@@ -15,5 +15,5 @@ export function PatientConfirmation({ selectedAppointment, onClose, onConfirm })
                 </div>
             </div>
         </>
-    )
-}
+    );
+};

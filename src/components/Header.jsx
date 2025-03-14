@@ -1,7 +1,7 @@
-import React from "react"
-import { Navbar } from "./Navbar"
-import logo from "../assets/heart-with-pulse.png"
-import "../styles/header.css"
+import React from "react";
+import { Navbar } from "./Navbar";
+import logo from "../assets/heart-with-pulse.png";
+import "../styles/header.css";
 
 export function Header() {
     return(
@@ -13,4 +13,4 @@ export function Header() {
             <Navbar />
         </header>
     )
-}
+};

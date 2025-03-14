@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import "../styles/login.css"
+import "../styles/login.css";
 
 export function ForgotPassword() {
-    const [email, setEmail] = useState('')
-    const [message, setMessage] = useState('')
+    const [email, setEmail] = useState("");
+    const [message, setMessage] = useState("");
 
     function submitForm(event) {
-        event.preventDefault()
+        event.preventDefault();
 
-        setEmail('')
-        setMessage('Email successfully submitted.\nIf an account with that email exists, you will receive an email with further instructions')
-    }
+        setEmail("");
+        setMessage("Email successfully submitted.\nIf an account with that email exists, you will receive an email with further instructions");
+    };
 
     return (
         <>
@@ -33,9 +33,9 @@ export function ForgotPassword() {
                     <div className="form-button">
                         <button type="submit">SUBMIT</button>
                     </div>
-                    {message && <p id="forgot-password-message">{message}</p>}
+                    {message && <p id="forgot-password-message">{message}</p>};
                 </div>
             </form>
         </>
-    )
-}
+    );
+};
