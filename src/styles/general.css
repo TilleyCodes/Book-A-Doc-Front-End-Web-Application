@@ -9,13 +9,6 @@
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.351);
 }
 
-h2, 
-h3, 
-.general-container > p,
-.general-section > p {
-    text-align: left !important;
-}
-
 .general-heading {
     color: var(--primaryText);
     font-size: 2rem;
@@ -41,12 +34,14 @@ h3,
     font-size: 1.2rem;
     color: var(--primaryText);
     margin-bottom: 10px;
+    text-align: left;
 }
 
 .general-text {
     font-size: 1rem;
     line-height: 1.6;
     color: var(--primaryText);
+    text-align: left;
 }
 
 .general-list {

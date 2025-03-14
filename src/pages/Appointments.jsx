@@ -8,6 +8,7 @@ import calendar from "../assets/calendar.png"
 import "../styles/appointments.css"
 import { PatientConfirmation } from "../components/patientConfirmation";
 import { endpoints } from "../config/api";
+import { cancelBookingById } from "../config/api";
 
 export function Appointments() {
     const { userJwtData } = useUserJwtContext()
@@ -48,13 +49,22 @@ export function Appointments() {
     }, [userJwtData?.patientId, userJwtData.token])
 
     function confirmCancellation(appointment) {
+        if (!appointment || !appointment._id) {
+            console.error('Error: Appointment ID is undefinied');
+            return;
+        }
         setSelectedAppointment(appointment)
         setShowConfirmation(true)
     }
 
     async function cancelBooking(appointment) {
+        if (!appointment || !appointment._id) {
+            console.error('Error: Appointment ID is undefinied');
+            return;
+        }
+
         try {
-            let response = await fetch(endpoints.cancelBookingById, {
+            let response = await fetch(cancelBookingById(appointment._id), {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -89,9 +99,6 @@ export function Appointments() {
                         <>
                             {[...Array(1)].map((_, index) => (
                                 <div key={index} className="appointment-feature">
-                                    <div className="appointment-feature-image">
-                                        <Skeleton width={80} height={80} />
-                                    </div>
                                     <div className="appointment-feature-details">
                                         <table className="appointment-feature-details-table">
                                             <tbody>

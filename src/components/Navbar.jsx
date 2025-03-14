@@ -1,38 +1,51 @@
 import { NavLink } from "react-router"
 import { useUserJwtContext } from "../hooks/useUserJwtData"
+import { useState } from "react"
+import "../styles/navbar.css"
 
 export function Navbar() {
     const { userJwtData } = useUserJwtContext()
     const isLoggedIn = Boolean(userJwtData && userJwtData.token)
 
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setMenuOpen(!menuOpen)
+    };
+
+    const closeMenu = () => {
+        setMenuOpen(false);
+    }
 
     return (
-        <nav>
-            <NavLink to={'/'}id="nav-home">
-                Home
-            </NavLink>
-            <NavLink to={'/about'} id="nav-about">
-                About
-            </NavLink>
-            {/* Show login and sign up links when patient is not signed in */}
-            {!isLoggedIn && (
-                <>
-                    <NavLink to={'/login'} id="nav-login">
-                        Login
-                    </NavLink>
-                    <NavLink to={'/sign-up'} id="nav-sign-up">
-                        Sign Up
-                    </NavLink>            
-                </>
-            )}
-            {/* Show logout link when patient is logged in */}
-            {isLoggedIn && (
-                <>
-                    <NavLink to={'/logout'} id="nav-logout">
-                        Logout
-                    </NavLink>
-                </>
-            )}
+        <nav className="navbar">
+            <button className="burger-menu" onClick={toggleMenu}>
+                ☰
+            </button>
+            <div className={`nav-links ${menuOpen ? "open" : ""}`}>
+                <NavLink to={'/'}id="nav-home" onClick={closeMenu}>Home</NavLink>
+                <NavLink to={'/about'} id="nav-about" onClick={closeMenu}>About</NavLink>
+
+                {/* Show login and sign up links when patient is not signed in */}
+                {!isLoggedIn && (
+                    <>
+                        <NavLink to={'/login'} id="nav-login" onClick={closeMenu}>
+                            Login
+                        </NavLink>
+                        <NavLink to={'/sign-up'} id="nav-sign-up" onClick={closeMenu}>
+                            Sign Up
+                        </NavLink>            
+                    </>
+                )}
+                {/* Show logout link when patient is logged in */}
+                {isLoggedIn && (
+                    <>
+                        <NavLink to={'/logout'} id="nav-logout" onClick={closeMenu}>
+                            Logout
+                        </NavLink>
+                    </>
+                )}
+            </div>
         </nav>
     )
 }

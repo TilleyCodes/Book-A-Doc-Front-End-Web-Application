@@ -23,7 +23,7 @@ p {
     padding: 1.5rem;
     padding-top: 1rem;
     border-radius: 1rem;
-    width: 50vw;
+    width: 60vw;
     min-width: 300px;
     max-width: 600px;
 }
@@ -151,4 +151,10 @@ button:hover {
 @keyframes errorMessage {
     from {color: transparent}
     to {color: red}
+}
+
+@media (max-width: 768px) {
+    .box-container {
+        width: 80vw;
+    }
 }
