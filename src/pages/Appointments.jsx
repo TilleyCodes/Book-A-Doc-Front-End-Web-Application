@@ -94,28 +94,31 @@ export function Appointments() {
                                     </div>
                                     <div className="appointment-feature-details">
                                         <table className="appointment-feature-details-table">
-                                            <thead>
-                                                <tr>
-                                                    <th><Skeleton width="100%" height={20} /></th>
-                                                    <th><Skeleton width="100%" height={20} /></th>
-                                                    <th><Skeleton width="100%" height={20} /></th>
-                                                    <th><Skeleton width="100%" height={20} /></th>
-                                                    <th><Skeleton width="100%" height={20} /></th>
-                                                </tr>
-                                            </thead>
                                             <tbody>
                                                 <tr key={index}>
-                                                <td><Skeleton style={{ minWidth: "80px", width: "100%" }} height={20} /></td>
-                                                <td><Skeleton style={{ minWidth: "80px", width: "100%" }} height={20} /></td>
-                                                <td><Skeleton style={{ minWidth: "120px", width: "100%" }} height={20} /></td>
-                                                <td><Skeleton style={{ minWidth: "150px", width: "100%" }} height={20} /></td>
-                                                <td><Skeleton style={{ minWidth: "100px", width: "100%" }} height={20} /></td>
+                                                    <th><Skeleton width="100%" height={20} /></th>
+                                                    <td><Skeleton style={{ minWidth: "80px", width: "100%" }} height={20} /></td>
+                                                </tr>
+                                                <tr>
+                                                    <th><Skeleton width="100%" height={20} /></th>
+                                                    <td><Skeleton style={{ minWidth: "80px", width: "100%" }} height={20} /></td>
+                                                </tr>
+                                                <tr>
+                                                    <th><Skeleton width="100%" height={20} /></th>
+                                                    <td><Skeleton style={{ minWidth: "120px", width: "100%" }} height={20} /></td>
+                                                </tr>
+                                                <tr>
+                                                    <th><Skeleton width="100%" height={20} /></th>
+                                                    <td><Skeleton style={{ minWidth: "150px", width: "100%" }} height={20} /></td>
+                                                </tr>
+                                                <tr>
+                                                    <th><Skeleton width="100%" height={20} /></th>
+                                                    <td><Skeleton style={{ minWidth: "100px", width: "100%" }} height={20} /></td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                         <div className="appointment-feature-buttons">
                                             <button><Skeleton style={{ minWidth: "100px"}} height={20} /></button>
-                                            <button><Skeleton style={{ minWidth: "50px"}} height={20} /></button>
                                         </div>
                                     </div>
                                 </div>
@@ -132,21 +135,25 @@ export function Appointments() {
                                     </div>
                                     <div className="appointment-feature-details">
                                         <table className="appointment-feature-details-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Date</th>
-                                                    <th>Time</th>
-                                                    <th>Doctor</th>
-                                                    <th>Medical Centre</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
                                             <tbody>
                                                 <tr>
+                                                    <th>Date:</th>
                                                     <td>{FormatDate(appointment.availabilityId.date)}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Time:</th>
                                                     <td>{FormatTime(appointment.availabilityId.startTime)}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Doctor:</th>
                                                     <td>{appointment.doctorId.doctorName}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Centre:</th>
                                                     <td>{appointment.medicalCentreId.medicalCentreName}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Status:</th>
                                                     <td>{appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1)}</td>
                                                 </tr>
                                             </tbody>
