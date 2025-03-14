@@ -1,0 +1,59 @@
+/* Ensure styles apply only to Privacy page */
+.privacy-page-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.privacy-heading {
+    text-align: center;
+    color: var(--primaryText);
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.privacy-last-updated {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--secondaryText);
+    margin-bottom: 20px;
+}
+
+.privacy-section {
+    margin-bottom: 20px;
+}
+
+.privacy-subheading {
+    font-size: 1.5rem;
+    color: var(--primaryText);
+    margin-bottom: 10px;
+}
+
+.privacy-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--primaryText);
+}
+
+.privacy-list {
+    padding-left: 20px;
+    text-align: center;
+}
+
+.privacy-list li {
+    margin-bottom: 8px;
+    list-style: none;
+}
+
+.privacy-link {
+    color: var(--secondaryBG);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.privacy-link:hover {
+    text-decoration: underline;
+}

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useUserJwtContext } from '../hooks/useUserJwtData';
-import '../styles/login.css'
 import eyeOpen from '../assets/eye-open.svg'
 import eyeClosed from '../assets/eye-closed.svg'
 import { NavLink, useNavigate } from 'react-router';

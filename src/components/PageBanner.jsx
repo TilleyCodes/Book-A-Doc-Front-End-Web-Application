@@ -16,7 +16,7 @@ export function PageBanner() {
         switch (currentRoute) {
             case "about":
                 setTitle("About Us")
-                setDescription("More about Book-A-Doc")
+                setDescription("Learn more about Book-a-Doc")
                 break
             case "login":
                 setTitle("Patient Login")
@@ -32,7 +32,7 @@ export function PageBanner() {
                 break
             case "termsandconditions":
                 setTitle("Terms and Conditions")
-                setDescription("View Book-A-Docs terms and conditions below")
+                setDescription("View Book-a-Docs terms and conditions below")
                 break
             case "sign-up":
                 setTitle("Create An Account")

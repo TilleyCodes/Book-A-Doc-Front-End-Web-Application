@@ -1,15 +1,6 @@
-img {
-    height: 15px;
-    width: auto;
-}
-
-p {
+h2 {
     text-align: center;
-}
-
-#forgot-password-message {
-    font-style: italic;
-    animation: emailSubmit 1s linear forwards;
+    margin-bottom: 1rem;
 }
 
 .box {
@@ -28,23 +19,7 @@ p {
     max-width: 600px;
 }
 
-#acknowledge {
-    margin-right: 10px;
-}
-
-/* Remove unnecessary spaces around text wrapped in Link */
-.inline-link {
-    display: contents;
-    color: var(--secondaryBG);
-    font-weight: 600;
-}
-
-.name-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-}
-
+/* Styling input fields */
 .input-wrapper {
     position: relative;
     margin-bottom: 1rem;
@@ -74,33 +49,25 @@ p {
     left: 0.5rem;
     top: 1rem;
     font-size: 1rem;
-    color: rgb(83, 83, 83);
+    color: black;
     pointer-events: none;
     transition: all 0.2s ease;
 }
 
 .input-field:focus + .input-label,
 .input-field:not(:placeholder-shown) + .input-label {
-  top: -0.5rem;
-  font-size: 0.75rem;
-  color: #7d7d7d;
+    top: -0.5rem;
+    font-size: 0.75rem;
+    color: #7d7d7d;
 }
 
-.input-icon {
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 20px;
-  height: auto;
-  cursor: pointer;
+/* Styling the textarea */
+.textarea-field {
+    min-height: 100px;
+    resize: vertical;
 }
 
-.form-checkbox {
-    margin-bottom: 15px;
-    text-align: center;
-}
-
+/* Button styling */
 .form-button {
     text-align: center;
 }
@@ -120,35 +87,14 @@ button:hover {
     cursor: pointer;
 }
 
-.forgotpassword {
-    margin-top: 20px;
+/* Success message animation */
+.success-message {
     text-align: center;
-}
-
-.error-message {
-    font-style: italic;
-    animation: errorMessage 1s linear forwards;
-}
-
-.sign-in-error {
-    position: absolute;
-    top: -35px;
-    left: 30px;
-    animation: errorMessage 1s linear forwards;
-}
-
-.success-message,
-#success-inline-link {
     font-style: italic;
     animation: emailSubmit 1s linear forwards;
 }
 
 @keyframes emailSubmit {
-    from {color: transparent}
-    to {color: #009800c1}
-}
-
-@keyframes errorMessage {
-    from {color: transparent}
-    to {color: red}
+    from { color: transparent; }
+    to { color: #009800c1; }
 }
