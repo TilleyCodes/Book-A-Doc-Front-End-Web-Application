@@ -111,7 +111,7 @@ export function SearchBar() {
                             </li>
                         ))}
                     </ul>
-                )};
+                )}
             </div>
         </>
     );

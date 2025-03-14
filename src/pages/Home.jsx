@@ -35,7 +35,7 @@ export function Home() {
                             </div>
                         </NavLink>
                     </>
-                )};
+                )}
                 <NavLink className="feature-link" to={"/medical-centres"}>
                     <div className="main-option-feature" id="centres">
                         <img className="feature-icon" src={medical} />

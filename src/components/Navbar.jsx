@@ -23,28 +23,28 @@ export function Navbar() {
                 ☰
             </button>
             <div className={`nav-links ${menuOpen ? "open" : ""}`}>
-                <NavLink to={'/'}id="nav-home" onClick={closeMenu}>Home</NavLink>
-                <NavLink to={'/about'} id="nav-about" onClick={closeMenu}>About</NavLink>
+                <NavLink to={"/"}id="nav-home" onClick={closeMenu}>Home</NavLink>
+                <NavLink to={"/about"} id="nav-about" onClick={closeMenu}>About</NavLink>
 
                 {/* Show login and sign up links when patient is not signed in */}
                 {!isLoggedIn && (
                     <>
-                        <NavLink to={'/login'} id="nav-login" onClick={closeMenu}>
+                        <NavLink to={"/login"} id="nav-login" onClick={closeMenu}>
                             Login
                         </NavLink>
-                        <NavLink to={'/sign-up'} id="nav-sign-up" onClick={closeMenu}>
+                        <NavLink to={"/sign-up"} id="nav-sign-up" onClick={closeMenu}>
                             Sign Up
                         </NavLink>            
                     </>
-                )};
+                )}
                 {/* Show logout link when patient is logged in */}
                 {isLoggedIn && (
                     <>
-                        <NavLink to={'/logout'} id="nav-logout" onClick={closeMenu}>
+                        <NavLink to={"/logout"} id="nav-logout" onClick={closeMenu}>
                             Logout
                         </NavLink>
                     </>
-                )};
+                )}
             </div>
         </nav>
     );

@@ -167,7 +167,7 @@ export function SignUpForm() {
                         />
                         {dateError && (
                             <p className="sign-in-error">{dateError}</p>
-                        )};
+                        )}
                     </div>  
                     <div className="input-wrapper">
                         <input 
@@ -254,7 +254,7 @@ export function SignUpForm() {
                     </div> 
                 {successfulSignup && (
                     <p className="success-message">Success! Login <Link className="inline-link" id="success-inline-link" to={"/login"}>HERE</Link></p>
-                )};
+                )}
                 </div>
             </form>
         </>

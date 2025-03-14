@@ -63,7 +63,7 @@ export function Contact() {
 
                 {formSubmitted && (
                     <p className="success-message">Thank you! Your message has been received.</p>
-                )};
+                )}
             </div>
         </form>
     );

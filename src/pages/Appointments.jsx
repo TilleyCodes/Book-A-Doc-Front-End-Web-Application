@@ -175,13 +175,13 @@ export function Appointments() {
                                                         Cancel
                                                     </button>
                                                 </>
-                                            )};
+                                            )}
                                         </div>
                                     </div>
                                 </div>  
                             ))
                         )
-                    )};
+                    )}
                 </div>
                 {showConfirmation && (
                     <PatientConfirmation 
@@ -190,7 +190,7 @@ export function Appointments() {
                         onConfirm={cancelBooking}
                         className="patient-confirmation-window" 
                     />
-                )};
+                )}
             </SkeletonTheme>
         </>
     );
