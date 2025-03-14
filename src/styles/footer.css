@@ -9,3 +9,9 @@ footer {
 a {
     padding: 0 10px 0 30px;
 }
+
+@media (max-width: 768px) {
+    footer > a {
+        text-align: center;
+    }
+}

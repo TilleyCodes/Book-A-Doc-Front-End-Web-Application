@@ -11,3 +11,14 @@
     background-color: var(--tertiaryBG);
     max-width: 650px;
 }
+
+@media (max-width: 768px) {
+    .banner-box {
+        width: 50%;
+        padding: 0 5px 0 5px;
+    }
+
+    .banner-title {
+        font-size: 1.2rem;
+    }
+}

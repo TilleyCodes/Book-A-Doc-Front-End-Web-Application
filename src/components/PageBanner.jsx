@@ -24,7 +24,7 @@ export function PageBanner() {
                 break
             case "contact":
                 setTitle("Contact Us")
-                setDescription("You can reach out to us using the information below")
+                setDescription("You can reach out to us using the form below")
                 break
             case "privacy":
                 setTitle("Privacy Policy")
@@ -55,8 +55,8 @@ export function PageBanner() {
 
     return (
         <div className="banner-box">
-            <h1>{title}</h1>
-            <p>{description}</p>
+            <h1 className="banner-title">{title}</h1>
+            <p className="banner-text">{description}</p>
         </div>
         
     )

@@ -35,3 +35,16 @@ h1.site-title,
 img.site-logo {
     padding: 0 10px 0 10px;
 }
+
+/* Convert nav links to column for smaller screens */
+@media (max-width: 620px) {
+    nav {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav a {
+        padding-bottom: 10px;
+    }
+}

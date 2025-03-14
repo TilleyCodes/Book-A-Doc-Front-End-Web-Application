@@ -19,7 +19,6 @@ h2 {
     max-width: 600px;
 }
 
-/* Styling input fields */
 .input-wrapper {
     position: relative;
     margin-bottom: 1rem;
@@ -61,13 +60,11 @@ h2 {
     color: #7d7d7d;
 }
 
-/* Styling the textarea */
 .textarea-field {
     min-height: 100px;
     resize: vertical;
 }
 
-/* Button styling */
 .form-button {
     text-align: center;
 }
@@ -87,7 +84,6 @@ button:hover {
     cursor: pointer;
 }
 
-/* Success message animation */
 .success-message {
     text-align: center;
     font-style: italic;

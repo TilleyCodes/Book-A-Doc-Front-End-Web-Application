@@ -8,10 +8,6 @@
     color: white;
   }
   
-  .react-datepicker__day {
-    /* e.g. normal day style */
-  }
-  
   .react-datepicker__day--selected {
     background-color: var(--secondaryBG);
     color: white;

@@ -1,12 +1,6 @@
 :root {
   font-family: "Inter", Helvetica, Arial, sans-serif;
   font-optical-sizing: auto;
-  /* line-height: 1.5;
-  font-weight: 400; */
-
-  /* color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424; */
 
   --primaryBG: white;
   --secondaryBG: #9bb4ce;
@@ -17,10 +11,9 @@
   box-sizing: border-box;
 
   
-  /* font-synthesis: none;
-  text-rendering: optimizeLegibility;
+  font-synthesis: none;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; */
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html {
@@ -57,14 +50,3 @@ a {
 a:visited {
     color: var(--secondaryFont)
 }
-
-/* @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-
-  button {
-    background-color: #f9f9f9;
-  }
-} */
