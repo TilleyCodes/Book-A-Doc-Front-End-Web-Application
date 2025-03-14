@@ -20,7 +20,7 @@ export function PageBanner() {
                 break
             case "login":
                 setTitle("Patient Login")
-                setDescription("Log in to book and view your appointments")
+                setDescription("Log in to view and manager your appointments")
                 break
             case "contact":
                 setTitle("Contact Us")
