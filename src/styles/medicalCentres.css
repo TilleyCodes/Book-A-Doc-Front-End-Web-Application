@@ -202,12 +202,13 @@
   }
   
   .centre-name {
-    color: var(--primaryText);
-    text-align: center;
-    margin-bottom: 10px;
-    font-size: 1.1rem;
-    margin-top: -30px;
-  }
+  color: var(--primaryText);
+  text-align: center !important;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  margin-top: -30px;
+  position: static; 
+}
   
   .centre-details {
     margin-bottom: 10px;
