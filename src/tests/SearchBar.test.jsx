@@ -41,7 +41,7 @@ describe('SearchBar component', () => {
     render(
       <BrowserRouter>
         <SearchBar />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
     const input = screen.getByPlaceholderText(/search gp, specialty or medical centre/i);
@@ -60,22 +60,22 @@ describe('SearchBar component', () => {
     render(
       <BrowserRouter>
         <SearchBar />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
     const input = screen.getByPlaceholderText(/search gp, specialty or medical centre/i);
-    
+
     // Type in the search box
     fireEvent.change(input, { target: { value: 'cen' } });
-    
+
     // Wait for suggestions to appear
     await waitFor(() => {
       expect(screen.getByText(/central clinic/i)).toBeInTheDocument();
     });
-    
+
     // Click on a suggestion
     fireEvent.click(screen.getByText(/central clinic/i));
-    
+
     // Verify input was updated
     expect(input.value).toBe('Central Clinic');
   });
