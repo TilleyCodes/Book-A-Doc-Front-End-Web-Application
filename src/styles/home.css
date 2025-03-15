@@ -39,6 +39,7 @@
     justify-content: space-around;
     flex-wrap: wrap;
     margin: auto;
+    gap: 20px;
 }
 
 .main-option-feature {
@@ -97,6 +98,12 @@
         box-shadow: none;
     }
     
+}
+
+@media (max-width: 768px) {
+    .main-option-container {
+        width: 60vw;
+    }
 }
 
 @media only screen and (min-width: 1280px) {

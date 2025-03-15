@@ -29,3 +29,13 @@
     margin-top: 20px;
     font-weight: bold;
 }
+
+@media (max-width: 768px) {
+    .about-container {
+        width: 90%;
+    }
+
+    .about-title {
+        text-align: center;
+    }
+}

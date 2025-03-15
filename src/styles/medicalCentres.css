@@ -157,7 +157,7 @@
   }
   
   .centre-card {
-    background-color: #f2f2f2;
+    background-color: var(--cardBG);
     border-radius: 10px;
     padding: 20px;
     cursor: pointer;
@@ -171,7 +171,7 @@
   }
   
   .centre-card:hover {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--cardShadow);
   }
   
   .centre-card-selected {
@@ -193,8 +193,8 @@
     width: 100%;
     height: auto;
     object-fit: contain;
-    padding-left: 100px;
-    padding-top: 80px;
+    padding-left: 75px;
+    padding-top: 150px;
   }
   
   .centre-content {
@@ -218,7 +218,7 @@
   
   .detail-label {
     font-weight: bold;
-    color: #4a6da7;
+    color: var(--cardText)
   }
   
   .centre-info-line {

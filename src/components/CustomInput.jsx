@@ -19,4 +19,4 @@ export const CustomInput = forwardRef(({ value, onClick, onChange, onFocus, onBl
             </label>
         </div>
     )
-})
+});

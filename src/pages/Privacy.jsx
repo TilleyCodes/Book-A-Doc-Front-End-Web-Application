@@ -56,4 +56,4 @@ export function Privacy() {
             </section>
         </div>
     );
-}
+};

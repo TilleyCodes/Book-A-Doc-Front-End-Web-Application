@@ -1,4 +1,4 @@
-export const API_BASE_URL = 'https://book-a-doc-back-end-web-application.onrender.com';
+export const API_BASE_URL = "https://book-a-doc-back-end-web-application.onrender.com";
 
 export const endpoints = {
   doctors: `${API_BASE_URL}/doctors`,

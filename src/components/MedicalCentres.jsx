@@ -141,7 +141,7 @@ export function MedicalCentres() {
             onClick={() => handleCentreClick(centre)}
           >
             <div className="centre-icon">
-              <img src={medicalIcon} alt="Medical Centre" className="feature-icon" />
+              <img src={medicalIcon} alt="Medical Centre" className="mc-feature-icon" />
             </div>
             <div className="centre-content">
               <h2 className="centre-name">{centre.medicalCentreName}</h2>

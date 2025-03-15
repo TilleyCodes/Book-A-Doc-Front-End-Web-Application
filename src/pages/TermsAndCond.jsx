@@ -47,4 +47,4 @@ export function TermsAndCond() {
             </p>
         </div>
     );
-}
+};

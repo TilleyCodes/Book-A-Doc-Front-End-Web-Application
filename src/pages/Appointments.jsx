@@ -1,27 +1,28 @@
 import React, { useEffect, useState } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import 'react-loading-skeleton/dist/skeleton.css'
+import "react-loading-skeleton/dist/skeleton.css";
 import { useUserJwtContext } from "../hooks/useUserJwtData";
 import { FormatDate } from "../components/FormatDate";
 import { FormatTime } from "../components/FormatTime";
-import calendar from "../assets/calendar.png"
-import "../styles/appointments.css"
+import calendar from "../assets/calendar.png";
+import "../styles/appointments.css";
 import { PatientConfirmation } from "../components/patientConfirmation";
 import { endpoints } from "../config/api";
+import { cancelBookingById } from "../config/api";
 
 export function Appointments() {
-    const { userJwtData } = useUserJwtContext()
-    const [appointments, setAppointments] = useState([])
-    const [loading, setLoading] = useState(true)
-    const hiddenStatus = ['cancelled', 'completed']
-    const [showConfirmation, setShowConfirmation] = useState(false)
-    const [selectedAppointment, setSelectedAppointment] = useState(null)
+    const { userJwtData } = useUserJwtContext();
+    const [appointments, setAppointments] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const hiddenStatus = ["cancelled", "completed"];
+    const [showConfirmation, setShowConfirmation] = useState(false);
+    const [selectedAppointment, setSelectedAppointment] = useState(null);
     
     useEffect(() => {
         if (!userJwtData?.patientId) {
-            setTimeout(() => setLoading(false), 1500)
-            return
-        }
+            setTimeout(() => setLoading(false), 1500);
+            return;
+        };
         
         async function fetchAppointments() {
             try {
@@ -29,57 +30,66 @@ export function Appointments() {
                     headers: {
                         Authorization: `Bearer ${userJwtData.token}`,
                     }
-                })
+                });
     
-                let data = await response.json()
-                if (!response.ok) throw new Error(data.message || 'Failed to fetch appointments')
+                let data = await response.json();
+                if (!response.ok) throw new Error(data.message || "Failed to fetch appointments");
     
-                let filteredData = data.filter(booking => booking.patientId._id === userJwtData.patientId)
-                setAppointments(filteredData)
+                let filteredData = data.filter(booking => booking.patientId._id === userJwtData.patientId);
+                setAppointments(filteredData);
     
             } catch (err) {
-                console.error('Error fetching appointments:', err)
+                console.error("Error fetching appointments:", err);
             } finally {
-                setLoading(false)
-            }
-        }
+                setLoading(false);
+            };
+        };
 
-        fetchAppointments()
-    }, [userJwtData?.patientId, userJwtData.token])
+        fetchAppointments();
+    }, [userJwtData?.patientId, userJwtData.token]);
 
     function confirmCancellation(appointment) {
-        setSelectedAppointment(appointment)
-        setShowConfirmation(true)
-    }
+        if (!appointment || !appointment._id) {
+            console.error("Error: Appointment ID is undefinied");
+            return;
+        };
+        setSelectedAppointment(appointment);
+        setShowConfirmation(true);
+    };
 
     async function cancelBooking(appointment) {
+        if (!appointment || !appointment._id) {
+            console.error("Error: Appointment ID is undefinied");
+            return;
+        };
+
         try {
-            let response = await fetch(endpoints.cancelBookingById, {
-                method: 'PATCH',
+            let response = await fetch(cancelBookingById(appointment._id), {
+                method: "PATCH",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                     Authorization: `Bearer ${userJwtData.token}`,
                 },
-                body: JSON.stringify({ status: 'cancelled' })
-            })
+                body: JSON.stringify({ status: "cancelled" })
+            });
 
             if (!response.ok) {
-                throw new Error('Failed to cancel appointment')
-            }
+                throw new Error("Failed to cancel appointment");
+            };
 
             setAppointments((prevAppointments) => 
                 prevAppointments.map((appt) => 
-                    appt._id === appointment._id ? { ...appt, status: 'cancelled' } : appt
-            ))
+                    appt._id === appointment._id ? { ...appt, status: "cancelled" } : appt
+            ));
 
         } catch (err) {
-            console.error('Error cancelling appointment:', err)
+            console.error("Error cancelling appointment:", err);
         } finally {
-            setShowConfirmation(false)
-            setSelectedAppointment(null)
-        }
+            setShowConfirmation(false);
+            setSelectedAppointment(null);
+        };
     
-    }
+    };
 
     return (
         <>
@@ -89,9 +99,6 @@ export function Appointments() {
                         <>
                             {[...Array(1)].map((_, index) => (
                                 <div key={index} className="appointment-feature">
-                                    <div className="appointment-feature-image">
-                                        <Skeleton width={80} height={80} />
-                                    </div>
                                     <div className="appointment-feature-details">
                                         <table className="appointment-feature-details-table">
                                             <tbody>
@@ -186,5 +193,5 @@ export function Appointments() {
                 )}
             </SkeletonTheme>
         </>
-    )
-}
+    );
+};

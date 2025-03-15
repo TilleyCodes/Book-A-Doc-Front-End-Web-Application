@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/about.css"
+import "../styles/about.css";
 
 export function About() {
     return (
@@ -10,7 +10,7 @@ export function About() {
                 healthcare is just a few clicks away.
             </p>
             <br />
-            <h2>What We Offer</h2>
+            <h2 className="about-title">What We Offer</h2>
             <ul className="about-services">
                 <li>📅 Easy online appointment booking</li>
                 <li>🔍 Find general practitioners and specialists</li>
@@ -25,4 +25,4 @@ export function About() {
             </p>
         </div>
     );
-}
+};
