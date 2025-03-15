@@ -1,47 +1,29 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { vi, describe, it, expect, beforeEach } from 'vitest';
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { Doctors } from '../components/Doctors';
 import { BrowserRouter } from 'react-router';
 
-// Mock navigate
-const mockNavigate = vi.fn();
+// Mock data
+const mockDoctorsData = [
+  { _id: 'doc1', doctorName: 'Dr. John Smith', specialtyId: { specialtyName: 'GP Women\'s Health' } },
+  { _id: 'doc2', doctorName: 'Dr. Jane Doe', specialtyId: { specialtyName: 'GP Men\'s Health' } },
+  { _id: 'doc3', doctorName: 'Dr. Emily Jones', specialtyId: { specialtyName: 'GP Baby & Child Health' } }
+];
 
-// Mock fetch API
-window.fetch = vi.fn();
+const mockDoctorCentres = [
+  { 
+    doctorId: { _id: 'doc1', doctorName: 'Dr. John Smith' },
+    medicalCentreId: { _id: 'mc1', medicalCentreName: 'Medical Centre 1' }
+  },
+  {
+    doctorId: { _id: 'doc2', doctorName: 'Dr. Jane Doe' },
+    medicalCentreId: { _id: 'mc2', medicalCentreName: 'Medical Centre 2' }
+  }
+];
 
-vi.mock('react-router', async () => {
-  const actual = await vi.importActual('react-router');
-  return {
-    ...actual,
-    useNavigate: () => mockNavigate
-  };
-});
-
-describe('Doctors Component', () => {
-  const mockDoctorsData = [
-    { _id: 'doc1', doctorName: 'Dr. John Smith', specialtyId: { specialtyName: 'GP Women\'s Health' } },
-    { _id: 'doc2', doctorName: 'Dr. Jane Doe', specialtyId: { specialtyName: 'GP Men\'s Health' } },
-    { _id: 'doc3', doctorName: 'Dr. Emily Jones', specialtyId: { specialtyName: 'GP Baby & Child Health' } }
-  ];
-  
-  // Use array format
-  const mockDoctorCentres = [
-    { 
-      doctorId: { _id: 'doc1', doctorName: 'Dr. John Smith' },
-      medicalCentreId: { _id: 'mc1', medicalCentreName: 'Medical Centre 1' }
-    },
-    {
-      doctorId: { _id: 'doc2', doctorName: 'Dr. Jane Doe' },
-      medicalCentreId: { _id: 'mc2', medicalCentreName: 'Medical Centre 2' }
-    }
-  ];
-
+describe('Doctors component', () => {
   beforeEach(() => {
-    vi.clearAllMocks();
-    mockNavigate.mockClear();
-    
-    // Mock successful API responses
-    window.fetch.mockImplementation((url) => {
+    vi.stubGlobal('fetch', (url) => {
       if (url.includes('doctors') && !url.includes('availabilities')) {
         return Promise.resolve({
           ok: true,
@@ -54,38 +36,60 @@ describe('Doctors Component', () => {
           json: () => Promise.resolve(mockDoctorCentres)
         });
       }
-      return Promise.reject(new Error('Not found'));
+      return Promise.reject(new Error(`Unhandled URL: ${url}`));
     });
-    
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+  
+  it('renders the loading state initially', () => {
     render(
       <BrowserRouter>
         <Doctors />
       </BrowserRouter>
     );
-  });
-  
-  it('renders the loading state initially', () => {
+    
     // Check that loading is displayed initially
     expect(screen.getByText('Loading doctors...')).toBeInTheDocument();
   });
   
-  it('shows a message if doctor loading fails', async () => {
-    // Wait to see if an error appears
+  it('renders doctors after loading', async () => {
+    render(
+      <BrowserRouter>
+        <Doctors />
+      </BrowserRouter>
+    );
+    
+    // Wait for doctors to load
     await waitFor(() => {
-      // Either loading text or error text should be visible
-      const loadingOrError = screen.queryByText('Loading doctors...') || 
-                            screen.queryByText(/error/i, { exact: false });
-      expect(loadingOrError).toBeInTheDocument();
-    }, { timeout: 3000 });
+      expect(screen.queryByText('Loading doctors...')).not.toBeInTheDocument();
+    });
+    
+    // Check if at least one doctor is rendered
+    await waitFor(() => {
+      const doctorElements = screen.getAllByText(/^Dr\./);
+      expect(doctorElements.length).toBeGreaterThan(0);
+    });
   });
   
   it('renders specialty filter with options', async () => {
-    // Verify that the component is rendering something
-    const loadingText = screen.queryByText('Loading doctors...');
-    const errorText = screen.queryByText(/error/i, { exact: false });
-    const noDocText = screen.queryByText(/No doctors found/i, { exact: false });
+    render(
+      <BrowserRouter>
+        <Doctors />
+      </BrowserRouter>
+    );
     
-    // Test should pass, if component is in one of these states
-    expect(loadingText || errorText || noDocText).toBeInTheDocument();
+    // Wait for doctors to load
+    await waitFor(() => {
+      expect(screen.queryByText('Loading doctors...')).not.toBeInTheDocument();
+    });
+    
+    // Check for specialty filter
+    await waitFor(() => {
+      const specialtyFilter = screen.getByLabelText(/filter by specialty/i);
+      expect(specialtyFilter).toBeInTheDocument();
+    });
   });
 });

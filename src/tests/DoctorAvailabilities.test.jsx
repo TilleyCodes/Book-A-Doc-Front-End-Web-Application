@@ -1,15 +1,32 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { vi, describe, it, expect, beforeEach } from 'vitest';
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { BrowserRouter } from 'react-router';
 import { DoctorAvailabilities } from '../components/DoctorAvailabilities';
 import { UserJwtContext } from '../hooks/useUserJwtData';
 
-// Mock navigate
+// Mock data
+const mockDoctor = { 
+  _id: 'doc1', 
+  doctorName: 'Dr. Jane Smith', 
+  specialtyId: { specialtyName: 'GP Women\'s Health' } 
+};
+
+const mockMedicalCentre = {
+  _id: 'mc1',
+  medicalCentreName: 'Medical Centre A',
+  address: { street: '1 Test St', city: 'Test City' }
+};
+
+const mockAvailableTimes = ['09:00', '09:30', '10:00', '10:30'];
+
+const mockUserJwtData = {
+  token: 'fake-token',
+  patientId: 'patient123',
+  patient: { _id: 'patient123' }
+};
+
+// Mock the useNavigate hook
 const mockNavigate = vi.fn();
-
-// Mock fetch API
-window.fetch = vi.fn();
-
 vi.mock('react-router', async () => {
   const actual = await vi.importActual('react-router');
   return {
@@ -18,33 +35,9 @@ vi.mock('react-router', async () => {
   };
 });
 
-describe('DoctorAvailabilities Component', () => {
-  const mockDoctor = { 
-    _id: 'doc1', 
-    doctorName: 'Dr. Jane Smith', 
-    specialtyId: { specialtyName: 'GP Women\'s Health' } 
-  };
-  
-  const mockMedicalCentre = {
-    _id: 'mc1',
-    medicalCentreName: 'Medical Centre A',
-    address: { street: '123 Test St', city: 'Test City' }
-  };
-  
-  const mockAvailableTimes = ['09:00', '09:30', '10:00', '10:30'];
-  
-  const mockUserJwtData = {
-    token: 'fake-token',
-    patientId: 'patient123',
-    patient: { _id: 'patient123' }
-  };
-  
+describe('DoctorAvailabilities component', () => {
   beforeEach(() => {
-    vi.clearAllMocks();
-    mockNavigate.mockClear();
-    
-    // Mock API responses
-    window.fetch.mockImplementation((url) => {
+    vi.stubGlobal('fetch', (url) => {
       if (url.includes('medicalCentres')) {
         return Promise.resolve({
           ok: true,
@@ -70,9 +63,16 @@ describe('DoctorAvailabilities Component', () => {
           json: () => Promise.resolve({ _id: 'booking1' })
         });
       }
-      return Promise.reject(new Error(`URL not mocked: ${url}`));
+      return Promise.reject(new Error(`Unhandled URL: ${url}`));
     });
-    
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    mockNavigate.mockClear();
+  });
+  
+  it('renders the booking interface correctly', async () => {
     render(
       <BrowserRouter>
         <UserJwtContext.Provider value={{ userJwtData: mockUserJwtData }}>
@@ -84,9 +84,7 @@ describe('DoctorAvailabilities Component', () => {
         </UserJwtContext.Provider>
       </BrowserRouter>
     );
-  });
-  
-  it('renders the booking interface correctly', async () => {
+    
     // Check doctor name is displayed
     expect(screen.getByText('Dr. Jane Smith')).toBeInTheDocument();
     
@@ -103,11 +101,23 @@ describe('DoctorAvailabilities Component', () => {
   });
   
   it('shows date selection interface', async () => {
+    render(
+      <BrowserRouter>
+        <UserJwtContext.Provider value={{ userJwtData: mockUserJwtData }}>
+          <DoctorAvailabilities 
+            doctor={mockDoctor} 
+            medicalCentreId={mockMedicalCentre._id} 
+            onClose={vi.fn()}
+          />
+        </UserJwtContext.Provider>
+      </BrowserRouter>
+    );
+    
     // Confirm date selection UI is present
     const dateInput = screen.getByLabelText(/select a date/i);
     expect(dateInput).toBeInTheDocument();
     
-    // select a date
+    // Select a date
     const today = new Date();
     const futureDate = new Date(today);
     futureDate.setDate(today.getDate() + 7);
@@ -124,6 +134,18 @@ describe('DoctorAvailabilities Component', () => {
   });
   
   it('disables continue button when no time is selected', async () => {
+    render(
+      <BrowserRouter>
+        <UserJwtContext.Provider value={{ userJwtData: mockUserJwtData }}>
+          <DoctorAvailabilities 
+            doctor={mockDoctor} 
+            medicalCentreId={mockMedicalCentre._id} 
+            onClose={vi.fn()}
+          />
+        </UserJwtContext.Provider>
+      </BrowserRouter>
+    );
+    
     // Select a date
     const dateInput = screen.getByLabelText(/select a date/i);
     const today = new Date();
