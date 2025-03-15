@@ -22,10 +22,16 @@ export default defineConfig({
     transformMode: {
       web: [/\.[jt]sx?$/],
     },
-    server: {
-      deps: {
-        inline: ['msw'],
+    environmentOptions: {
+      jsdom: {
+        globals: true,
       },
     },
+    testTimeout: 15000,
+    // Added these for debugging
+    reporters: ['default'],
+    coverage: {
+      reporter: ['text', 'html'],
+    }
   },
 })
