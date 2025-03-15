@@ -33,7 +33,7 @@ export function ForgotPassword() {
                     <div className="form-button">
                         <button type="submit">SUBMIT</button>
                     </div>
-                    {message && <p id="forgot-password-message">{message}</p>};
+                    {message && <p id="forgot-password-message">{message}</p>}
                 </div>
             </form>
         </>
