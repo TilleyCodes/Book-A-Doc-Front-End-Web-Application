@@ -1,29 +1,34 @@
+import { useEffect, useState, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { useLocalStorage } from 'react-use';
+import { defaultUserJwtData, UserJwtContext } from '../hooks/useUserJwtData';
 
-import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { defaultUserJwtData, UserJwtContext } from "../hooks/useUserJwtData";
-import { useLocalStorage } from "react-use";
+export function UserJwtProvider({ children }) {
+  const [userJwtData, setUserJwtData] = useState(defaultUserJwtData);
+  const [jwtsPersisted, setJwtsPersisted] = useLocalStorage('jwts', defaultUserJwtData);
 
-export function UserJwtProvider({children}){
-	let [userJwtData, setUserJwtData] = useState(defaultUserJwtData);
-    let [jwtsPersisted, setJwtsPersisted] = useLocalStorage("jwts", defaultUserJwtData);
+  useEffect(() => {
+    setJwtsPersisted(userJwtData);
+  }, [setJwtsPersisted, userJwtData]);
 
-    useEffect(() => {
-        setJwtsPersisted(userJwtData);
-    }, [setJwtsPersisted, userJwtData]);
-
-    useEffect(() => {
-        setUserJwtData(jwtsPersisted);
+  useEffect(() => {
+    setUserJwtData(jwtsPersisted);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+  }, []);
 
-	return(
-		<UserJwtContext.Provider value={{ userJwtData, setUserJwtData }}>
-			{children}
-		</UserJwtContext.Provider>
-	);
+  // Using useMemo to prevent creating a new object on each render
+  const contextValue = useMemo(() => ({
+    userJwtData,
+    setUserJwtData,
+  }), [userJwtData]);
+
+  return (
+    <UserJwtContext.Provider value={contextValue}>
+      {children}
+    </UserJwtContext.Provider>
+  );
 }
-;
+
 UserJwtProvider.propTypes = {
-	children: PropTypes.node
+  children: PropTypes.node.isRequired,
 };

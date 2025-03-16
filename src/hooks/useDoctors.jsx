@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { endpoints } from "../config/api";
+import { useState, useEffect } from 'react';
+import { endpoints } from '../config/api';
 
 export function useDoctors() {
   const [doctors, setDoctors] = useState([]);
@@ -12,26 +12,26 @@ export function useDoctors() {
       try {
         setLoading(true);
         const res = await fetch(endpoints.doctors);
-        
+
         if (!res.ok) {
           throw new Error(`HTTP error: ${res.status}`);
         }
-        
+
         const bodyData = await res.json();
         setDoctors(bodyData);
         setError(null);
-      } catch (error) {
-        console.error("Error fetching doctors:", error);
-        setError(error.message);
+      } catch (err) {
+        console.error('Error fetching doctors:', err);
+        setError(err.message);
       } finally {
         setLoading(false);
       }
     };
-    
+
     fetchDoctors();
   }, [refetchTrigger]);
 
-  const refetch = () => setRefetchTrigger(prev => prev + 1);
+  const refetch = () => setRefetchTrigger((prev) => prev + 1);
 
   return { doctors, loading, error, refetch };
 }

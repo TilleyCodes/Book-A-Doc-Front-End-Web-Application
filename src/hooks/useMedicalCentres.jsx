@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { endpoints } from "../config/api";
+import { useState, useEffect } from 'react';
+import { endpoints } from '../config/api';
 
 export function useMedicalCentres() {
   const [medicalCentres, setMedicalCentres] = useState([]);
@@ -11,23 +11,23 @@ export function useMedicalCentres() {
     const fetchMedicalCentres = async () => {
       try {
         setLoading(true);
-        console.log("Fetching medical centres...");
-        
+        console.log('Fetching medical centres...');
+
         const response = await fetch(endpoints.medicalCentres);
-        
-        console.log("Response received:", response.status, response.statusText);
-        
+
+        console.log('Response received:', response.status, response.statusText);
+
         if (!response.ok) {
-          console.error("Response not OK:", response.status, response.statusText);
+          console.error('Response not OK:', response.status, response.statusText);
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        
+
         const data = await response.json();
-        console.log("Data received:", data); // Log the data
+        console.log('Data received:', data); // Log the data
         setMedicalCentres(data);
         setError(null);
       } catch (err) {
-        console.error("Fetch error details:", err); // error logging
+        console.error('Fetch error details:', err); // error logging
         setError(err.message);
       } finally {
         setLoading(false);
@@ -38,7 +38,7 @@ export function useMedicalCentres() {
   }, [refetchTrigger]);
 
   // Function to manually trigger a refetch
-  const refetch = () => setRefetchTrigger(prev => prev + 1);
+  const refetch = () => setRefetchTrigger((prev) => prev + 1);
 
   return { medicalCentres, loading, error, refetch };
 }
