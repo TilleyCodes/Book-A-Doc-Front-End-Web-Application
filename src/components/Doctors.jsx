@@ -198,13 +198,19 @@ export function Doctors() {
         </div>
       )}
 
-      <button
-        type="button"
+      <div
         className="back-to-top"
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        }}
       >
         back to top ↑
-      </button>
+      </div>
 
       {showBooking && selectedDoctor && (
         <DoctorAvailabilities

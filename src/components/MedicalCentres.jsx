@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router';
-import '../styles/medicalCentres.css';
 import { DoctorList } from './DoctorList';
 import { useMedicalCentres } from '../hooks/useMedicalCentres';
+import '../styles/medicalCentres.css';
 import medicalIcon from '../assets/medical-clinic.png';
 import searchIcon from '../assets/search-icon.png';
 
@@ -60,8 +60,8 @@ export function MedicalCentres() {
     }
   };
 
-  const handleSearchChange = (e) => {
-    const { value } = e.target;
+  const handleSearchChange = ({ target }) => {
+    const { value } = target;
     setSearchQuery(value);
     // default to show all medical centres when search is empty
     if (value === '') {
@@ -77,16 +77,14 @@ export function MedicalCentres() {
     let matchesSearch = true;
     if (appliedSearch.trim() !== '') {
       if (exactSearch) {
-        matchesSearch = (
+        matchesSearch =
           centre.medicalCentreName &&
-          centre.medicalCentreName.trim().toLowerCase() === appliedSearch.trim().toLowerCase()
-        );
+          centre.medicalCentreName.trim().toLowerCase() === appliedSearch.trim().toLowerCase();
       } else {
-        matchesSearch = (
+        matchesSearch =
           centre.medicalCentreName.toLowerCase().includes(appliedSearch.toLowerCase()) ||
           centre.address.city.toLowerCase().includes(appliedSearch.toLowerCase()) ||
-          centre.address.street.toLowerCase().includes(appliedSearch.toLowerCase())
-        );
+          centre.address.street.toLowerCase().includes(appliedSearch.toLowerCase());
       }
     }
     const matchesCity = centreFilter === 'all' || centre.address.city === centreFilter;
@@ -101,8 +99,8 @@ export function MedicalCentres() {
     <div className="medical-centres-container" ref={topRef}>
       {error && (
         <div className="error-container">
-          {'Error: '}
-          {error}
+          <span>Error: </span>
+          <span>{error}</span>
         </div>
       )}
 
@@ -120,9 +118,7 @@ export function MedicalCentres() {
       </form>
 
       <div className="filter-section">
-        <label htmlFor="city-filter">
-          {'Filter by city: '}
-        </label>
+        <label htmlFor="city-filter">Filter by city: </label>
         <select
           id="city-filter"
           value={centreFilter}
@@ -137,10 +133,17 @@ export function MedicalCentres() {
       </div>
 
       <div className="results-count">
-        {filteredCentres.length}
-        {' '}
-        {filteredCentres.length === 1 ? 'centre' : 'centres'}
-        {' found'}
+        <span>{filteredCentres.length}</span>
+        <span> </span>
+        <span>
+          {filteredCentres.length === 1
+            ? 'centre'
+            : 'centres'}
+        </span>
+        <span> </span>
+        <span>
+          found
+        </span>
       </div>
 
       <div className="centres-grid">
@@ -158,36 +161,40 @@ export function MedicalCentres() {
             }}
           >
             <div className="centre-icon">
-              <img src={medicalIcon} alt="Medical Centre" className="mc-feature-icon" />
+              <img src={medicalIcon} alt="Medical Centre" className="feature-icon" />
             </div>
             <div className="centre-content">
               <h2 className="centre-name">{centre.medicalCentreName}</h2>
               <div className="centre-details">
                 <p className="centre-info-line">
-                  <span className="detail-label">
-                    {'Hours: '}
+                  <span className="detail-label">Hours:</span>
+                  <span> </span>
+                  <span>
+                    {centre.operatingHours}
                   </span>
-                  {centre.operatingHours}
                 </p>
                 <p className="centre-info-line">
-                  <span className="detail-label">
-                    {'Address: '}
+                  <span className="detail-label">Address:</span>
+                  <span> </span>
+                  <span>
+                    {centre.address.street}
                   </span>
-                  {centre.address.street}
-                  {', '}
-                  {centre.address.city}
+                  <span>, </span>
+                  <span>{centre.address.city}</span>
                 </p>
                 <p className="centre-info-line">
-                  <span className="detail-label">
-                    {'Contact: '}
+                  <span className="detail-label">Contact:</span>
+                  <span> </span>
+                  <span>
+                    {centre.contacts.phone}
                   </span>
-                  {centre.contacts.phone}
                 </p>
                 <p className="centre-info-line">
-                  <span className="detail-label">
-                    {'Email: '}
+                  <span className="detail-label">Email:</span>
+                  <span> </span>
+                  <span>
+                    {centre.contacts.email}
                   </span>
-                  {centre.contacts.email}
                 </p>
               </div>
 
@@ -211,13 +218,19 @@ export function MedicalCentres() {
         </div>
       )}
 
-      <button
-        type="button"
+      <div
         className="back-to-top"
         onClick={scrollToTop}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            scrollToTop();
+          }
+        }}
       >
         back to top ↑
-      </button>
+      </div>
 
       {showDoctorList && selectedCentre && (
         <DoctorList

@@ -12,7 +12,7 @@
 }
 
 .nav-links a {
-    color: white;
+    color: var(--primaryText);
     text-decoration: none;
     padding: 10px;
     transition: 0.3s;

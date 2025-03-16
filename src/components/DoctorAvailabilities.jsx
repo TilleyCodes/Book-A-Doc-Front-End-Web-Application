@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import { useUserJwtContext } from '../hooks/useUserJwtData';
 import '../styles/doctorAvailabilities.css';
 import { endpoints } from '../config/api';
-import { useUserJwtContext } from '../hooks/useUserJwtData';
 
 export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, onClose }) {
   const [selectedDate, setSelectedDate] = useState('');
@@ -34,7 +34,6 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
             setMedicalCentres([centre]);
             setSelectedMedicalCentre(centre);
           }
-          // Otherwise, fetch all the centers this doctor is associated with
         } else if (doctorCentres && doctorCentres.length > 0) {
           const response = await fetch(endpoints.medicalCentres);
           if (!response.ok) {
@@ -57,7 +56,6 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
           }
         }
       } catch (err) {
-        // eslint-disable-next-line no-console
         console.error('Error fetching medical centres:', err);
         setError('Unable to load medical centre details');
       }
@@ -90,7 +88,6 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
 
         setAvailableTimes(data);
       } catch (err) {
-        // eslint-disable-next-line no-console
         console.error('Error fetching availabilities:', err);
         setError('Unable to load available times. Please try again.');
 
@@ -216,7 +213,6 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
       // Redirect to appointments page
       navigate('/appointments');
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.error('Error booking appointment:', err);
       setError(`Booking failed: ${err.message}`);
     } finally {
@@ -263,9 +259,7 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
             <div className="booking-form">
               {selectedMedicalCentre && (
                 <div className="location-section">
-                  <span className="location-label">
-                    Location:
-                  </span>
+                  <span className="location-label">Location:</span>
                   <div className="location-details">
                     <p className="medical-centre-name">
                       {selectedMedicalCentre.medicalCentreName}
@@ -322,14 +316,20 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
                   {availableTimes.length > 0 ? (
                     <div className="time-slots">
                       {availableTimes.map((time) => (
-                        <button
-                          type="button"
+                        <div
+                          role="button"
+                          tabIndex={0}
                           key={time}
                           className={`time-slot ${selectedTime === time ? 'selected' : ''}`}
                           onClick={() => handleTimeSelect(time)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              handleTimeSelect(time);
+                            }
+                          }}
                         >
                           {time}
-                        </button>
+                        </div>
                       ))}
                     </div>
                   ) : (
@@ -369,22 +369,16 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
 
             <div className="appointment-summary">
               <div className="summary-item">
-                <span className="summary-label">
-                  Doctor:
-                </span>
+                <span className="summary-label">Doctor:</span>
                 <span>{doctor.doctorName}</span>
               </div>
               <div className="summary-item">
-                <span className="summary-label">
-                  Specialty:
-                </span>
+                <span className="summary-label">Specialty:</span>
                 <span>{doctor.specialtyId?.specialtyName || 'General Practice'}</span>
               </div>
               {selectedMedicalCentre && (
                 <div className="summary-item">
-                  <span className="summary-label">
-                    Location:
-                  </span>
+                  <span className="summary-label">Location:</span>
                   <span>
                     {selectedMedicalCentre.medicalCentreName}
                     {', '}
@@ -393,15 +387,11 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
                 </div>
               )}
               <div className="summary-item">
-                <span className="summary-label">
-                  Date:
-                </span>
+                <span className="summary-label">Date:</span>
                 <span>{new Date(selectedDate).toLocaleDateString()}</span>
               </div>
               <div className="summary-item">
-                <span className="summary-label">
-                  Time:
-                </span>
+                <span className="summary-label">Time:</span>
                 <span>{selectedTime}</span>
               </div>
             </div>

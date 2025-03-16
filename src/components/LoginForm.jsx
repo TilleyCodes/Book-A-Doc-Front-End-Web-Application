@@ -19,6 +19,7 @@ export function LoginForm() {
   async function submitForm(event) {
     event.preventDefault();
 
+    // To be updated once API has been deployed
     const targetUrl = endpoints.login;
     const bodyDataToSend = JSON.stringify({ email, password });
 
@@ -86,15 +87,26 @@ export function LoginForm() {
           <label className="input-label" htmlFor="userPassword">Password</label>
           <button
             type="button"
-            className="input-icon-button"
+            className="input-icon"
             onClick={() => setShowPassword((prev) => !prev)}
             aria-label={showPassword ? 'Hide password' : 'Show password'}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              padding: 0,
+              margin: 0,
+              cursor: 'pointer',
+              position: 'absolute',
+              right: '10px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+            }}
           >
             <img
-              className="input-icon"
               alt={showPassword ? 'eye closed' : 'eye open'}
               title={showPassword ? 'Hide password' : 'Show password'}
               src={showPassword ? eyeClosed : eyeOpen}
+              style={{ display: 'block' }}
             />
           </button>
         </div>
