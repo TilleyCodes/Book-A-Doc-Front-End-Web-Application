@@ -1,16 +1,28 @@
 export function FormatDate(dateString) {
-    const date = new Date(dateString)
+  const date = new Date(dateString);
 
-    const day = date.getDate();
-    const suffix = (day === 1 || day === 21 || day === 31) ? "st" :
-                   (day === 2 || day === 22) ? "nd" :
-                   (day === 3 || day === 23) ? "rd" : "th";
+  const day = date.getDate();
 
-    // eslint-disable-next-line no-undef
-    const formattedDate = new Intl.DateTimeFormat("en-GB", {
-        month: "short",
-        year: "numeric",
-    }).format(date);
+  // Use a function instead of nested ternary expressions
+  const getSuffix = (dayNum) => {
+    if (dayNum === 1 || dayNum === 21 || dayNum === 31) {
+      return 'st';
+    }
+    if (dayNum === 2 || dayNum === 22) {
+      return 'nd';
+    }
+    if (dayNum === 3 || dayNum === 23) {
+      return 'rd';
+    }
+    return 'th';
+  };
 
-    return `${day}${suffix} ${formattedDate}`
-};
+  const suffix = getSuffix(day);
+
+  const formattedDate = new Intl.DateTimeFormat('en-GB', {
+    month: 'short',
+    year: 'numeric',
+  }).format(date);
+
+  return `${day}${suffix} ${formattedDate}`;
+}

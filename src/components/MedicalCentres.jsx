@@ -1,18 +1,18 @@
-import { useState, useRef, useEffect } from "react";
-import "../styles/medicalCentres.css";
-import { DoctorList } from "./DoctorList";
-import { useMedicalCentres } from "../hooks/useMedicalCentres";
-import medicalIcon from "../assets/medical-clinic.png";
-import searchIcon from "../assets/search-icon.png";
-import { useLocation } from "react-router";
+import { useState, useRef, useEffect } from 'react';
+import { useLocation } from 'react-router';
+import '../styles/medicalCentres.css';
+import { DoctorList } from './DoctorList';
+import { useMedicalCentres } from '../hooks/useMedicalCentres';
+import medicalIcon from '../assets/medical-clinic.png';
+import searchIcon from '../assets/search-icon.png';
 
 export function MedicalCentres() {
   const { medicalCentres, loading, error } = useMedicalCentres();
   const [selectedCentre, setSelectedCentre] = useState(null);
   const [showDoctorList, setShowDoctorList] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [appliedSearch, setAppliedSearch] = useState("");
-  const [centreFilter, setCentreFilter] = useState("all");
+  const [searchQuery, setSearchQuery] = useState('');
+  const [appliedSearch, setAppliedSearch] = useState('');
+  const [centreFilter, setCentreFilter] = useState('all');
   const [exactSearch, setExactSearch] = useState(false);
   const topRef = useRef(null);
   const searchInputRef = useRef(null);
@@ -20,12 +20,12 @@ export function MedicalCentres() {
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-    const search = params.get("search") || "";
-    const exact = params.get("exact") === "true";
+    const search = params.get('search') || '';
+    const exact = params.get('exact') === 'true';
     setSearchQuery(search);
     setAppliedSearch(search);
     setExactSearch(exact);
-  }, [location.search])
+  }, [location.search]);
 
   useEffect(() => {
     // search input when component mounts
@@ -47,7 +47,7 @@ export function MedicalCentres() {
   const handleCloseDoctorList = () => {
     setShowDoctorList(false);
   };
-  
+
   const scrollToTop = () => {
     topRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -61,33 +61,35 @@ export function MedicalCentres() {
   };
 
   const handleSearchChange = (e) => {
-    const value = e.target.value;
+    const { value } = e.target;
     setSearchQuery(value);
     // default to show all medical centres when search is empty
-    if (value === "") {
-      setAppliedSearch("");
+    if (value === '') {
+      setAppliedSearch('');
     }
   };
 
   // Get cities for the filter
-  const cities = [...new Set(medicalCentres.map(centre => centre.address.city))];
+  const cities = [...new Set(medicalCentres.map((centre) => centre.address.city))];
 
   // Filter medical centres based on search query and city filter
   const filteredCentres = medicalCentres.filter((centre) => {
     let matchesSearch = true;
-    if (appliedSearch.trim() !== "") {
+    if (appliedSearch.trim() !== '') {
       if (exactSearch) {
-        matchesSearch =
+        matchesSearch = (
           centre.medicalCentreName &&
-          centre.medicalCentreName.trim().toLowerCase() === appliedSearch.trim().toLowerCase(); 
+          centre.medicalCentreName.trim().toLowerCase() === appliedSearch.trim().toLowerCase()
+        );
       } else {
-        matchesSearch =
+        matchesSearch = (
           centre.medicalCentreName.toLowerCase().includes(appliedSearch.toLowerCase()) ||
           centre.address.city.toLowerCase().includes(appliedSearch.toLowerCase()) ||
-          centre.address.street.toLowerCase().includes(appliedSearch.toLowerCase());
+          centre.address.street.toLowerCase().includes(appliedSearch.toLowerCase())
+        );
       }
     }
-    const matchesCity = centreFilter === "all" || centre.address.city === centreFilter;
+    const matchesCity = centreFilter === 'all' || centre.address.city === centreFilter;
     return matchesSearch && matchesCity;
   });
 
@@ -98,9 +100,12 @@ export function MedicalCentres() {
   return (
     <div className="medical-centres-container" ref={topRef}>
       {error && (
-        <div className="error-container">Error: {error}</div>
+        <div className="error-container">
+          {'Error: '}
+          {error}
+        </div>
       )}
-      
+
       <form className="search-section" onSubmit={handleSearch}>
         <img src={searchIcon} alt="Search" className="search-icon" />
         <input
@@ -113,32 +118,44 @@ export function MedicalCentres() {
         />
         <button type="submit" className="search-button">→</button>
       </form>
-      
+
       <div className="filter-section">
-        <label htmlFor="city-filter">Filter by city: </label>
-        <select 
+        <label htmlFor="city-filter">
+          {'Filter by city: '}
+        </label>
+        <select
           id="city-filter"
           value={centreFilter}
           onChange={(e) => setCentreFilter(e.target.value)}
           className="city-filter"
         >
           <option value="all">All Cities</option>
-          {cities.map(city => (
+          {cities.map((city) => (
             <option key={city} value={city}>{city}</option>
           ))}
         </select>
       </div>
-      
+
       <div className="results-count">
-        {filteredCentres.length} {filteredCentres.length === 1 ? 'centre' : 'centres'} found
+        {filteredCentres.length}
+        {' '}
+        {filteredCentres.length === 1 ? 'centre' : 'centres'}
+        {' found'}
       </div>
-      
+
       <div className="centres-grid">
         {filteredCentres.map((centre) => (
-          <div 
+          <div
             key={centre._id}
-            className={`centre-card ${selectedCentre === centre ? "centre-card-selected" : ""}`}
+            className={`centre-card ${selectedCentre === centre ? 'centre-card-selected' : ''}`}
             onClick={() => handleCentreClick(centre)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                handleCentreClick(centre);
+              }
+            }}
           >
             <div className="centre-icon">
               <img src={medicalIcon} alt="Medical Centre" className="mc-feature-icon" />
@@ -147,21 +164,36 @@ export function MedicalCentres() {
               <h2 className="centre-name">{centre.medicalCentreName}</h2>
               <div className="centre-details">
                 <p className="centre-info-line">
-                  <span className="detail-label">Hours:</span> {centre.operatingHours}
+                  <span className="detail-label">
+                    {'Hours: '}
+                  </span>
+                  {centre.operatingHours}
                 </p>
                 <p className="centre-info-line">
-                  <span className="detail-label">Address:</span> {centre.address.street}, {centre.address.city}
+                  <span className="detail-label">
+                    {'Address: '}
+                  </span>
+                  {centre.address.street}
+                  {', '}
+                  {centre.address.city}
                 </p>
                 <p className="centre-info-line">
-                  <span className="detail-label">Contact:</span> {centre.contacts.phone}
+                  <span className="detail-label">
+                    {'Contact: '}
+                  </span>
+                  {centre.contacts.phone}
                 </p>
                 <p className="centre-info-line">
-                  <span className="detail-label">Email:</span> {centre.contacts.email}
+                  <span className="detail-label">
+                    {'Email: '}
+                  </span>
+                  {centre.contacts.email}
                 </p>
               </div>
-              
+
               <div className="centre-actions">
-                <button 
+                <button
+                  type="button"
                   className="btn view-doctors-btn"
                   onClick={(e) => handleViewDoctors(e, centre)}
                 >
@@ -172,20 +204,24 @@ export function MedicalCentres() {
           </div>
         ))}
       </div>
-      
+
       {filteredCentres.length === 0 && !loading && (
         <div className="no-centres-message">
           No medical centres found. Please try another search.
         </div>
       )}
-      
-      <div className="back-to-top" onClick={scrollToTop}>
+
+      <button
+        type="button"
+        className="back-to-top"
+        onClick={scrollToTop}
+      >
         back to top ↑
-      </div>
-      
+      </button>
+
       {showDoctorList && selectedCentre && (
-        <DoctorList 
-          medicalCentreId={selectedCentre._id} 
+        <DoctorList
+          medicalCentreId={selectedCentre._id}
           onClose={handleCloseDoctorList}
         />
       )}
