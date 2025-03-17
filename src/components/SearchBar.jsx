@@ -15,20 +15,35 @@ export function SearchBar() {
 
   useEffect(() => {
     async function fetchDoctors() {
-      const res = await fetch(endpoints.doctors);
-      const bodyData = await res.json();
-      const doctorAndSpecialty = bodyData.map((doc) => (
-        `${doc.doctorName} (${doc.specialtyId.specialtyName})`
-      ));
-      setDoctors(doctorAndSpecialty);
+      try {
+        const res = await fetch(endpoints.doctors);
+        if (!res.ok) {
+          throw new Error(`Failed to fetch doctors: ${res.status}`);
+        }
+        const bodyData = await res.json();
+        const doctorAndSpecialty = bodyData.map((doc) => (
+          `${doc.doctorName} (${doc.specialtyId.specialtyName})`
+        ));
+        setDoctors(doctorAndSpecialty);
+      } catch (error) {
+        // Handle error silently - search will just have fewer suggestions
+      }
     }
 
     async function fetchMedicalCentres() {
-      const res = await fetch(endpoints.medicalCentres);
-      const bodyData = await res.json();
-      const centreNames = bodyData.map((centre) => centre.medicalCentreName);
-      setMedicalCentres(centreNames);
+      try {
+        const res = await fetch(endpoints.medicalCentres);
+        if (!res.ok) {
+          throw new Error(`Failed to fetch medical centers: ${res.status}`);
+        }
+        const bodyData = await res.json();
+        const centreNames = bodyData.map((centre) => centre.medicalCentreName);
+        setMedicalCentres(centreNames);
+      } catch (error) {
+        // Handle error silently - search will just have fewer suggestions
+      }
     }
+
     fetchDoctors();
     fetchMedicalCentres();
   }, []);
@@ -46,8 +61,8 @@ export function SearchBar() {
     const filteredDocs = doctors.filter((docString) => (
       docString.toLowerCase().includes(input.toLowerCase())
     ));
-    const filteredCentres = medicalCentres.filter((docString) => (
-      docString.toLowerCase().includes(input.toLowerCase())
+    const filteredCentres = medicalCentres.filter((centreString) => (
+      centreString.toLowerCase().includes(input.toLowerCase())
     ));
     const filtered = [...filteredDocs, ...filteredCentres];
     setSuggestions(filtered);
@@ -76,8 +91,6 @@ export function SearchBar() {
     if (suggestions.length > 0) {
       handleSelect(suggestions[0]);
     }
-    // eslint-disable-next-line no-console
-    console.log(selected);
   };
 
   return (

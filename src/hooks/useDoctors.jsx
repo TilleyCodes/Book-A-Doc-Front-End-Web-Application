@@ -21,7 +21,6 @@ export function useDoctors() {
         setDoctors(bodyData);
         setError(null);
       } catch (err) {
-        console.error('Error fetching doctors:', err);
         setError(err.message);
       } finally {
         setLoading(false);

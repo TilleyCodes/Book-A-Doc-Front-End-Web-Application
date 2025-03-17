@@ -15,7 +15,6 @@ export function DoctorList({ medicalCentreId, onClose }) {
     const fetchDoctors = async () => {
       try {
         setLoading(true);
-        console.log('Fetching doctor-centre relationships for medicalCentreId:', medicalCentreId);
 
         if (!medicalCentreId) {
           throw new Error('Medical centre ID is missing');
@@ -24,21 +23,16 @@ export function DoctorList({ medicalCentreId, onClose }) {
         // Fetch the doctor-centre relationships using the proxy
         const doctorCentreResponse = await fetch(endpoints.doctorCentres);
 
-        console.log('Response received:', doctorCentreResponse.status);
-
         if (!doctorCentreResponse.ok) {
           throw new Error(`HTTP error! Status: ${doctorCentreResponse.status}`);
         }
 
         const doctorCentreData = await doctorCentreResponse.json();
-        console.log('DoctorCentre data:', doctorCentreData);
 
         // Filter relationships for selected medical centre
         const relevantDoctorCentres = doctorCentreData.filter(
           (dc) => dc.medicalCentreId && dc.medicalCentreId._id === medicalCentreId,
         );
-
-        console.log('Filtered doctor centres:', relevantDoctorCentres);
 
         // Get all doctor IDs associated with this centre
         const doctorIds = relevantDoctorCentres.map((dc) => {
@@ -48,8 +42,6 @@ export function DoctorList({ medicalCentreId, onClose }) {
           return null;
         }).filter((id) => id !== null);
 
-        console.log('Doctor IDs for this medical centre:', doctorIds);
-
         if (doctorIds.length === 0) {
           setDoctors([]);
           setLoading(false);
@@ -57,29 +49,22 @@ export function DoctorList({ medicalCentreId, onClose }) {
         }
 
         // Fetch all doctors
-        console.log('Fetching doctors...');
         const doctorsResponse = await fetch(endpoints.doctors);
-
-        console.log('Doctors response:', doctorsResponse.status);
 
         if (!doctorsResponse.ok) {
           throw new Error(`HTTP error! Status: ${doctorsResponse.status}`);
         }
 
         const allDoctors = await doctorsResponse.json();
-        console.log('All doctors:', allDoctors);
 
         // Filter doctors based on the IDs
         const centreSpecificDoctors = allDoctors.filter((doctor) =>
           doctor._id && doctorIds.includes(doctor._id),
         );
 
-        console.log('Doctors for this centre:', centreSpecificDoctors);
-
         setDoctors(centreSpecificDoctors);
         setError(null);
       } catch (err) {
-        console.error('Error fetching doctors:', err);
         setError(err.message);
       } finally {
         setLoading(false);

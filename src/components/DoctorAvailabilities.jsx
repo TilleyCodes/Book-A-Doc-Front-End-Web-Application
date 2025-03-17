@@ -56,7 +56,6 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
           }
         }
       } catch (err) {
-        console.error('Error fetching medical centres:', err);
         setError('Unable to load medical centre details');
       }
     };
@@ -85,10 +84,8 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
         }
 
         const data = await response.json();
-
         setAvailableTimes(data);
       } catch (err) {
-        console.error('Error fetching availabilities:', err);
         setError('Unable to load available times. Please try again.');
 
         // Fallback to mock data if the API call fails
@@ -202,7 +199,7 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
         throw new Error(errorData.message || 'Failed to book appointment');
       }
 
-      // Process the response without assigning to an unused variable
+      // Process the response
       await bookingResponse.json();
 
       // Show success message and close modal
@@ -213,7 +210,6 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
       // Redirect to appointments page
       navigate('/appointments');
     } catch (err) {
-      console.error('Error booking appointment:', err);
       setError(`Booking failed: ${err.message}`);
     } finally {
       setLoading(false);

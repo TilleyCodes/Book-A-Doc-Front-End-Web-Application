@@ -22,7 +22,6 @@ export function Doctors() {
     async function fetchData() {
       try {
         setLoading(true);
-        console.log('Fetching doctors data...');
 
         // Fetch doctors
         const doctorsRes = await fetch(endpoints.doctors);
@@ -63,7 +62,6 @@ export function Doctors() {
         setSpecialties(uniqueSpecialties);
         setError(null);
       } catch (err) {
-        console.error('Error fetching data:', err);
         setError(err.message);
       } finally {
         setLoading(false);

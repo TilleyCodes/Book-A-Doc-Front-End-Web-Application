@@ -201,7 +201,7 @@ export function MedicalCentres() {
               <div className="centre-actions">
                 <button
                   type="button"
-                  className="btn view-doctors-btn"
+                  className="mc-btn view-doctors-btn"
                   onClick={(e) => handleViewDoctors(e, centre)}
                 >
                   View Doctors
