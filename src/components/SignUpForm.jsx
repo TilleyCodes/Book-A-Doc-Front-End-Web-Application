@@ -59,6 +59,7 @@ export function SignUpForm() {
       phoneNumber,
       password,
     });
+
     try {
       const response = await fetch(
         targetUrl,
@@ -72,19 +73,20 @@ export function SignUpForm() {
       );
 
       const data = await response.json();
+      if (data.someErrorProperty) {
+        setErrorMessage(data.someErrorProperty);
+      }
 
       if (!response.ok) {
         setSuccessfulSignup(false);
         setErrorMessage('Email already exists');
-        console.log(data.message);
         return;
       }
-      console.log('Success:', response);
+
       setSuccessfulSignup(true);
     } catch (err) {
-      console.error('Error:', err);
-      // eslint-disable-next-line no-alert
-      window.alert(err.message);
+      setSuccessfulSignup(false);
+      setErrorMessage(err.message || 'Failed to create account');
     }
   }
 

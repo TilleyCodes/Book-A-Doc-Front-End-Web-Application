@@ -19,7 +19,6 @@ export function LoginForm() {
   async function submitForm(event) {
     event.preventDefault();
 
-    // To be updated once API has been deployed
     const targetUrl = endpoints.login;
     const bodyDataToSend = JSON.stringify({ email, password });
 
@@ -39,6 +38,7 @@ export function LoginForm() {
         setErrorMessage(bodyData.message || 'Invalid email or password');
         return;
       }
+
       setLoginSuccessful(true);
       setUserJwtData({
         token: bodyData.token,
@@ -47,7 +47,6 @@ export function LoginForm() {
       });
       navigate('/');
     } catch (err) {
-      console.error('Error:', err);
       setLoginSuccessful(false);
       setErrorMessage('Network error. Please try again');
     }
