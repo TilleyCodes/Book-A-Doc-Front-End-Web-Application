@@ -1,15 +1,15 @@
 h2 {
     text-align: center;
     margin-bottom: 1rem;
-}
-
-.box {
+  }
+  
+  .box {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.box-container {
+  }
+  
+  .box-container {
     position: relative;
     padding: 1.5rem;
     padding-top: 1rem;
@@ -17,15 +17,15 @@ h2 {
     width: 50vw;
     min-width: 300px;
     max-width: 600px;
-}
-
-.input-wrapper {
+  }
+  
+  .input-wrapper {
     position: relative;
     margin-bottom: 1rem;
     width: 100%;
-}
-
-.input-field {
+  }
+  
+  .input-field {
     box-sizing: border-box;
     width: 100%;
     padding: 1rem 0 1rem 0.5rem;
@@ -35,15 +35,15 @@ h2 {
     background-color: var(--tertiaryBG);
     font-size: 1rem;
     transition: border-color 0.2s;
-}
-
-.input-field:focus {
+  }
+  
+  .input-field:focus {
     border-bottom-color: var(--secondaryBG);
     outline: none;
     box-shadow: none;
-}
-
-.input-label {
+  }
+  
+  .input-label {
     position: absolute;
     left: 0.5rem;
     top: 1rem;
@@ -51,25 +51,25 @@ h2 {
     color: black;
     pointer-events: none;
     transition: all 0.2s ease;
-}
-
-.input-field:focus + .input-label,
-.input-field:not(:placeholder-shown) + .input-label {
+  }
+  
+  .input-field:focus + .input-label,
+  .input-field:not(:placeholder-shown) + .input-label {
     top: -0.5rem;
     font-size: 0.75rem;
     color: #7d7d7d;
-}
-
-.textarea-field {
+  }
+  
+  .textarea-field {
     min-height: 100px;
     resize: vertical;
-}
-
-.form-button {
+  }
+  
+  .form-button {
     text-align: center;
-}
-
-button {
+  }
+  
+  button {
     width: 100%;
     height: 2.5rem;
     font-size: 1.2rem;
@@ -77,20 +77,80 @@ button {
     background-color: var(--secondaryBG);
     color: white;
     border: none;
-}
-
-button:hover {
+  }
+  
+  button:hover {
     background-color: #9bb4cece;
     cursor: pointer;
-}
-
-.success-message {
+  }
+  
+  .success-message {
     text-align: center;
     font-style: italic;
     animation: emailSubmit 1s linear forwards;
-}
-
-@keyframes emailSubmit {
+  }
+  
+  @keyframes emailSubmit {
     from { color: transparent; }
     to { color: #009800c1; }
-}
+  }
+  
+  /* Tablet styles */
+  @media (max-width: 768px) {
+    .box-container {
+      width: 70vw;
+      padding: 1.25rem;
+    }
+    
+    .input-field {
+      padding: 0.9rem 0 0.9rem 0.5rem;
+      font-size: 0.95rem;
+    }
+    
+    .input-label {
+      font-size: 0.95rem;
+    }
+    
+    button {
+      height: 2.25rem;
+      font-size: 1.1rem;
+    }
+    
+    .textarea-field {
+      min-height: 90px;
+    }
+  }
+  
+  /* Mobile styles */
+  @media (max-width: 480px) {
+    .box-container {
+      width: 90vw;
+      padding: 1rem;
+    }
+    
+    .input-field {
+      padding: 0.8rem 0 0.8rem 0.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .input-label {
+      font-size: 0.9rem;
+    }
+
+    button {
+        height: 2rem;
+        font-size: 1rem;
+      }
+      
+      .textarea-field {
+        min-height: 80px;
+      }
+      
+      h2 {
+        font-size: 1.3rem;
+      }
+      
+      .success-message {
+        font-size: 0.9rem;
+      }
+    }

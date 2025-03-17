@@ -1,55 +1,68 @@
 :root {
-  font-family: "Inter", Helvetica, Arial, sans-serif;
-  font-optical-sizing: auto;
-
-  --primaryBG: white;
-  --secondaryBG: #9bb4ce;
-  --tertiaryBG: #e1e0e0;
-  --cardBG: #f2f2f2;
-  --primaryFont: black;
-  --secondaryFont: #656464;
-  --cardText: #4a6da7;
-  --cardShadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-
-  box-sizing: border-box;
-
+    font-family: "Inter", Helvetica, Arial, sans-serif;
+    font-optical-sizing: auto;
   
-  font-synthesis: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-html {
+    --primaryBG: white;
+    --secondaryBG: #9bb4ce;
+    --tertiaryBG: #e1e0e0;
+    --cardBG: #f2f2f2;
+    --primaryFont: black;
+    --secondaryFont: #656464;
+    --cardText: #4a6da7;
+    --cardShadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  
+    box-sizing: border-box;
+    
+    font-synthesis: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  html {
     scroll-behavior: smooth;
-}
-
-html,
-body,
-#root {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-#root {
+  }
+  
+  html,
+  body,
+  #root {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+  #root {
     display: flex;
     flex-direction: column;
-}
-
-header,
-footer {
+  }
+  
+  header,
+  footer {
     flex-shrink: 0;
-}
-
-main {
+  }
+  
+  main {
     flex-grow: 1;
-}
-
-a {
+  }
+  
+  a {
     text-decoration: none;
     color: var(--primaryFont);
-}
-
-a:visited {
+  }
+  
+  a:visited {
     color: var(--secondaryFont)
-}
+  }
+  
+  /* Responsive font sizes */
+  @media (max-width: 768px) {
+    :root {
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    :root {
+      font-size: 12px;
+    }
+  }
+  

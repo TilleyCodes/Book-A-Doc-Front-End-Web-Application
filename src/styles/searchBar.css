@@ -1,20 +1,40 @@
 .search-container {
     width: 80vw;
-}
-
-#searchBar {
+    position: relative;
+    margin: 0 auto;
+  }
+  
+  #searchBar {
     border-radius: 30px !important;
     padding: 12px 40px 12px 12px;
     border: 1px solid #ddd;
-    border-radius: 20px;
     font-size: 16px;
     background-color: #f0f0f0;
     width: 100%;
-}
-
-@media (max-width: 768px) {
+    box-sizing: border-box;
+  }
+  
+  /* Tablet styles */
+  @media (max-width: 768px) {
+    .search-container {
+      width: 85vw;
+    }
     
-}
-
-
-
+    #searchBar {
+      padding: 10px 35px 10px 10px;
+      font-size: 15px;
+    }
+  }
+  
+  /* Mobile styles */
+  @media (max-width: 480px) {
+    .search-container {
+      width: 92vw;
+    }
+    
+    #searchBar {
+      padding: 8px 30px 8px 10px;
+      font-size: 14px;
+    }
+  }
+  

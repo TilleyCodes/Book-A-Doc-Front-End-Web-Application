@@ -10,15 +10,30 @@
     transform: translateY(-40%);
     background-color: var(--tertiaryBG);
     max-width: 650px;
-}
-
-@media (max-width: 768px) {
+  }
+  
+  /* Tablet styles */
+  @media (max-width: 768px) {
     .banner-box {
-        /* width: 50%; */
-        padding: 0 5px 0 5px;
+      width: 75vw;
+      padding: 0 10px 15px 10px;
+      transform: translateY(-30%);
     }
-
+  
     .banner-title {
-        font-size: 1.2rem;
+      font-size: 1.3rem;
     }
-}
+  }
+  
+  /* Mobile styles */
+  @media (max-width: 480px) {
+    .banner-box {
+      width: 90vw;
+      padding: 0 5px 10px 5px;
+      transform: translateY(-25%);
+    }
+  
+    .banner-title {
+      font-size: 1.1rem;
+    }
+  }

@@ -194,7 +194,7 @@
   text-decoration: underline;
 }
 
-/* Responsive for mobile */
+/* Tablet styles */
 @media (max-width: 768px) {
   .doctor-card {
     width: 280px;
@@ -213,5 +213,80 @@
   .specialty-filter {
     margin-left: 0;
     width: 100%;
+  }
+  
+  .doctors-page-container {
+    padding: 15px;
+  }
+  
+  .search-input {
+    padding: 10px 40px;
+    font-size: 15px;
+  }
+  
+  .search-icon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 480px) {
+  .doctors-page-container {
+    padding: 10px;
+  }
+  
+  .doctors-title {
+    font-size: 1.3rem;
+    padding: 12px;
+    margin-bottom: 20px;
+  }
+  
+  .doctor-card {
+    width: 90%;
+    max-width: 260px;
+    padding: 12px;
+  }
+  
+  .doctor-name {
+    font-size: 1rem;
+  }
+  
+  .doctor-specialty {
+    font-size: 0.85rem;
+    margin: 6px 0 12px 0;
+  }
+  
+  .book-appointment-btn {
+    font-size: 0.9rem;
+    padding: 8px 0;
+  }
+  
+  .search-input {
+    padding: 8px 35px;
+    font-size: 14px;
+  }
+  
+  .search-icon {
+    width: 16px;
+    height: 16px;
+    left: 12px;
+  }
+  
+  .search-button {
+    width: 25px;
+    height: 25px;
+  }
+  
+  .specialty-filter {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+  
+  .loading-container, 
+  .error-container, 
+  .no-doctors-message {
+    padding: 25px;
+    font-size: 15px;
   }
 }

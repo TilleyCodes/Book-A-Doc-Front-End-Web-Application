@@ -1,24 +1,24 @@
 img {
     height: 15px;
     width: auto;
-}
-
-p {
+  }
+  
+  p {
     text-align: center;
-}
-
-#forgot-password-message {
+  }
+  
+  #forgot-password-message {
     font-style: italic;
     animation: emailSubmit 1s linear forwards;
-}
-
-.box {
+  }
+  
+  .box {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.box-container {
+  }
+  
+  .box-container {
     position: relative;
     padding: 1.5rem;
     padding-top: 1rem;
@@ -26,32 +26,32 @@ p {
     width: 60vw;
     min-width: 300px;
     max-width: 600px;
-}
-
-#acknowledge {
+  }
+  
+  #acknowledge {
     margin-right: 10px;
-}
-
-/* Remove unnecessary spaces around text wrapped in Link */
-.inline-link {
+  }
+  
+  /* Remove unnecessary spaces around text wrapped in Link */
+  .inline-link {
     display: contents;
     color: var(--secondaryBG);
     font-weight: 600;
-}
-
-.name-container {
+  }
+  
+  .name-container {
     display: flex;
     justify-content: space-between;
     gap: 10px;
-}
-
-.input-wrapper {
+  }
+  
+  .input-wrapper {
     position: relative;
     margin-bottom: 1rem;
     width: 100%;
-}
-
-.input-field {
+  }
+  
+  .input-field {
     box-sizing: border-box;
     width: 100%;
     padding: 1rem 0 1rem 0.5rem;
@@ -61,15 +61,15 @@ p {
     background-color: var(--tertiaryBG);
     font-size: 1rem;
     transition: border-color 0.2s;
-}
-
-.input-field:focus {
+  }
+  
+  .input-field:focus {
     border-bottom-color: var(--secondaryBG);
     outline: none;
     box-shadow: none;
-}
-
-.input-label {
+  }
+  
+  .input-label {
     position: absolute;
     left: 0.5rem;
     top: 1rem;
@@ -77,35 +77,35 @@ p {
     color: rgb(83, 83, 83);
     pointer-events: none;
     transition: all 0.2s ease;
-}
-
-.input-field:focus + .input-label,
-.input-field:not(:placeholder-shown) + .input-label {
-  top: -0.5rem;
-  font-size: 0.75rem;
-  color: #7d7d7d;
-}
-
-.input-icon {
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 20px;
-  height: auto;
-  cursor: pointer;
-}
-
-.form-checkbox {
+  }
+  
+  .input-field:focus + .input-label,
+  .input-field:not(:placeholder-shown) + .input-label {
+    top: -0.5rem;
+    font-size: 0.75rem;
+    color: #7d7d7d;
+  }
+  
+  .input-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: auto;
+    cursor: pointer;
+  }
+  
+  .form-checkbox {
     margin-bottom: 15px;
     text-align: center;
-}
-
-.form-button {
+  }
+  
+  .form-button {
     text-align: center;
-}
-
-button {
+  }
+  
+  button {
     width: 100%;
     height: 2.5rem;
     font-size: 1.2rem;
@@ -113,48 +113,106 @@ button {
     background-color: var(--secondaryBG);
     color: white;
     border: none;
-}
-
-button:hover {
+  }
+  
+  button:hover {
     background-color: #9bb4cece;
     cursor: pointer;
-}
-
-.forgotpassword {
+  }
+  
+  .forgotpassword {
     margin-top: 20px;
     text-align: center;
-}
-
-.error-message {
+  }
+  
+  .error-message {
     font-style: italic;
     animation: errorMessage 1s linear forwards;
-}
-
-.sign-in-error {
+  }
+  
+  .sign-in-error {
     position: absolute;
     top: -35px;
     left: 30px;
     animation: errorMessage 1s linear forwards;
-}
-
-.success-message,
-#success-inline-link {
+  }
+  
+  .success-message,
+  #success-inline-link {
     font-style: italic;
     animation: emailSubmit 1s linear forwards;
-}
-
-@keyframes emailSubmit {
+  }
+  
+  @keyframes emailSubmit {
     from {color: transparent}
     to {color: #009800c1}
-}
-
-@keyframes errorMessage {
+  }
+  
+  @keyframes errorMessage {
     from {color: transparent}
     to {color: red}
-}
-
-@media (max-width: 768px) {
+  }
+  
+  /* Tablet styles */
+  @media (max-width: 768px) {
     .box-container {
-        width: 80vw;
+      width: 80vw;
+      padding: 1.25rem;
     }
-}
+    
+    button {
+      height: 2.25rem;
+      font-size: 1.1rem;
+    }
+    
+    .input-field {
+      padding: 0.9rem 0 0.9rem 0.5rem;
+      font-size: 0.95rem;
+    }
+    
+    .input-label {
+      font-size: 0.95rem;
+    }
+  }
+  
+  /* Mobile styles */
+  @media (max-width: 480px) {
+    .box-container {
+      width: 90vw;
+      padding: 1rem;
+    }
+    
+    .name-container {
+      flex-direction: column;
+      gap: 0;
+    }
+    
+    button {
+      height: 2rem;
+      font-size: 1rem;
+    }
+    
+    .input-field {
+      padding: 0.8rem 0 0.8rem 0.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .input-label {
+      font-size: 0.9rem;
+    }
+    
+    .sign-in-error {
+      top: -30px;
+      left: 20px;
+      font-size: 0.85rem;
+    }
+    
+    .form-checkbox {
+      font-size: 0.9rem;
+    }
+    
+    .forgotpassword {
+      font-size: 0.9rem;
+    }
+  }
+  
