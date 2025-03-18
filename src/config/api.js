@@ -7,6 +7,7 @@ export const endpoints = {
   bookings: `${API_BASE_URL}/bookings`,
   login: `${API_BASE_URL}/patients/login`,
   patients: `${API_BASE_URL}/patients`,
+  availabilities: `${API_BASE_URL}/availabilities`,
   doctorAvailabilities: (doctorId, date, medicalCentreId) =>
     `${API_BASE_URL}/doctors/${doctorId}/availabilities?date=${date}&medicalCentreId=${medicalCentreId}`,
 };
