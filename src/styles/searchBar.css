@@ -51,6 +51,11 @@
     .search-container {
       width: 92vw;
     }
+
+    .home-search-button {
+        width: 20px;
+        height: 20px;
+    }
     
     #searchBar {
       padding: 8px 30px 8px 10px;

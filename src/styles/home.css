@@ -3,7 +3,7 @@
     width: 60vw;
     margin: 0 auto;
     max-width: 600px;
-    margin-bottom: 75px;
+    margin-bottom: 50px;
   }
   
   .input-label {
@@ -105,10 +105,12 @@
   @media (max-width: 768px) {
     .main-option-container {
       width: 80vw;
+      padding-top: 20px;
     }
     
     .search-container {
       width: 70vw;
+      margin-bottom: 30px;
     }
     
     .main-option-feature {
@@ -126,7 +128,7 @@
   @media (max-width: 480px) {
     .search-container {
       width: 90vw;
-      margin-bottom: 50px;
+      margin-bottom: 30px;
     }
     
     .main-option-container {

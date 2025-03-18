@@ -24,13 +24,21 @@
       font-size: 1.3rem;
     }
   }
+
+  @media (max-width: 620px) {
+    .banner-box {
+        transform: translateY(20px);
+        margin-bottom: 50px;
+    }
+  }
   
   /* Mobile styles */
   @media (max-width: 480px) {
     .banner-box {
-      width: 90vw;
+      width: 75vw;
       padding: 0 5px 10px 5px;
-      transform: translateY(-25%);
+      margin-bottom: 30px;
+      transform: translateY(10px);
     }
   
     .banner-title {

@@ -200,6 +200,13 @@ img {
     .input-label {
       font-size: 0.9rem;
     }
+
+    .input-icon {
+        top: 30%;
+        transform: translateY(-30%);
+        width: 15px;
+        height: auto;
+    }
     
     .sign-in-error {
       top: -30px;

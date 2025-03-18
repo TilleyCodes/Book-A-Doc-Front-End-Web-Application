@@ -100,7 +100,7 @@ img.calendar-image {
   }
   
   .appointment-feature-details {
-    height: 180px;
+    height: auto;
   }
   
   .appointment-feature-buttons button {
@@ -118,7 +118,7 @@ img.calendar-image {
   }
   
   .appointment-feature-details {
-    height: 170px;
+    height: auto;
   }
   
   .appointment-feature-details-table tbody td,

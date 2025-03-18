@@ -25,7 +25,7 @@
   
   .burger-menu {
     right: 30px;
-    display: none; /* Hide by default */
+    display: none; 
     font-size: 24px;
     background: none;
     border: none;
@@ -81,19 +81,27 @@
       color: white;
     }
   }
-  
+
+  @media (max-width: 620px) {
+    .navbar {
+        padding: 0;
+        padding-bottom: 20px;
+    }
+
+    .nav-links {
+        top: 130px;
+    }
+  }
+
   /* Mobile styles */
   @media (max-width: 480px) {
-    .navbar {
-      padding: 10px;
-    }
     
     button.burger-menu {
       font-size: 2rem;
     }
     
     .nav-links {
-      top: 50px;
+      top: 110px;
       padding: 10px 0;
     }
     
