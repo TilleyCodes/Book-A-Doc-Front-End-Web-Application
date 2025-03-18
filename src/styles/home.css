@@ -39,6 +39,7 @@
     justify-content: space-around;
     flex-wrap: wrap;
     margin: auto;
+    padding-top: 50px;
     gap: 20px;
   }
   
@@ -131,6 +132,7 @@
     .main-option-container {
       width: 90vw;
       gap: 15px;
+      padding-top: 20px;
     }
     
     .main-option-feature {

@@ -107,7 +107,7 @@ export function SearchBar() {
       />
       <button
         type="button"
-        className="search-button"
+        className="home-search-button"
         onClick={handleSearchClick}
         aria-label="Search"
       >

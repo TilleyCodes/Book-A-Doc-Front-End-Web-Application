@@ -102,11 +102,9 @@ export function Appointments() {
   // Helper function for skeleton rows with unique keys
   const renderSkeletonRow = (width, rowIndex) => (
     <tr key={`skeleton-row-${rowIndex}`}>
-      <th><Skeleton width="100%" height={20} /></th>
-      <td>
+      <td style={{ textAlign: 'center' }}>
         <Skeleton
-          style={{ minWidth: width, width: '100%' }}
-          height={20}
+          style={{ minWidth: width, width: '80%' }}
         />
       </td>
     </tr>
@@ -126,8 +124,8 @@ export function Appointments() {
           </tbody>
         </table>
         <div className="appointment-feature-buttons">
-          <button type="button">
-            <Skeleton style={{ minWidth: '100px' }} height={20} />
+          <button type="button" style={{ backgroundColor: 'transparent' }}>
+            <Skeleton style={{ minWidth: '100px' }} height={30} />
           </button>
         </div>
       </div>

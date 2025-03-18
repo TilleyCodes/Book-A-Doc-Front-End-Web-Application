@@ -24,6 +24,7 @@
   }
   
   .burger-menu {
+    right: 30px;
     display: none; /* Hide by default */
     font-size: 24px;
     background: none;

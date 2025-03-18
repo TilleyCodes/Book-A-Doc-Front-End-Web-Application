@@ -39,7 +39,7 @@ header {
   /* Tablet styles */
   @media (max-width: 768px) {
     header {
-      height: 180px;
+      height: 160px;
     }
     
     .main-logo-container {
@@ -59,10 +59,10 @@ header {
   /* Mobile styles */
   @media (max-width: 620px) {
     header {
-      height: auto;
-      min-height: 150px;
+      height: 125px;
+      /* min-height: 150px;
       flex-direction: column;
-      align-items: center;
+      align-items: center; */
     }
     
     nav {
@@ -79,7 +79,7 @@ header {
     .main-logo-container {
       width: 220px;
       height: 60px;
-      margin: 10px auto;
+      /* margin: 10px auto; */
     }
     
     img.site-logo {
@@ -94,7 +94,7 @@ header {
   /* Small mobile styles */
   @media (max-width: 480px) {
     header {
-      min-height: 130px;
+      height: 100px;
     }
     
     .main-logo-container {

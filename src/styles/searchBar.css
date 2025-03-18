@@ -3,6 +3,26 @@
     position: relative;
     margin: 0 auto;
   }
+
+  .home-search-button {
+    display: none;
+    position: absolute;
+    top: 7px;
+    right: 3px;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .home-search-button:hover {
+    background-color: #f0f0f0;
+  }
   
   #searchBar {
     border-radius: 30px !important;
