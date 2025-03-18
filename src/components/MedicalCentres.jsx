@@ -104,17 +104,17 @@ export function MedicalCentres() {
         </div>
       )}
 
-      <form className="search-section" onSubmit={handleSearch}>
-        <img src={searchIcon} alt="Search" className="search-icon" />
+      <form className="mc-search-section" onSubmit={handleSearch}>
+        <img src={searchIcon} alt="Search" className="mc-search-icon" />
         <input
           ref={searchInputRef}
           type="text"
-          className="search-input"
+          className="mc-search-input"
           placeholder="Search by name, address or city..."
           value={searchQuery}
           onChange={handleSearchChange}
         />
-        <button type="submit" className="search-button">→</button>
+        <button type="submit" className="mc-search-button">→</button>
       </form>
 
       <div className="filter-section">

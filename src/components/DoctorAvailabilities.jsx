@@ -234,7 +234,7 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
           <h2>Book an Appointment</h2>
           <button
             type="button"
-            className="close-button"
+            className="availability-close-button"
             onClick={onClose}
           >
             ×
@@ -342,14 +342,14 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
             <div className="booking-actions">
               <button
                 type="button"
-                className="btn cancel-btn"
+                className="availability-btn availability-cancel-btn"
                 onClick={handleBack}
               >
                 Cancel
               </button>
               <button
                 type="button"
-                className="btn continue-btn"
+                className="availability-btn availability-continue-btn"
                 onClick={handleContinue}
                 disabled={!selectedTime || !selectedMedicalCentre}
               >
@@ -395,14 +395,14 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
             <div className="booking-actions">
               <button
                 type="button"
-                className="btn cancel-btn"
+                className="availability-btn availability-cancel-btn"
                 onClick={handleBack}
               >
                 Back
               </button>
               <button
                 type="button"
-                className="btn confirm-btn"
+                className="availability-btn availability-confirm-btn"
                 onClick={handleConfirmBooking}
                 disabled={loading}
               >

@@ -127,17 +127,17 @@ export function Doctors() {
   return (
     <div className="doctors-page-container">
       <div className="doctors-search-container">
-        <form className="search-form" onSubmit={handleSearch}>
-          <div className="search-input-container">
-            <img src={searchIcon} alt="Search-Icon" className="search-icon" />
+        <form className="doctors-search-form" onSubmit={handleSearch}>
+          <div className="doctors-search-input-container">
+            <img src={searchIcon} alt="Search-Icon" className="doctors-search-icon" />
             <input
               type="text"
-              className="search-input"
+              className="doctors-search-input"
               placeholder="Search"
               value={searchQuery}
               onChange={handleSearchInputChange}
             />
-            <button type="submit" className="search-button">→</button>
+            <button type="submit" className="doctors-search-button">→</button>
           </div>
         </form>
 

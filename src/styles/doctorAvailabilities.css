@@ -40,7 +40,7 @@
   text-align: center; 
 }
 
-.close-button {
+.availability-close-button {
   background: none;
   border: none;
   font-size: 22px;
@@ -48,10 +48,11 @@
   color: #666;
   padding-bottom: 10px;
   position: absolute;
-  right: 5px;
+  padding-left: 385px;
+  padding-bottom: 40px;
 }
 
-.close-button:hover {
+.availability-close-button:hover {
   color: #333;
 }
 
@@ -209,7 +210,7 @@
   gap: 20px;
 }
 
-.btn {
+.availability-btn {
   padding: 4px 0;
   border: none;
   border-radius: 4px;
@@ -222,25 +223,25 @@
   max-width: 100px;
 }
 
-.cancel-btn {
+.availability-cancel-btn {
   background-color: #f5f5f5;
   color: #333;
 }
 
-.cancel-btn:hover {
+.availability-cancel-btn:hover {
   background-color: #e0e0e0;
 }
 
-.continue-btn, .confirm-btn {
+.availability-continue-btn, .availability-confirm-btn {
   background-color: #9bb4ce;
   color: black;
 }
 
-.continue-btn:hover, .confirm-btn:hover {
+.availability-continue-btn:hover, .availability-confirm-btn:hover {
   background-color: #8ba3bd;
 }
 
-.continue-btn:disabled {
+.availability-continue-btn:disabled {
   background-color: #d1d9e4;
   cursor: not-allowed;
   color: #888;
@@ -371,16 +372,16 @@
     gap: 10px;
   }
   
-  .btn {
+  .availability-btn {
     width: 90%;
     max-width: 150px;
   }
   
-  .cancel-btn {
+  .availability-cancel-btn {
     order: 2;
   }
   
-  .continue-btn, .confirm-btn {
+  .availability-continue-btn, .availability-confirm-btn {
     order: 1;
   }
   
@@ -388,7 +389,7 @@
     font-size: 1.1rem;
   }
   
-  .close-button {
+  .availability-close-button {
     font-size: 25px;
     padding-left: 350px;
   }

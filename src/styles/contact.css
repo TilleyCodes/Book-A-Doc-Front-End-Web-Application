@@ -19,13 +19,13 @@ h2 {
     max-width: 600px;
   }
   
-  .input-wrapper {
+  .contact-input-wrapper {
     position: relative;
     margin-bottom: 1rem;
     width: 100%;
   }
   
-  .input-field {
+  .contact-input-field {
     box-sizing: border-box;
     width: 100%;
     padding: 1rem 0 1rem 0.5rem;
@@ -37,13 +37,13 @@ h2 {
     transition: border-color 0.2s;
   }
   
-  .input-field:focus {
+  .contact-input-field:focus {
     border-bottom-color: var(--secondaryBG);
     outline: none;
     box-shadow: none;
   }
   
-  .input-label {
+  .contact-input-label {
     position: absolute;
     left: 0.5rem;
     top: 1rem;
@@ -53,8 +53,8 @@ h2 {
     transition: all 0.2s ease;
   }
   
-  .input-field:focus + .input-label,
-  .input-field:not(:placeholder-shown) + .input-label {
+  .contact-input-field:focus + .contact-input-label,
+  .contact-input-field:not(:placeholder-shown) + .contact-input-label {
     top: -0.5rem;
     font-size: 0.75rem;
     color: #7d7d7d;
@@ -102,12 +102,12 @@ h2 {
       padding: 1.25rem;
     }
     
-    .input-field {
+    .contact-input-field {
       padding: 0.9rem 0 0.9rem 0.5rem;
       font-size: 0.95rem;
     }
     
-    .input-label {
+    .contact-input-label {
       font-size: 0.95rem;
     }
     
@@ -128,12 +128,12 @@ h2 {
       padding: 1rem;
     }
     
-    .input-field {
+    .contact-input-field {
       padding: 0.8rem 0 0.8rem 0.5rem;
       font-size: 0.9rem;
     }
     
-    .input-label {
+    .contact-input-label {
       font-size: 0.9rem;
     }
 

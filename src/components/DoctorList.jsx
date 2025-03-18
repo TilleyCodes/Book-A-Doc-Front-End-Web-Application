@@ -95,7 +95,7 @@ export function DoctorList({ medicalCentreId, onClose }) {
           <h2>Available Doctors</h2>
           <button
             type="button"
-            className="close-button"
+            className="dl-close-button"
             onClick={onClose}
           >
             ×
