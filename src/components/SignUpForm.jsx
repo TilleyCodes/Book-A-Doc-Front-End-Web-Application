@@ -1,17 +1,20 @@
 // Imports
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { CustomInput } from './CustomInput';
 import '../styles/reactDatePicker.css';
 import eyeOpen from '../assets/eye-open.svg';
 import eyeClosed from '../assets/eye-closed.svg';
 import { endpoints } from '../config/api';
+import { useUserJwtContext } from '../hooks/useUserJwtData';
 
 // Main function
 export function SignUpForm() {
   // Define hooks
+  const navigate = useNavigate();
+  const { setUserJwtData } = useUserJwtContext();
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -24,6 +27,8 @@ export function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [successfulSignup, setSuccessfulSignup] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
+  const [showWelcomeMessage, setShowWelcomeMessage] = useState(false);
+  const [redirectCountdown, setRedirectCountdown] = useState(10);
 
   const today = new Date();
   const minAgeDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
@@ -44,6 +49,19 @@ export function SignUpForm() {
     }
     setDateOfBirth(date);
   }
+
+  // Handle countdown and redirection after successful signup
+  useEffect(() => {
+    let timer;
+    if (showWelcomeMessage && redirectCountdown > 0) {
+      timer = setTimeout(() => {
+        setRedirectCountdown(redirectCountdown - 1);
+      }, 1000);
+    } else if (showWelcomeMessage && redirectCountdown === 0) {
+      navigate('/');
+    }
+    return () => clearTimeout(timer);
+  }, [showWelcomeMessage, redirectCountdown, navigate]);
 
   // onSubmit event handler
   async function submitForm(event) {
@@ -85,11 +103,50 @@ export function SignUpForm() {
         return;
       }
 
+      // Store the JWT token for the newly registered user
+      if (data.token) {
+        setUserJwtData({
+          token: data.token,
+          patient: data.newPatient,
+          patientId: data.newPatient._id,
+        });
+      }
+
       setSuccessfulSignup(true);
+      setShowWelcomeMessage(true);
     } catch (err) {
       setSuccessfulSignup(false);
       setErrorMessage(err.message || 'Failed to create account');
     }
+  }
+
+  // If showing welcome message, display it instead of the form
+  if (showWelcomeMessage) {
+    return (
+      <div className="welcome-message-container">
+        <h2>
+          Welcome to Book-a-Doc,
+          {' '}
+          {firstName}
+          !
+        </h2>
+        <p>Your account has been created successfully.</p>
+        <p>
+          You will be redirected to the home page in
+          {' '}
+          {redirectCountdown}
+          {' '}
+          seconds...
+        </p>
+        <button
+          type="button"
+          className="redirect-now-btn"
+          onClick={() => navigate('/')}
+        >
+          Go to Home Page Now
+        </button>
+      </div>
+    );
   }
 
   return (
@@ -160,7 +217,7 @@ export function SignUpForm() {
             dropdownMode="select"
             minDate={new Date(minYear, 0, 1)}
             maxDate={today}
-            yearDropdownItemNumber={10}
+            yearDropdownItemNumber={15}
             scrollableYearDropdown
             placeholderText=" "
             popperPlacement="bottom-start"
@@ -286,7 +343,7 @@ export function SignUpForm() {
           <button type="submit">SIGN UP</button>
         </div>
 
-        {successfulSignup && (
+        {successfulSignup && !showWelcomeMessage && (
           <p className="success-message">
             Success! Login
             {' '}
