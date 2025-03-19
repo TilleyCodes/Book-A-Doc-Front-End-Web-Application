@@ -204,7 +204,7 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
 
       // Show success message and close modal
       // eslint-disable-next-line no-alert
-      alert(`Appointment successfully booked with Dr. ${doctor.doctorName}`);
+      alert(`Appointment successfully booked with ${doctor.doctorName}`);
       onClose();
 
       // Redirect to appointments page

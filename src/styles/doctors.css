@@ -182,14 +182,14 @@
   color: #e74c3c;
 }
 
-.back-to-top {
+.dr-back-to-top {
   text-align: right;
   margin: 20px 0;
   color: #666;
   cursor: pointer;
 }
 
-.back-to-top:hover {
+.dr-back-to-top:hover {
   color: #333;
   text-decoration: underline;
 }

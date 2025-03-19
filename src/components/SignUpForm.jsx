@@ -27,6 +27,8 @@ export function SignUpForm() {
 
   const today = new Date();
   const minAgeDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+  const maxYear = today.getFullYear();
+  const minYear = maxYear - 100;
 
   function handleDateChange(date) {
     if (!date) {
@@ -156,9 +158,20 @@ export function SignUpForm() {
             showMonthDropdown
             showYearDropdown
             dropdownMode="select"
-            yearDropdownItemNumber={100}
+            minDate={new Date(minYear, 0, 1)}
+            maxDate={today}
+            yearDropdownItemNumber={10}
             scrollableYearDropdown
             placeholderText=" "
+            popperPlacement="bottom-start"
+            popperModifiers={[
+              {
+                name: 'preventOverflow',
+                options: {
+                  boundariesElement: 'viewport',
+                },
+              },
+            ]}
             customInput={(
               <CustomInput
                 id="patientDateOfBirth"

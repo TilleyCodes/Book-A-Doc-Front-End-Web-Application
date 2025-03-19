@@ -49,7 +49,6 @@
   padding-bottom: 10px;
   position: absolute;
   padding-left: 385px;
-  padding-bottom: 40px;
 }
 
 .availability-close-button:hover {
@@ -70,7 +69,7 @@
   margin: 0 0 2px 0;
   color: #333;
   font-size: 1.1rem;
-  text-align: center !important;
+  text-align: center;
 }
 
 .doctor-specialty {

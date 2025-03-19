@@ -216,7 +216,7 @@
   
   .dl-close-button {
     font-size: 20px;
-    top: 0;
+    padding-left: 360px;
   }
   
   .doctor-info h3 {
