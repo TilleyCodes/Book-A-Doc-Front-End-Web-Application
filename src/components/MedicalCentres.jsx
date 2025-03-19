@@ -92,7 +92,7 @@ export function MedicalCentres() {
   });
 
   if (loading) {
-    return <div className="loading-container">Loading medical centres...</div>;
+    return <div className="loader" />;
   }
 
   return (

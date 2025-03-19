@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import '../styles/doctors.css';
+import '../styles/loader.css';
 import stethoscopeIcon from '../assets/stethoscope.png';
 import searchIcon from '../assets/search-icon.png';
 import { endpoints } from '../config/api';
@@ -121,7 +122,7 @@ export function Doctors() {
   };
 
   if (loading) {
-    return <div className="loading-container">Loading doctors...</div>;
+    return <div className="loader" />;
   }
 
   return (
