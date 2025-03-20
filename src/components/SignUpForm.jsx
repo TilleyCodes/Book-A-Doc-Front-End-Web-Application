@@ -205,6 +205,10 @@ export function SignUpForm() {
           </div>
         </div>
 
+        <div className="dob-requirements">
+          <small>Age must be 18 or older</small>
+        </div>
+
         <div>
           <DatePicker
             id="patientDateOfBirth"
@@ -280,12 +284,18 @@ export function SignUpForm() {
             name="phoneNumber"
             id="phoneNumber"
             required
+            pattern="^(?:\+61|0)[2-478](?:[ -]?[0-9]){8}$"
+            title="Please enter a valid Australian phone number"
             value={phoneNumber}
             onChange={(event) => {
               setPhoneNumber(event.target.value);
             }}
           />
           <label className="input-label" htmlFor="phoneNumber">Phone Number</label>
+        </div>
+
+        <div className="password-requirements">
+          <small>Password must be at least 10 characters long</small>
         </div>
 
         <div className="input-wrapper">

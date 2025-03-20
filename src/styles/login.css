@@ -32,6 +32,13 @@ img {
     margin-right: 10px;
   }
   
+  .password-requirements, .dob-requirements {
+    margin-top: -10px;
+    margin-bottom: 10px;
+    font-size: 0.8rem;
+    color: #777;
+  }
+
   /* Remove unnecessary spaces around text wrapped in Link */
   .inline-link {
     display: contents;

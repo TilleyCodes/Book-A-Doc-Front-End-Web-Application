@@ -228,6 +228,7 @@ export function MedicalCentres() {
             scrollToTop();
           }
         }}
+        aria-label="Scroll back to top"
       >
         back to top ↑
       </div>
