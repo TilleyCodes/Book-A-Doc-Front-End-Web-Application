@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router';
 import '../styles/doctors.css';
 import '../styles/loader.css';
 import stethoscopeIcon from '../assets/stethoscope.png';
@@ -18,6 +19,21 @@ export function Doctors() {
   const [selectedSpecialty, setSelectedSpecialty] = useState('all');
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [showBooking, setShowBooking] = useState(false);
+
+  const location = useLocation();
+
+  // Process URL search parameters
+  useEffect(() => {
+    // Get search parameters from URL
+    const searchParams = new URLSearchParams(location.search);
+    const searchValue = searchParams.get('search');
+
+    // If search value is present, apply it
+    if (searchValue) {
+      setSearchQuery(searchValue);
+      setAppliedSearchQuery(searchValue);
+    }
+  }, [location.search]);
 
   useEffect(() => {
     async function fetchData() {
@@ -62,6 +78,24 @@ export function Doctors() {
 
         setSpecialties(uniqueSpecialties);
         setError(null);
+
+        // If we have a search term from URL, find matching doctor
+        const searchParams = new URLSearchParams(location.search);
+        const searchValue = searchParams.get('search');
+        const isExactMatch = searchParams.get('exact') === 'true';
+
+        if (searchValue && isExactMatch) {
+          // Find doctor that exactly matches the search term
+          const foundDoctor = doctorsData.find(
+            (doc) => doc.doctorName.toLowerCase() === searchValue.toLowerCase(),
+          );
+
+          if (foundDoctor) {
+            // If doctor is found, auto-select it for booking
+            setSelectedDoctor(foundDoctor);
+            setShowBooking(true);
+          }
+        }
       } catch (err) {
         setError(err.message);
       } finally {
@@ -70,7 +104,7 @@ export function Doctors() {
     }
 
     fetchData();
-  }, []);
+  }, [location.search]);
 
   // Filter doctors based on search and specialty
   useEffect(() => {

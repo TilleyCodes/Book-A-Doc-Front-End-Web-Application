@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import magnifyingGlass from '../assets/search-icon.png';
 import { endpoints } from '../config/api';
@@ -74,9 +74,12 @@ export function SearchBar() {
     setSuggestions([]);
 
     if (data.includes(' (')) {
+      // This is a doctor selection
       const doctorName = data.split(' (')[0];
+      // Navigate to doctors page with search query parameter - same behavior as GP page search
       navigate(`/doctors?search=${encodeURIComponent(doctorName)}&exact=true`);
     } else {
+      // Medical centre selection
       navigate(`/medical-centres?search=${encodeURIComponent(data)}&exact=true`);
     }
   };
