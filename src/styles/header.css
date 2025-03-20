@@ -30,6 +30,14 @@ header {
     width: 60px;
     height: auto;
   }
+
+  .logo-inline-link {
+    display: contents;
+  }
+
+  .logo-inline-link:visited {
+    color: black;
+  }
   
   h1.site-title,
   img.site-logo {

@@ -16,7 +16,8 @@ export function UserJwtProvider({ children }) {
     if (jwtsPersisted && Object.keys(jwtsPersisted).length > 0) {
       setUserJwtData(jwtsPersisted);
     }
-  }, [jwtsPersisted]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Using useMemo to prevent creating a new object on each render
   const contextValue = useMemo(() => ({
