@@ -4,6 +4,7 @@ import { useUserJwtContext } from '../hooks/useUserJwtData';
 import '../styles/doctorAvailabilities.css';
 import { endpoints } from '../config/api';
 import { ErrorMessage } from './ErrorMessage';
+import { generateMockTimes } from '../utils/generateMockTimes';
 
 export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, onClose }) {
   const [selectedDate, setSelectedDate] = useState('');
@@ -19,43 +20,30 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
 
   // Get medical centre details
   useEffect(() => {
+
+    async function getMedicalCentres() {
+      const response = await fetch(endpoints.medicalCentres);
+      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+      return response.json();
+    }    
+
     const fetchMedicalCentres = async () => {
       try {
-        // If a specific medical center is provided, use that
+        const centres = await getMedicalCentres();
+        let filtered = [];
+    
         if (medicalCentreId) {
-          const response = await fetch(endpoints.medicalCentres);
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-
-          const centres = await response.json();
-          const centre = centres.find((c) => c._id === medicalCentreId);
-
-          if (centre) {
-            setMedicalCentres([centre]);
-            setSelectedMedicalCentre(centre);
-          }
-        } else if (doctorCentres && doctorCentres.length > 0) {
-          const response = await fetch(endpoints.medicalCentres);
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-
-          const allCentres = await response.json();
-
-          // Filter to get only the centers this doctor works at
-          const relevantCentres = allCentres.filter((centre) =>
+          filtered = centres.filter((c) => c._id === medicalCentreId);
+        } else if (doctorCentres?.length > 0) {
+          filtered = centres.filter((centre) =>
             doctorCentres.some((dc) =>
-              (dc._id === centre._id) ||
-              (dc.medicalCentreId?._id === centre._id),
-            ),
+              dc._id === centre._id || dc.medicalCentreId?._id === centre._id
+            )
           );
-
-          setMedicalCentres(relevantCentres);
-          if (relevantCentres.length > 0) {
-            setSelectedMedicalCentre(relevantCentres[0]);
-          }
         }
+    
+        setMedicalCentres(filtered);
+        if (filtered.length > 0) setSelectedMedicalCentre(filtered[0]);
       } catch (err) {
         setError('Unable to load medical centre details');
       }
@@ -88,18 +76,7 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
         setAvailableTimes(data);
       } catch (err) {
         setError('Unable to load available times. Please try again.');
-
-        // Fallback to mock data if the API call fails
-        const mockTimes = [];
-        // Times from 9 AM to 5 PM with 30-minute intervals
-        for (let hour = 9; hour < 17; hour += 1) {
-          const hourFormatted = hour.toString().padStart(2, '0');
-          mockTimes.push(`${hourFormatted}:00`);
-          mockTimes.push(`${hourFormatted}:30`);
-        }
-
-        // Remove some random times to simulate unavailability
-        setAvailableTimes(mockTimes.filter(() => Math.random() > 0.3));
+        setAvailableTimes(generateMockTimes);
       } finally {
         setLoading(false);
       }
@@ -144,6 +121,12 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
   }
 
   const handleConfirmBooking = async () => {
+
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${userJwtData.token}`,
+    };
+    
     if (!userJwtData.token) {
       // Redirect to login if not authenticated
       // eslint-disable-next-line no-alert
@@ -159,10 +142,7 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
       // First, create an availability record
       const availabilityResponse = await fetch(endpoints.availabilities, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${userJwtData.token}`,
-        },
+        headers,
         body: JSON.stringify({
           date: selectedDate,
           startTime: selectedTime,
@@ -188,10 +168,7 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
 
       const bookingResponse = await fetch(endpoints.bookings, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${userJwtData.token}`,
-        },
+        headers,
         body: JSON.stringify(bookingData),
       });
 
