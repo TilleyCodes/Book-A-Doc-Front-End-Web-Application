@@ -6,6 +6,7 @@ import stethoscopeIcon from '../assets/stethoscope.png';
 import searchIcon from '../assets/search-icon.png';
 import { endpoints } from '../config/api';
 import { DoctorAvailabilities } from './DoctorAvailabilities';
+import { ErrorMessage } from './ErrorMessage';
 
 export function Doctors() {
   const [doctors, setDoctors] = useState([]);
@@ -194,12 +195,7 @@ export function Doctors() {
         </div>
       </div>
 
-      {error && (
-        <div className="error-container">
-          {'Error: '}
-          {error}
-        </div>
-      )}
+      {error && <ErrorMessage message={`Error: ${error}`} />}
 
       {filteredDoctors.length > 0 ? (
         <div className="doctors-list">

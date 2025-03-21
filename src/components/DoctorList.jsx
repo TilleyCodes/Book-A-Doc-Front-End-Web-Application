@@ -3,6 +3,7 @@ import '../styles/doctorList.css';
 import stethoscopeIcon from '../assets/stethoscope.png';
 import { DoctorAvailabilities } from './DoctorAvailabilities';
 import { endpoints } from '../config/api';
+import { ErrorMessage } from './ErrorMessage';
 
 export function DoctorList({ medicalCentreId, onClose }) {
   const [doctors, setDoctors] = useState([]);
@@ -104,12 +105,7 @@ export function DoctorList({ medicalCentreId, onClose }) {
 
         {loading && <div className="doctor-list-loading">Loading doctors...</div>}
 
-        {error && (
-          <div className="doctor-list-error">
-            {'Error: '}
-            {error}
-          </div>
-        )}
+        {error && <ErrorMessage message={`Error: ${error}`} />}
 
         {!loading && !error && (
           <div>

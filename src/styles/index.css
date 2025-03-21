@@ -52,17 +52,30 @@
   a:visited {
     color: var(--secondaryFont)
   }
+
+  .error-message {
+    color: #e74c3c;
+    background-color: #fdeaea;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+    text-align: center;
+    font-size: 0.9rem;
+    border-left: 4px solid #e74c3c;
+  }
   
   /* Responsive font sizes */
   @media (max-width: 768px) {
-    :root {
-      font-size: 14px;
+    .error-message {
+      padding: 8px;
+      font-size: 0.85rem;
     }
   }
   
   @media (max-width: 480px) {
-    :root {
-      font-size: 12px;
+    .error-message {
+      padding: 6px;
+      font-size: 0.8rem;
     }
   }
-  
+    

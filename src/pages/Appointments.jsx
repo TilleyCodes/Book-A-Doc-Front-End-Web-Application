@@ -8,6 +8,7 @@ import calendar from '../assets/calendar.png';
 import '../styles/appointments.css';
 import { PatientConfirmation } from '../components/PatientConfirmation';
 import { endpoints, cancelBookingById } from '../config/api';
+import { ErrorMessage } from '../components/ErrorMessage';
 
 export function Appointments() {
   const { userJwtData } = useUserJwtContext();
@@ -189,7 +190,7 @@ export function Appointments() {
     <SkeletonTheme baseColor="#e0e0e0" highlightColor="#f5f5f5">
       <div className="appointment-container">
         {loading ? renderLoadingState() : renderAppointmentContent()}
-        {error && <p className="error-message">{error}</p>}
+        {error && <ErrorMessage message={error} />}
       </div>
       {showConfirmation && (
         <PatientConfirmation

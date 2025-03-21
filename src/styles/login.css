@@ -32,7 +32,24 @@ img {
     margin-right: 10px;
   }
   
-  .password-requirements, .dob-requirements {
+  .password-strength {
+    margin-top: 5px;
+    font-size: 0.8rem;
+  }
+  
+  .password-strength.weak {
+    color: #e74c3c;
+  }
+  
+  .password-strength.medium {
+    color: #f39c12;
+  }
+  
+  .password-strength.strong {
+    color: #27ae60;
+  }
+
+  .password-requirements {
     margin-top: -10px;
     margin-bottom: 10px;
     font-size: 0.8rem;
@@ -135,6 +152,14 @@ img {
   .error-message {
     font-style: italic;
     animation: errorMessage 1s linear forwards;
+    color: #e74c3c;
+    background-color: #fdeaea;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+    text-align: center;
+    font-size: 0.9rem;
+    border-left: 4px solid #e74c3c;
   }
   
   .sign-in-error {
@@ -193,6 +218,19 @@ img {
   background-color: #8ba3bd;
 }
 
+/* Screen reader only class */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -225,31 +263,6 @@ img {
     font-size: 0.95rem;
   }
 }
-
-/* Mobile styles */
-@media (max-width: 480px) {
-  .welcome-message-container {
-    margin: 1rem;
-    padding: 1.2rem;
-    width: 90%;
-  }
-  
-  .welcome-message-container h2 {
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
-  }
-  
-  .welcome-message-container p {
-    font-size: 0.9rem;
-    margin-bottom: 0.8rem;
-  }
-  
-  .redirect-now-btn {
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-    margin-top: 0.8rem;
-  }
-}
   
   @keyframes emailSubmit {
     from {color: transparent}
@@ -280,6 +293,11 @@ img {
     
     .input-label {
       font-size: 0.95rem;
+    }
+
+    .error-message {
+      padding: 8px;
+      font-size: 0.85rem;
     }
   }
   
@@ -329,5 +347,31 @@ img {
     .forgotpassword {
       font-size: 0.9rem;
     }
+
+  .welcome-message-container {
+    margin: 1rem;
+    padding: 1.2rem;
+    width: 90%;
   }
   
+  .welcome-message-container h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .welcome-message-container p {
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .redirect-now-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    margin-top: 0.8rem;
+  }
+
+  .error-message {
+    padding: 6px;
+    font-size: 0.8rem;
+  }
+}

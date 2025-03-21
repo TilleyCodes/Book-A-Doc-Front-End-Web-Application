@@ -13,8 +13,17 @@ export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [loginSuccessful, setLoginSuccessful] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
+  const [passwordStrength, setPasswordStrength] = useState('');
 
   const { setUserJwtData } = useUserJwtContext();
+
+  // Function to calculate password strength
+  const calculatePasswordStrength = (pass) => {
+    if (!pass) return '';
+    if (pass.length < 10) return 'weak';
+    if (/^[a-zA-Z0-9]+$/.test(pass)) return 'medium';
+    return 'strong';
+  };
 
   async function submitForm(event) {
     event.preventDefault();
@@ -80,7 +89,9 @@ export function LoginForm() {
             id="userPassword"
             value={password}
             onChange={(event) => {
-              setPassword(event.target.value);
+              const newPassword = event.target.value;
+              setPassword(newPassword);
+              setPasswordStrength(calculatePasswordStrength(newPassword));
             }}
           />
           <label className="input-label" htmlFor="userPassword">Password</label>
@@ -109,6 +120,18 @@ export function LoginForm() {
             />
           </button>
         </div>
+        {password && (
+          <div className={`password-strength
+          {' '}
+          ${passwordStrength}`}
+          >
+            <span>
+              Password strength:
+              {' '}
+              {passwordStrength}
+            </span>
+          </div>
+        )}
         <div className="form-button">
           <button type="submit">LOGIN</button>
         </div>

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 import { useUserJwtContext } from '../hooks/useUserJwtData';
 import '../styles/doctorAvailabilities.css';
 import { endpoints } from '../config/api';
+import { ErrorMessage } from './ErrorMessage';
 
 export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, onClose }) {
   const [selectedDate, setSelectedDate] = useState('');
@@ -228,7 +229,12 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
   const today = new Date().toISOString().split('T')[0];
 
   return (
-    <div className="doctor-availabilities-modal">
+    <div
+      className="doctor-availabilities-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="booking-dialog-title"
+    >
       <div className="doctor-availabilities-content">
         <div className="doctor-availabilities-header">
           <h2>Book an Appointment</h2>
@@ -236,6 +242,7 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
             type="button"
             className="availability-close-button"
             onClick={onClose}
+            aria-label="Close booking dialog"
           >
             ×
           </button>
@@ -250,7 +257,7 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
               </p>
             </div>
 
-            {error && <div className="booking-error">{error}</div>}
+            {error && <ErrorMessage message={error} />}
 
             <div className="booking-form">
               {selectedMedicalCentre && (

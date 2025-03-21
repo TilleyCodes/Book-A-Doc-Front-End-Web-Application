@@ -107,7 +107,7 @@ export function SearchBar() {
         value={input}
         onChange={(event) => setInput(event.target.value)}
         onKeyDown={handleKeyDown}
-        aria-label="Search for doctors or medical centres"
+        aria-label="Search for doctors or medical centers"
         aria-autocomplete="list"
         aria-controls="search-suggestions"
       />
@@ -124,7 +124,12 @@ export function SearchBar() {
         />
       </button>
       {suggestions.length > 0 && (
-        <ul id="search-suggestions" className="dropdown" role="listbox" aria-label="Search suggestions">
+        <ul
+          id="search-suggestions"
+          className="dropdown"
+          role="listbox"
+          aria-label="Search suggestions"
+        >
           {suggestions.map((data) => (
             <li
               key={data}

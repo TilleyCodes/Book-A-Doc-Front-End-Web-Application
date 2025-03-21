@@ -29,11 +29,20 @@ export function SignUpForm() {
   const [errorMessage, setErrorMessage] = useState('');
   const [showWelcomeMessage, setShowWelcomeMessage] = useState(false);
   const [redirectCountdown, setRedirectCountdown] = useState(10);
+  const [passwordStrength, setPasswordStrength] = useState('');
 
   const today = new Date();
   const minAgeDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
   const maxYear = today.getFullYear();
   const minYear = maxYear - 100;
+
+  // Function to calculate password strength
+  const calculatePasswordStrength = (pass) => {
+    if (!pass) return '';
+    if (pass.length < 10) return 'weak';
+    if (/^[a-zA-Z0-9]+$/.test(pass)) return 'medium';
+    return 'strong';
+  };
 
   function handleDateChange(date) {
     if (!date) {
@@ -205,10 +214,6 @@ export function SignUpForm() {
           </div>
         </div>
 
-        <div className="dob-requirements">
-          <small>Age must be 18 or older</small>
-        </div>
-
         <div>
           <DatePicker
             id="patientDateOfBirth"
@@ -233,6 +238,7 @@ export function SignUpForm() {
                 },
               },
             ]}
+            aria-labelledby="dob-label"
             customInput={(
               <CustomInput
                 id="patientDateOfBirth"
@@ -240,6 +246,7 @@ export function SignUpForm() {
               />
             )}
           />
+          <span id="dob-label" className="sr-only">Date of Birth</span>
           {dateError && (
             <p className="sign-in-error">{dateError}</p>
           )}
@@ -294,10 +301,6 @@ export function SignUpForm() {
           <label className="input-label" htmlFor="phoneNumber">Phone Number</label>
         </div>
 
-        <div className="password-requirements">
-          <small>Password must be at least 10 characters long</small>
-        </div>
-
         <div className="input-wrapper">
           <input
             type={showPassword ? 'text' : 'password'}
@@ -310,7 +313,9 @@ export function SignUpForm() {
             title="Must contain at least 10 or more characters"
             value={password}
             onChange={(event) => {
-              setPassword(event.target.value);
+              const newPassword = event.target.value;
+              setPassword(newPassword);
+              setPasswordStrength(calculatePasswordStrength(newPassword));
             }}
           />
           <label className="input-label" htmlFor="password">Password</label>
@@ -326,6 +331,22 @@ export function SignUpForm() {
               alt={showPassword ? 'eye closed' : 'eye open'}
             />
           </button>
+        </div>
+
+        {password && (
+          <div className={`password-strength 
+          {' '}${passwordStrength}`}
+          >
+            <span>
+              Password strength:
+              {' '}
+              {passwordStrength}
+            </span>
+          </div>
+        )}
+
+        <div className="password-requirements">
+          <small>Password must be at least 10 characters long</small>
         </div>
 
         <div className="form-checkbox">
