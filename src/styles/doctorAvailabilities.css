@@ -35,7 +35,7 @@
 
 .doctor-availabilities-header h2 {
   margin: 0;
-  color: #4a6da7;
+  color: var(--accent);
   font-size: 1.2rem;
   text-align: center; 
 }
@@ -67,14 +67,14 @@
 
 .doctor-info-compact h3 {
   margin: 0 0 2px 0;
-  color: #333;
+  color: var(--primaryText);
   font-size: 1.1rem;
   text-align: center;
 }
 
 .doctor-specialty {
   margin: 0;
-  color: #555;
+  color: var(--secondaryText);
   font-weight: 500;
   font-size: 0.9rem;
 }
@@ -197,7 +197,7 @@
 }
 
 .time-slot.selected {
-  background-color: #4a6da7;
+  background-color: var(--accent);
   color: white;
 }
 
@@ -232,7 +232,7 @@
 }
 
 .availability-continue-btn, .availability-confirm-btn {
-  background-color: #9bb4ce;
+  background-color: var(--secondaryBG);
   color: black;
 }
 
@@ -253,7 +253,7 @@
 
 .confirmation h3 {
   margin: 0 0 10px 0;
-  color: #333;
+  color: var(--primaryText);
 }
 
 .appointment-summary {
@@ -272,7 +272,7 @@
 .summary-label {
   font-weight: bold;
   min-width: 80px;
-  color: #4a6da7;
+  color: var(--accent);
 }
 
 /* Message states */
@@ -285,7 +285,7 @@
 }
 
 .booking-error {
-  color: #e74c3c;
+  color: var(--errorColor);
   background-color: #fdeaea;
   border-radius: 4px;
 }
@@ -333,7 +333,7 @@
   .doctor-availabilities-content {
     width: 95%;
     padding: 12px;
-    max-height: 90h;
+    max-height: 90vh;
   }
   
   .doctor-info-compact {

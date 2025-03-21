@@ -4,10 +4,6 @@ h3 {
   text-align: center;
 }
 
-main {
-  position: relative;
-}
-
 .appointment-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -22,10 +18,9 @@ main {
   width: 100%;
   min-height: 200px;
   padding: 20px;
-  background-color: white;
+  background-color: var(--cardBG);
   border-radius: 1rem;
   margin: auto;
-  background-color: var(--cardBG);
   max-width: 300px;
 }
 
@@ -145,27 +140,5 @@ img.calendar-image {
   .appointment-container {
     grid-template-columns: 1fr;
     gap: 15px;
-  }
-}
-
-@keyframes raise {
-  from {
-    transform: translateY(0);
-    box-shadow: none;
-  }
-  to {
-    transform: translateY(-3px);
-    box-shadow: var(--cardShadow);
-  }
-}
-
-@keyframes lower {
-  from {
-    transform: translateY(-3px);
-    box-shadow: var(--cardShadow);
-  }
-  to {
-    transform: translateY(0);
-    box-shadow: none;
   }
 }
