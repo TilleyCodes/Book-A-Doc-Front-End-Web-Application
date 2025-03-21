@@ -12,23 +12,26 @@ export function DoctorList({ medicalCentreId, onClose }) {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [showBooking, setShowBooking] = useState(false);
 
+  if (!medicalCentreId) return (
+    <div className="doctor-list-modal">
+      <ErrorMessage message="No medical centre selected" />
+    </div>
+  );  
+
   useEffect(() => {
     const fetchDoctors = async () => {
+
+      const fetchJson = async (endpoint) => {
+        const res = await fetch(endpoint);
+        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+        return res.json();
+      };
+      
       try {
         setLoading(true);
 
-        if (!medicalCentreId) {
-          throw new Error('Medical centre ID is missing');
-        }
-
         // Fetch the doctor-centre relationships using the proxy
-        const doctorCentreResponse = await fetch(endpoints.doctorCentres);
-
-        if (!doctorCentreResponse.ok) {
-          throw new Error(`HTTP error! Status: ${doctorCentreResponse.status}`);
-        }
-
-        const doctorCentreData = await doctorCentreResponse.json();
+        const doctorCentreData = await fetchJson(endpoints.doctorCentres);
 
         // Filter relationships for selected medical centre
         const relevantDoctorCentres = doctorCentreData.filter(
@@ -36,12 +39,10 @@ export function DoctorList({ medicalCentreId, onClose }) {
         );
 
         // Get all doctor IDs associated with this centre
-        const doctorIds = relevantDoctorCentres.map((dc) => {
-          if (dc.doctorId && dc.doctorId._id) {
-            return dc.doctorId._id;
-          }
-          return null;
-        }).filter((id) => id !== null);
+        const doctorIds = relevantDoctorCentres.flatMap((dc) =>
+          dc.doctorId?._id ? [dc.doctorId._id] : []
+        );
+        
 
         if (doctorIds.length === 0) {
           setDoctors([]);
@@ -50,13 +51,7 @@ export function DoctorList({ medicalCentreId, onClose }) {
         }
 
         // Fetch all doctors
-        const doctorsResponse = await fetch(endpoints.doctors);
-
-        if (!doctorsResponse.ok) {
-          throw new Error(`HTTP error! Status: ${doctorsResponse.status}`);
-        }
-
-        const allDoctors = await doctorsResponse.json();
+        const allDoctors = await fetchJson(endpoints.doctors);
 
         // Filter doctors based on the IDs
         const centreSpecificDoctors = allDoctors.filter((doctor) =>
