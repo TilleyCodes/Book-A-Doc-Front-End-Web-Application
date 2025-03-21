@@ -9,6 +9,7 @@ import eyeOpen from '../assets/eye-open.svg';
 import eyeClosed from '../assets/eye-closed.svg';
 import { endpoints } from '../config/api';
 import { useUserJwtContext } from '../hooks/useUserJwtData';
+import { calculatePasswordStrength } from '../utils/calculatePasswordStrength';
 
 // Main function
 export function SignUpForm() {
@@ -37,14 +38,6 @@ export function SignUpForm() {
   const minAgeDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
   const maxYear = today.getFullYear();
   const minYear = maxYear - 100;
-
-  // Function to calculate password strength
-  const calculatePasswordStrength = (pass) => {
-    if (!pass) return '';
-    if (pass.length < 10) return 'weak';
-    if (/^[a-zA-Z0-9]+$/.test(pass)) return 'medium';
-    return 'strong';
-  };
 
   function handleDateChange(date) {
     if (!date) {

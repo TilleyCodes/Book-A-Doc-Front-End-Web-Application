@@ -4,6 +4,7 @@ import { useUserJwtContext } from '../hooks/useUserJwtData';
 import eyeOpen from '../assets/eye-open.svg';
 import eyeClosed from '../assets/eye-closed.svg';
 import { endpoints } from '../config/api';
+import { calculatePasswordStrength } from '../utils/calculatePasswordStrength';
 
 export function LoginForm() {
   const navigate = useNavigate();
@@ -16,14 +17,6 @@ export function LoginForm() {
   const [passwordStrength, setPasswordStrength] = useState('');
 
   const { setUserJwtData } = useUserJwtContext();
-
-  // Function to calculate password strength
-  const calculatePasswordStrength = (pass) => {
-    if (!pass) return '';
-    if (pass.length < 10) return 'weak';
-    if (/^[a-zA-Z0-9]+$/.test(pass)) return 'medium';
-    return 'strong';
-  };
 
   async function submitForm(event) {
     event.preventDefault();
@@ -121,9 +114,7 @@ export function LoginForm() {
           </button>
         </div>
         {password && (
-          <div className={`password-strength
-          {' '}
-          ${passwordStrength}`}
+          <div className={`password-strength ${passwordStrength}`}
           >
             <span>
               Password strength:
