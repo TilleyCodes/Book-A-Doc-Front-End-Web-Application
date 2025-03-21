@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import '../styles/contact.css';
+import { handleChange } from '../utils/handleChange';
 
 export function Contact() {
   const [fullName, setFullName] = useState('');
@@ -23,7 +24,7 @@ export function Contact() {
             name="fullName"
             id="fullName"
             value={fullName}
-            onChange={(event) => setFullName(event.target.value)}
+            onChange={handleChange(setFullName)}
             required
           />
           <label className="input-label" htmlFor="fullName">
@@ -39,7 +40,7 @@ export function Contact() {
             name="email"
             id="email"
             value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            onChange={handleChange(setEmail)}
             required
           />
           <label className="input-label" htmlFor="email">
@@ -54,7 +55,7 @@ export function Contact() {
             name="message"
             id="message"
             value={message}
-            onChange={(event) => setMessage(event.target.value)}
+            onChange={handleChange(setMessage)}
             required
           />
           <label className="input-label" htmlFor="message">

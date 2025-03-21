@@ -10,6 +10,7 @@ import eyeClosed from '../assets/eye-closed.svg';
 import { endpoints } from '../config/api';
 import { useUserJwtContext } from '../hooks/useUserJwtData';
 import { calculatePasswordStrength } from '../utils/calculatePasswordStrength';
+import { handleChange } from '../utils/handleChange';
 
 // Main function
 export function SignUpForm() {
@@ -31,8 +32,6 @@ export function SignUpForm() {
   const [showWelcomeMessage, setShowWelcomeMessage] = useState(false);
   const [redirectCountdown, setRedirectCountdown] = useState(10);
   const [passwordStrength, setPasswordStrength] = useState('');
-
-  const handleChange = (setter) => (e) => setter(e.target.value);
 
   const today = new Date();
   const minAgeDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());

@@ -5,6 +5,7 @@ import eyeOpen from '../assets/eye-open.svg';
 import eyeClosed from '../assets/eye-closed.svg';
 import { endpoints } from '../config/api';
 import { calculatePasswordStrength } from '../utils/calculatePasswordStrength';
+import { handleChange } from '../utils/handleChange';
 
 export function LoginForm() {
   const navigate = useNavigate();
@@ -65,9 +66,7 @@ export function LoginForm() {
             name="userEmail"
             id="userEmail"
             value={email}
-            onChange={(event) => {
-              setEmail(event.target.value);
-            }}
+            onChange={handleChange(setEmail)}
           />
           <label className="input-label" htmlFor="userEmail">Email</label>
         </div>
