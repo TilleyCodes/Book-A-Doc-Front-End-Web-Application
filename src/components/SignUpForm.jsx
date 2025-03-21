@@ -31,6 +31,8 @@ export function SignUpForm() {
   const [redirectCountdown, setRedirectCountdown] = useState(10);
   const [passwordStrength, setPasswordStrength] = useState('');
 
+  const handleChange = (setter) => (e) => setter(e.target.value);
+
   const today = new Date();
   const minAgeDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
   const maxYear = today.getFullYear();
@@ -170,9 +172,7 @@ export function SignUpForm() {
             id="patientEmail"
             required
             value={email}
-            onChange={(event) => {
-              setEmail(event.target.value);
-            }}
+            onChange={handleChange(setEmail)}
           />
           <label className="input-label" htmlFor="patientEmail">Email</label>
         </div>
@@ -191,9 +191,7 @@ export function SignUpForm() {
               id="patientFirstName"
               required
               value={firstName}
-              onChange={(event) => {
-                setFirstName(event.target.value);
-              }}
+              onChange={handleChange(setFirstName)}
             />
             <label className="input-label" htmlFor="patientFirstName">First Name</label>
           </div>
@@ -206,9 +204,7 @@ export function SignUpForm() {
               id="patientLastName"
               required
               value={lastName}
-              onChange={(event) => {
-                setLastName(event.target.value);
-              }}
+              onChange={handleChange(setLastName)}
             />
             <label className="input-label" htmlFor="patientLastName">Last Name</label>
           </div>
@@ -261,9 +257,7 @@ export function SignUpForm() {
             id="address-street"
             required
             value={street}
-            onChange={(event) => {
-              setStreet(event.target.value);
-            }}
+            onChange={handleChange(setStreet)}
           />
           <label className="input-label" htmlFor="address-street">Street</label>
         </div>
@@ -276,9 +270,7 @@ export function SignUpForm() {
             name="address-city"
             id="address-city"
             value={city}
-            onChange={(event) => {
-              setCity(event.target.value);
-            }}
+            onChange={handleChange(setCity)}
           />
           <label className="input-label" htmlFor="address-city">City</label>
         </div>
@@ -294,9 +286,7 @@ export function SignUpForm() {
             pattern="^(?:\+61|0)[2-478](?:[ -]?[0-9]){8}$"
             title="Please enter a valid Australian phone number"
             value={phoneNumber}
-            onChange={(event) => {
-              setPhoneNumber(event.target.value);
-            }}
+            onChange={handleChange(setPhoneNumber)}
           />
           <label className="input-label" htmlFor="phoneNumber">Phone Number</label>
         </div>
@@ -334,8 +324,7 @@ export function SignUpForm() {
         </div>
 
         {password && (
-          <div className={`password-strength 
-          {' '}${passwordStrength}`}
+          <div className={`password-strength ${passwordStrength}`}
           >
             <span>
               Password strength:
@@ -345,9 +334,11 @@ export function SignUpForm() {
           </div>
         )}
 
-        <div className="password-requirements">
-          <small>Password must be at least 10 characters long</small>
-        </div>
+        {password.length < 10 && (
+          <div className="password-requirements">
+            <small>Password must be at least 10 characters long</small>
+          </div>
+        )}
 
         <div className="form-checkbox">
           <input
@@ -373,16 +364,6 @@ export function SignUpForm() {
         <div className="form-button">
           <button type="submit">SIGN UP</button>
         </div>
-
-        {successfulSignup && !showWelcomeMessage && (
-          <p className="success-message">
-            Success! Login
-            {' '}
-            <Link className="inline-link" id="success-inline-link" to="/login">
-              HERE
-            </Link>
-          </p>
-        )}
       </div>
     </form>
   );
