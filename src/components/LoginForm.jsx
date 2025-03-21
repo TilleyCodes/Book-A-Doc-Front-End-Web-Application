@@ -13,6 +13,7 @@ export function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false)
   const [loginSuccessful, setLoginSuccessful] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
   const [passwordStrength, setPasswordStrength] = useState('');
@@ -21,6 +22,8 @@ export function LoginForm() {
 
   async function submitForm(event) {
     event.preventDefault();
+
+    setLoading(true)
 
     const targetUrl = endpoints.login;
     const bodyDataToSend = JSON.stringify({ email, password });
@@ -38,11 +41,13 @@ export function LoginForm() {
 
       if (!response.ok) {
         setLoginSuccessful(false);
+        setLoading(false)
         setErrorMessage(bodyData.message || 'Invalid email or password');
         return;
       }
 
       setLoginSuccessful(true);
+      setLoading(false)
       setUserJwtData({
         token: bodyData.token,
         patient: bodyData.patient,
@@ -89,20 +94,9 @@ export function LoginForm() {
           <label className="input-label" htmlFor="userPassword">Password</label>
           <button
             type="button"
-            className="input-icon"
+            className="input-icon password-toggle-btn"
             onClick={() => setShowPassword((prev) => !prev)}
             aria-label={showPassword ? 'Hide password' : 'Show password'}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              padding: 0,
-              margin: 0,
-              cursor: 'pointer',
-              position: 'absolute',
-              right: '10px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-            }}
           >
             <img
               alt={showPassword ? 'eye closed' : 'eye open'}
@@ -122,9 +116,11 @@ export function LoginForm() {
             </span>
           </div>
         )}
+        {loading ? <div className="loader" style={{ width: '25px', height: '25px' }} /> : 
         <div className="form-button">
           <button type="submit">LOGIN</button>
         </div>
+        }
         <div className="forgotpassword">
           <NavLink to="/forgot-password">
             Forgot Password?
