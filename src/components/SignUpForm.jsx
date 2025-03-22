@@ -218,14 +218,6 @@ export function SignUpForm() {
             scrollableYearDropdown
             placeholderText=" "
             popperPlacement="bottom-start"
-            popperModifiers={[
-              {
-                name: 'preventOverflow',
-                options: {
-                  boundariesElement: 'viewport',
-                },
-              },
-            ]}
             aria-labelledby="dob-label"
             customInput={(
               <CustomInput
