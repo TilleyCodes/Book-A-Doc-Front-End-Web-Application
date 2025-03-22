@@ -97,8 +97,8 @@ export function Appointments() {
   }
 
   // Define handlers to avoid jsx-no-bind warnings
-  const handleCloseConfirmation = React.useCallback(() => setShowConfirmation(false), []);
-  const handleCancelClick = React.useCallback((appt) => () => confirmCancellation(appt), []);
+  const handleCloseConfirmation = () => setShowConfirmation(false);
+  const handleCancelClick = (appt) => () => confirmCancellation(appt);
 
   // Helper function for skeleton rows with unique keys
   const renderSkeletonRow = (width, rowIndex) => (
@@ -111,17 +111,15 @@ export function Appointments() {
     </tr>
   );
 
+  const skeletonWidths = ['80px', '80px', '120px', '150px', '100px'];
+
   // Render skeleton loading state
   const renderLoadingState = () => (
     <div className="appointment-feature">
       <div className="appointment-feature-details">
         <table className="appointment-feature-details-table">
           <tbody>
-            {renderSkeletonRow('80px', 1)}
-            {renderSkeletonRow('80px', 2)}
-            {renderSkeletonRow('120px', 3)}
-            {renderSkeletonRow('150px', 4)}
-            {renderSkeletonRow('100px', 5)}
+            {skeletonWidths.map((width, index) => renderSkeletonRow(width, index))};
           </tbody>
         </table>
         <div className="appointment-feature-buttons">
