@@ -184,3 +184,8 @@ Our recommended deployment approach uses a modern CI/CD pipeline:
 4. These assets are deployed to a CDN for global distribution
 
 This approach ensures consistent deployments, minimal downtime, and excellent performance for end users regardless of their location.
+
+### Netlify
+https://book-a-doc-site.netlify.app/
+
+The front is deployed on Netlify, a cloud-based hosting platform that offers seamless deployment. Netlify provides continuous deployment from our Git repository, ensuring that updates are deployed efficiently with minimal downtime.
