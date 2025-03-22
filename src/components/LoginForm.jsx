@@ -13,7 +13,7 @@ export function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [loginSuccessful, setLoginSuccessful] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
   const [passwordStrength, setPasswordStrength] = useState('');
@@ -23,7 +23,7 @@ export function LoginForm() {
   async function submitForm(event) {
     event.preventDefault();
 
-    setLoading(true)
+    setLoading(true);
 
     const targetUrl = endpoints.login;
     const bodyDataToSend = JSON.stringify({ email, password });
@@ -41,13 +41,13 @@ export function LoginForm() {
 
       if (!response.ok) {
         setLoginSuccessful(false);
-        setLoading(false)
+        setLoading(false);
         setErrorMessage(bodyData.message || 'Invalid email or password');
         return;
       }
 
       setLoginSuccessful(true);
-      setLoading(false)
+      setLoading(false);
       setUserJwtData({
         token: bodyData.token,
         patient: bodyData.patient,
@@ -107,8 +107,7 @@ export function LoginForm() {
           </button>
         </div>
         {password && (
-          <div className={`password-strength ${passwordStrength}`}
-          >
+          <div className={`password-strength ${passwordStrength}`}>
             <span>
               Password strength:
               {' '}
@@ -116,11 +115,11 @@ export function LoginForm() {
             </span>
           </div>
         )}
-        {loading ? <div className="loader" style={{ width: '25px', height: '25px' }} /> : 
-        <div className="form-button">
-          <button type="submit">LOGIN</button>
-        </div>
-        }
+        {loading ? <div className="loader" style={{ width: '25px', height: '25px' }} /> : (
+          <div className="form-button">
+            <button type="submit">LOGIN</button>
+          </div>
+        )}
         <div className="forgotpassword">
           <NavLink to="/forgot-password">
             Forgot Password?
