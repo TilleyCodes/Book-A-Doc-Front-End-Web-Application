@@ -7,6 +7,7 @@ import searchIcon from '../assets/search-icon.png';
 import { endpoints } from '../config/api';
 import { DoctorAvailabilities } from './DoctorAvailabilities';
 import { ErrorMessage } from './ErrorMessage';
+import { fetchJson } from '../utils/fetchJson';
 
 export function Doctors() {
   const [doctors, setDoctors] = useState([]);
@@ -23,10 +24,11 @@ export function Doctors() {
 
   const location = useLocation();
 
+  const searchParams = new URLSearchParams(location.search);
+
   // Process URL search parameters
   useEffect(() => {
     // Get search parameters from URL
-    const searchParams = new URLSearchParams(location.search);
     const searchValue = searchParams.get('search');
 
     // If search value is present, apply it
@@ -42,18 +44,10 @@ export function Doctors() {
         setLoading(true);
 
         // Fetch doctors
-        const doctorsRes = await fetch(endpoints.doctors);
-        if (!doctorsRes.ok) {
-          throw new Error(`HTTP error: ${doctorsRes.status}`);
-        }
-        const doctorsData = await doctorsRes.json();
+        const doctorsData = await fetchJson(endpoints.doctors);
 
         // Fetch doctor-centre
-        const doctorCentresRes = await fetch(endpoints.doctorCentres);
-        if (!doctorCentresRes.ok) {
-          throw new Error(`HTTP error: ${doctorCentresRes.status}`);
-        }
-        const doctorCentresData = await doctorCentresRes.json();
+        const doctorCentresData = await fetchJson(endpoints.doctorCentres);
 
         // mapping doctor IDs to their medical centers
         const doctorCentresMap = {};
@@ -81,7 +75,6 @@ export function Doctors() {
         setError(null);
 
         // If we have a search term from URL, find matching doctor
-        const searchParams = new URLSearchParams(location.search);
         const searchValue = searchParams.get('search');
         const isExactMatch = searchParams.get('exact') === 'true';
 
