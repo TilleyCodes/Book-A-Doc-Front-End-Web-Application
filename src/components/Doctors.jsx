@@ -24,6 +24,7 @@ export function Doctors() {
 
   const location = useLocation();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const searchParams = new URLSearchParams(location.search);
 
   // Process URL search parameters
@@ -36,7 +37,7 @@ export function Doctors() {
       setSearchQuery(searchValue);
       setAppliedSearchQuery(searchValue);
     }
-  }, [location.search]);
+  }, [location.search, searchParams]);
 
   useEffect(() => {
     async function fetchData() {
@@ -98,7 +99,7 @@ export function Doctors() {
     }
 
     fetchData();
-  }, [location.search]);
+  }, [location.search, searchParams]);
 
   // Filter doctors based on search and specialty
   useEffect(() => {

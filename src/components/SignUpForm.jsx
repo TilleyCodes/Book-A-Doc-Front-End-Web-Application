@@ -308,8 +308,7 @@ export function SignUpForm() {
         </div>
 
         {password && (
-          <div className={`password-strength ${passwordStrength}`}
-          >
+          <div className={`password-strength ${passwordStrength}`}>
             <span>
               Password strength:
               {' '}

@@ -107,8 +107,7 @@ export function LoginForm() {
           </button>
         </div>
         {password && (
-          <div className={`password-strength ${passwordStrength}`}
-          >
+          <div className={`password-strength ${passwordStrength}`}>
             <span>
               Password strength:
               {' '}
@@ -116,11 +115,11 @@ export function LoginForm() {
             </span>
           </div>
         )}
-        {loading ? <div className="loader" style={{ width: '25px', height: '25px' }} /> :
-        <div className="form-button">
-          <button type="submit">LOGIN</button>
-        </div>
-        }
+        {loading ? <div className="loader" style={{ width: '25px', height: '25px' }} /> : (
+          <div className="form-button">
+            <button type="submit">LOGIN</button>
+          </div>
+        )}
         <div className="forgotpassword">
           <NavLink to="/forgot-password">
             Forgot Password?

@@ -120,6 +120,7 @@ export function Appointments() {
         <table className="appointment-feature-details-table">
           <tbody>
             {skeletonWidths.map((width, index) => renderSkeletonRow(width, index))}
+            ;
           </tbody>
         </table>
         <div className="appointment-feature-buttons">
