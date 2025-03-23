@@ -20,28 +20,27 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
 
   // Get medical centre details
   useEffect(() => {
-
     async function getMedicalCentres() {
       const response = await fetch(endpoints.medicalCentres);
       if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
       return response.json();
-    }    
+    }
 
     const fetchMedicalCentres = async () => {
       try {
         const centres = await getMedicalCentres();
         let filtered = [];
-    
+
         if (medicalCentreId) {
           filtered = centres.filter((c) => c._id === medicalCentreId);
         } else if (doctorCentres?.length > 0) {
           filtered = centres.filter((centre) =>
             doctorCentres.some((dc) =>
-              dc._id === centre._id || dc.medicalCentreId?._id === centre._id
-            )
+              dc._id === centre._id || dc.medicalCentreId?._id === centre._id,
+            ),
           );
         }
-    
+
         setMedicalCentres(filtered);
         if (filtered.length > 0) setSelectedMedicalCentre(filtered[0]);
       } catch (err) {
@@ -121,12 +120,11 @@ export function DoctorAvailabilities({ doctor, medicalCentreId, doctorCentres, o
   }
 
   const handleConfirmBooking = async () => {
-
     const headers = {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${userJwtData.token}`,
     };
-    
+
     if (!userJwtData.token) {
       // Redirect to login if not authenticated
       // eslint-disable-next-line no-alert

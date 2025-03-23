@@ -17,17 +17,16 @@ export function DoctorList({ medicalCentreId, onClose }) {
     <div className="doctor-list-modal">
       <ErrorMessage message="No medical centre selected" />
     </div>
-  );  
+  );
 
   useEffect(() => {
     const fetchDoctors = async () => {
-
       // const fetchJson = async (endpoint) => {
       //   const res = await fetch(endpoint);
       //   if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
       //   return res.json();
       // };
-      
+
       try {
         setLoading(true);
 
@@ -41,9 +40,8 @@ export function DoctorList({ medicalCentreId, onClose }) {
 
         // Get all doctor IDs associated with this centre
         const doctorIds = relevantDoctorCentres.flatMap((dc) =>
-          dc.doctorId?._id ? [dc.doctorId._id] : []
+          dc.doctorId?._id ? [dc.doctorId._id] : [],
         );
-        
 
         if (doctorIds.length === 0) {
           setDoctors([]);
