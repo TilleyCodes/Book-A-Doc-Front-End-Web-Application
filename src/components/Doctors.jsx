@@ -24,12 +24,10 @@ export function Doctors() {
 
   const location = useLocation();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const searchParams = new URLSearchParams(location.search);
-
   // Process URL search parameters
   useEffect(() => {
     // Get search parameters from URL
+    const searchParams = new URLSearchParams(location.search);
     const searchValue = searchParams.get('search');
 
     // If search value is present, apply it
@@ -37,7 +35,7 @@ export function Doctors() {
       setSearchQuery(searchValue);
       setAppliedSearchQuery(searchValue);
     }
-  }, [location.search, searchParams]);
+  }, [location.search]);
 
   useEffect(() => {
     async function fetchData() {
@@ -76,6 +74,7 @@ export function Doctors() {
         setError(null);
 
         // If we have a search term from URL, find matching doctor
+        const searchParams = new URLSearchParams(location.search);
         const searchValue = searchParams.get('search');
         const isExactMatch = searchParams.get('exact') === 'true';
 
@@ -99,7 +98,7 @@ export function Doctors() {
     }
 
     fetchData();
-  }, [location.search, searchParams]);
+  }, [location.search]);
 
   // Filter doctors based on search and specialty
   useEffect(() => {
